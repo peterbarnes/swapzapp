@@ -4,6 +4,11 @@ SwapzPOS.RepairPrintRoute = Ember.Route.extend({
   },
   setupController: function(controller, model) {
     controller.set('model', model);
-    controller.set('templates', SwapzPOS.Template.all({per_page: 0, category: 'repair'}));
+    SwapzPOS.Template.all({
+      per_page: 0, 
+      category: 'repair'
+    }).then(function(content) {
+      controller.set('templates', content);
+    });
   }
 });

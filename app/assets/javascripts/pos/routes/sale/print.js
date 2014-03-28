@@ -4,6 +4,11 @@ SwapzPOS.SalePrintRoute = Ember.Route.extend({
   },
   setupController: function(controller, model) {
     controller.set('model', model);
-    controller.set('templates', SwapzPOS.Template.all({per_page: 0, category: 'sale'}));
+    SwapzPOS.Template.all({
+      per_page: 0, 
+      category: 'sale'
+    }).then(function(content) {
+      controller.set('templates', content);
+    });
   }
 });
