@@ -25,12 +25,6 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
       icon: 'fa fa-dollar',
       active: false
     });
-    var pinsTab = SwapzPOS.Tab.create({
-      name: 'Pins',
-      key: 'pins',
-      icon: 'fa fa-thumb-tack',
-      active: false
-    });
     var symptomTab = SwapzPOS.Tab.create({
       name: 'Symptoms',
       key: 'symptom',
@@ -46,7 +40,6 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
     tabs.addObject(cartTab);
     tabs.addObject(customerTab);
     tabs.addObject(paymentTab);
-    tabs.addObject(pinsTab);
     tabs.addObject(symptomTab);
     tabs.addObject(noteTab);
     
