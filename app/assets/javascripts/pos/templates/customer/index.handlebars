@@ -283,7 +283,6 @@
                 <th>Amount</th>
                 <th>Balance</th>
                 <th>Created</th>
-                <th class="pull-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -294,18 +293,10 @@
                       Active
                     {{/if}}
                   </td>
-                  <td>
-                    {{#link-to 'certificate' certificate.id}}{{ certificate.sku }}{{/link-to}}
-                  </td>
+                  <td>{{ certificate.sku }}</td>
                   <td>{{ currency certificate.amount }}</td>
                   <td>{{ currency certificate.balance }}</td>
                   <td>{{ format-date-ago certificate.createdAt }}</td>
-                  <td>
-                    <ul class="actions">
-                      <li>{{#link-to 'certificate' certificate.id}}<i class="fa fa-eye"></i>{{/link-to}}</li>
-                      <li>{{#link-to 'certificate.print' certificate.id}}<i class="fa fa-print"></i>{{/link-to}}</li>
-                    </ul>
-                  </td>
                 </tr>
               {{/each}}
             </tbody>
