@@ -1,4 +1,5 @@
 SwapzPOS.CartGroupComponent = Ember.Component.extend({
+  purchase: false,
   actions: {
     addLine: function() {
       this.sendAction('edit', SwapzPOS.Line.create());

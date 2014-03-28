@@ -93,6 +93,7 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
     editLine: function(line) {
       this.get('controllers.lineEdit').set('model', line);
       this.get('controllers.lineEdit').set('parent', this.get('model'));
+      this.get('controllers.lineEdit').set('purchase', false);
       this.send('openModal', 'line.edit');
     },
     amountDue: function(field) {

@@ -25,32 +25,32 @@ SwapzPOS.Purchase = SwapzPOS.Base.extend({
     var lines = this.get('lines');
     var quantity = 0;
     lines.forEach(function(line) {
-      if (!line.get('_destroy')) {
+      if (!line.get('_remove')) {
         quantity += line.get('quantity');
       }
     });
     return quantity;
-  }.property('lines', 'lines.@each', 'lines.@each.quantity', 'lines.@each.remove'),
+  }.property('lines', 'lines.@each', 'lines.@each.quantity', 'lines.@each._remove'),
   cashSubtotal: function() {
     var lines = this.get('lines');
     var subtotal = 0;
     lines.forEach(function(line) {
-      if (!line.get('_destroy')) {
-        subtotal += line.get('cashSubtotal');
+      if (!line.get('_remove')) {
+        subtotal += line.get('subtotalCash');
       }
     });
     return subtotal;
-  }.property('lines', 'lines.@each', 'lines.@each.cashSubtotal', 'lines.@each.remove'),
+  }.property('lines', 'lines.@each', 'lines.@each.subtotalCash', 'lines.@each._remove'),
   creditSubtotal: function() {
     var lines = this.get('lines');
     var subtotal = 0;
     lines.forEach(function(line) {
-      if (!line.get('_destroy')) {
-        subtotal += line.get('creditSubtotal');
+      if (!line.get('_remove')) {
+        subtotal += line.get('subtotalCredit');
       }
     });
     return subtotal;
-  }.property('lines', 'lines.@each', 'lines.@each.creditSubtotal', 'lines.@each.remove'),
+  }.property('lines', 'lines.@each', 'lines.@each.creditSubtotal', 'lines.@each._remove'),
   due: function() {
     return this.get('cash');
   }.property('cash'),

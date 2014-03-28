@@ -12,11 +12,13 @@
         </div>
         <div class="col-md-4">
           <div class="pull-right">
-            <button {{ action "edit"}} class="btn btn-flat">
-              <i class="fa fa-pencil"></i>
-              &nbsp;
-              Edit
-            </button>
+            {{#unless complete}}
+              <button {{ action "edit"}} class="btn btn-flat">
+                <i class="fa fa-pencil"></i>
+                &nbsp;
+                Edit
+              </button>
+            {{/unless}}
             <button {{ action "print"}} class="btn btn-flat">
               <i class="fa fa-print"></i>
               &nbsp;

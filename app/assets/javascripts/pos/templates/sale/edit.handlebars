@@ -1,0 +1,51 @@
+<div class="content-wrapper">
+  {{view SwapzPOS.FlashView modelBinding="flash"}}
+  <div class="row">
+    <div class="col-md-8">
+      <h4>
+        <i class="fa fa-credit-card"></i>
+        &nbsp;
+        Edit Sale
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+        <button {{action 'save'}} {{bind-attr disabled="nonSaveable"}} type="button" class="btn btn-flat white navbar-btn">
+          <i class="fa fa-save"></i>
+          &nbsp;
+          Save
+        </button>
+        <button {{action 'complete'}} {{bind-attr disabled="nonCompletable"}} type="button" class="btn btn-flat navbar-btn">
+          <i class="fa fa-check"></i>
+          &nbsp;
+          Complete
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-8">
+      {{#tab-group tabs=tabs}}
+        {{#tab-group-item key="search" active=true}}
+          {{ partial 'sale/search' }}
+        {{/tab-group-item}}
+        {{#tab-group-item key="cart"}}
+          {{ partial 'sale/cart' }}
+        {{/tab-group-item}}
+        {{#tab-group-item key="customer"}}
+          {{ partial 'sale/customer' }}
+        {{/tab-group-item}}
+        {{#tab-group-item key="payment"}}
+          {{ partial 'sale/payment' }}
+        {{/tab-group-item}}
+        {{#tab-group-item key="note"}}
+          {{ partial 'sale/note' }}
+        {{/tab-group-item}}
+      {{/tab-group}}
+    </div>
+    <div class="col-lg-4">
+      {{ partial 'sale/summary' }}
+    </div>
+  </div>
+</div>

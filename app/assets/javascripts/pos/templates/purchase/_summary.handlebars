@@ -1,0 +1,77 @@
+<div class="well">
+  <div class="table-wrapper">
+    <table class="table table-striped cart">
+      <thead>
+        <tr>
+          <th>Qty</th>
+          <th>Description</th>
+          <th>Value</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each line in lines}}
+          <tr {{bind-attr class="line.remove:hidden"}}>
+            <td class="quantity">{{ line.quantity }}</td>
+            <td class="description">{{ line.title }}</td>
+            <td class="amount">
+              {{ currency line.amountCash }}
+              <br>
+              ({{ currency line.amountCredit }})
+            </td>
+            <td class="subtotal">
+              {{ currency line.subtotalCash }}
+              <br/>
+              ({{ currency line.subtotalCredit }})
+            </td>
+          </tr>
+        {{else}}
+          <tr><td colspan="4" class="center">Cart is empty</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  <ul class="total clearfix">
+    <li>
+      <span>
+        <strong>Cash Subtotal:</strong>
+      </span>
+      <span>
+        <strong>
+          {{ currency cashSubtotal }}
+        </strong>
+      </span>
+    </li>
+    <li>
+      <span>
+        <strong>Credit Subtotal:</strong>
+      </span>
+      <span>
+        <strong>
+          {{ currency creditSubtotal }}
+        </strong>
+      </span>
+    </li>
+  </ul>
+  <hr>
+  <ul class="payment clearfix">
+    <li>
+      <span>Cash:</span>
+      <span>
+        {{ currency cash }}
+      </span>
+    </li>
+    <li>
+      <span>Credit:</span>
+      <span>
+        {{ currency credit }}
+      </span>
+    </li>
+  </ul>
+  <hr>
+  <div class="clearfix">
+    <p class="lead pull-left"><strong>{{dueLabel}}</strong></p>
+    <p class="lead pull-right"><strong>{{currency due}}</strong></p>
+  </div>
+</div>

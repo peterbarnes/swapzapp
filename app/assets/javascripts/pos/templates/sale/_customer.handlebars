@@ -1,0 +1,73 @@
+{{#if customer}}
+  <div class="well">
+    <div class="row">
+      <div class="col-lg-2">
+        {{#if customer.images.firstObject}}
+          <img {{bind-attr src="customer.images.firstObject.imageUrl"}} width="48" height="48" {{bind-attr alt="customer.images.firstObject.name"}} {{bind-attr title="customer.images.firstObject.description"}} class="img img-circle" />
+        {{/if}}
+      </div>
+      <div class="col-lg-8">
+        <strong>{{ customer.fullname }}</strong>
+        {{#if customer.organization }}
+          <br>
+          <em>{{ customer.organization }}</em>
+        {{/if}}
+        {{#if customer.email }}
+          <br>
+          {{ customer.email }}
+        {{/if}}
+        {{#if customer.phones.firstObject }}
+          <br>
+          {{ customer.phones.firstObject.formatted }}
+        {{/if}}
+        {{#if customer.addresses.firstObject }}
+          <br>
+          {{ customer.addresses.firstObject.formatted }}
+        {{/if}}
+      </div>
+      <div class="col-lg-2">
+        <ul class="actions">
+          <li><a {{action 'editCustomer' customer}}><i class="fa fa-pencil"></i></a></li>
+          <li><a {{action 'removeCustomer' customer}}><i class="fa fa-trash-o"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{{/if}}
+{{#unless customer}}
+  <div class="well">
+    {{input name="customerQuery" value=customerQuery placeholder="Search..." class="form-control"}}
+  </div>
+  <div class="list-group no-bottom">
+    {{#each customer in customers}}
+      <a {{ action "selectCustomer" customer}} {{bind-attr class=":list-group-item customer._selected:active"}}>
+        <div class="row">
+          <div class="col-lg-2">
+            {{#if customer.images.firstObject}}
+              <img {{bind-attr src="customer.images.firstObject.imageUrl"}} width="48" height="48" {{bind-attr alt="customer.images.firstObject.name"}} {{bind-attr title="customer.images.firstObject.description"}} class="img img-circle" />
+            {{/if}}
+          </div>
+          <div class="col-lg-10">
+            <strong>{{ customer.fullname }}</strong>
+            {{#if customer.organization }}
+              <br>
+              <em>{{ customer.organization }}</em>
+            {{/if}}
+            {{#if customer.email }}
+              <br>
+              {{ customer.email }}
+            {{/if}}
+            {{#if customer.phones.firstObject }}
+              <br>
+              {{ customer.phones.firstObject.formatted }}
+            {{/if}}
+            {{#if customer.addresses.firstObject }}
+              <br>
+              {{ customer.addresses.firstObject.formatted }}
+            {{/if}}
+          </div>
+        </div>
+      </a>
+    {{/each}}
+  </div>
+{{/unless}}

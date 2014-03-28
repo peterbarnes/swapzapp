@@ -29,10 +29,10 @@ SwapzPOS.Line = Ember.Object.extend({
   subtotal: function() {
     return parseInt(this.get('amount')) * parseInt(this.get('quantity'));
   }.property('amount', 'quantity'),
-  cashSubtotal: function() {
+  subtotalCash: function() {
     return parseInt(this.get('amountCash')) * parseInt(this.get('quantity'));
   }.property('amountCash', 'quantity'),
-  creditSubtotal: function() {
+  subtotalCredit: function() {
     return parseInt(this.get('amountCredit')) * parseInt(this.get('quantity'));
-  }.property('amountCredit', 'quantity')
+  }.property('amountCredit', 'quantity'),
 });

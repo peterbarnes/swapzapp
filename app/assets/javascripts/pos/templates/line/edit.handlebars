@@ -26,14 +26,33 @@
             {{input name="quantity" type="number" value=quantity step="1" min="0" class="form-control"}}
           </div>
         </div>
-        <div class="form-group">
-          <div class="col-md-4">
-            <label for="amount" class="control-label">Amount</label>
+        {{#if purchase}}
+          <div class="form-group">
+            <div class="col-md-4">
+              <label for="amountCash" class="control-label">Value Cash</label>
+            </div>
+            <div class="col-md-8">
+              {{currency-field name="amountCash" currency=amountCash step="0.01" class="form-control"}}
+            </div>
           </div>
-          <div class="col-md-8">
-            {{currency-field name="amount" currency=amount step="0.01" min="0" class="form-control"}}
+          <div class="form-group">
+            <div class="col-md-4">
+              <label for="amountCredit" class="control-label">Value Credit</label>
+            </div>
+            <div class="col-md-8">
+              {{currency-field name="amountCredit" currency=amountCredit step="0.01" class="form-control"}}
+            </div>
           </div>
-        </div>
+        {{else}}
+          <div class="form-group">
+            <div class="col-md-4">
+              <label for="amount" class="control-label">Amount</label>
+            </div>
+            <div class="col-md-8">
+              {{currency-field name="amount" currency=amount step="0.01" min="0" class="form-control"}}
+            </div>
+          </div>
+        {{/if}}
         <div class="form-group">
           <div class="col-md-4">
             <label for="taxable" class="control-label">Taxable</label>

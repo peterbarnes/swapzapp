@@ -19,7 +19,13 @@
       <tr>
         <th class="quantity">Qty</th>
         <th class="description">Description</th>
-        <th class="amount">Amount</th>
+        <th class="amount">
+          {{#if purchase}}
+            Value
+          {{else}}
+            Amount
+          {{/if}}
+        </th>
         <th class="subtotal">Subtotal</th>
         <th class="actions">Actions</th>
       </tr>
@@ -42,8 +48,26 @@
             </ul>
             {{/if}}
           </td>
-          <td class="amount">{{currency line.amount}}</td>
-          <td class="subtotal"><strong>{{currency line.subtotal}}</strong></td>
+          <td class="amount">
+            {{#if purchase}}
+              {{ currency line.amountCash }}
+              <br/>
+              ({{ currency line.amountCredit }})
+            {{else}}
+              {{currency line.amount}}
+            {{/if}}
+          </td>
+          <td class="subtotal">
+            <strong>
+              {{#if purchase}}
+                {{ currency line.subtotalCash }}
+                <br/>
+                ({{ currency line.subtotalCredit }})
+              {{else}}
+                {{currency line.subtotal}}
+              {{/if}}
+            </strong>
+          </td>
           <td class="actions">
             <ul class="actions">
               {{#if line.editable}}
