@@ -21,6 +21,9 @@ SwapzPOS.User = SwapzPOS.Base.extend({
   fullname: function() {
     return this.get('firstName') + " " + this.get('lastName');
   }.property('firstName', 'lastName'),
+  canCreateTransaction: function() {
+    return this.get('tills.length') > 0;
+  }.property('tills', 'tills.@each'),
   pinChanged: function() {
     if (this.get('pinValue') === this.get('pin')) {
       this.set('authenticated', true);

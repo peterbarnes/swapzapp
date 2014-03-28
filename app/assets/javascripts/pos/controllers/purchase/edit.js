@@ -56,7 +56,6 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
   actions: {
     save: function() {
       var purchase = this.get('model');
-      console.log(purchase);
       purchase.save();
     },
     complete: function() {

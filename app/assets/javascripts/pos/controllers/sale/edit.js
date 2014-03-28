@@ -63,7 +63,6 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
   actions: {
     save: function() {
       var sale = this.get('model');
-      console.log(sale);
       sale.save();
     },
     complete: function() {
@@ -104,6 +103,19 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
     increment: function(amount) {
       var payment = this.get('model.payment');
       payment.incrementProperty('cash', parseInt(amount));
+    },
+    available: function() {
+      var sale = this.get('model');
+      var payment = sale.get('payment');
+      var subtotal = sale.get('subtotal');
+      var storeCredit = sale.get('customer.credit');
+      if (subtotal > 0) {
+        if (subtotal >= storeCredit) {
+          payment.set('storeCredit', storeCredit);
+        } else {
+          payment.set('storeCredit', subtotal);
+        }
+      }
     },
     clear: function(field) {
       var payment = this.get('model.payment');

@@ -10,7 +10,9 @@
     </div>
     <div class="col-md-4">
       <div class="pull-right">
-        <button {{ action 'create' }} type="button" class="btn btn-flat"><i class="fa fa-plus"></i>&nbsp;New Sale</button>
+        {{#if currentUser.canCreateTransaction}}
+          <button {{ action 'create' }} type="button" class="btn btn-flat"><i class="fa fa-plus"></i>&nbsp;New Sale</button>
+        {{/if}}
       </div>
     </div>
   </div>

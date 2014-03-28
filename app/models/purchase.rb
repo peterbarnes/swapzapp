@@ -30,7 +30,7 @@ class Purchase
       sort[:desc] ||= []
       asc(sort[:asc]).desc(sort[:desc])
     else
-      desc(:completed_at)
+      desc(:updated_at)
     end
   }
   scope :user_id, ->(user_id) { where(:user_id => user_id) if user_id }
