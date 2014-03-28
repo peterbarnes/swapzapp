@@ -170,7 +170,6 @@ GEM
     moped (1.5.2)
     multi_json (1.8.4)
     netrc (0.7.7)
-    newrelic_rpm (3.7.2.195)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     origin (1.1.0)
@@ -302,7 +301,6 @@ DEPENDENCIES
   mongoid-autoinc
   mongoid-paperclip
   mongoid_search
-  newrelic_rpm
   paperclip (~> 3.4.2)
   powify!
   rack-cors
