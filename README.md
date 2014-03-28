@@ -1,4 +1,4 @@
-Swapz Admin
-=============
+Swapzapp
+========
 
-Administration app for the Swapz POS system
+Swapzapp POS system
