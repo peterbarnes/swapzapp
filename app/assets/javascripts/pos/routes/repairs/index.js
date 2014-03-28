@@ -5,6 +5,7 @@ SwapzPOS.RepairsIndexRoute = Ember.Route.extend({
       location: true,
       store: true,
       till: true,
+      user: true,
       logs: true,
       lines: true
     }).then(function(content) {

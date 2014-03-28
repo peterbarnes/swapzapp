@@ -1,6 +1,15 @@
 SwapzPOS.RepairsCreateRoute = Ember.Route.extend({
   model: function() {
-    return SwapzPOS.Repair.create();
+    var user = this.controllerFor('user').get('model');
+    var till = user.get('tills.firstObject');
+    var repair = SwapzPOS.Repair.create({
+      user: user,
+      till: till,
+      store: till.store,
+      taxRate: till.taxRate
+    });
+    console.log(repair);
+    return repair;
   },
   setupController: function(controller, model) {
     this.controllerFor('repair.edit').setProperties({ model: model });

@@ -3,6 +3,7 @@ SwapzPOS.Timecard = SwapzPOS.Base.extend({
   in: new Date(),
   note: null,
   out: null,
+  user_id: null,
   user: null,
   now: new Date(),
   init: function() {
@@ -54,7 +55,7 @@ SwapzPOS.Timecard.reopen({
       in: this.get('in').toISOString(),
       note: this.get('note'),
       out: null,
-      user_id: null
+      user_id: this.get('user_id')
     });
     if (this.get('out')) {
       entity.timecard.out = this.get('out').toISOString();
@@ -69,7 +70,8 @@ SwapzPOS.Timecard.reopen({
     this.setProperties({
       flagged: data.flagged,
       in: new Date(data.in),
-      note: data.note
+      note: data.note,
+      user_id: data.user_id
     });
     if (data.out) {
       this.set('out', new Date(data.out));

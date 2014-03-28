@@ -9,13 +9,18 @@ SwapzPOS.Repair = SwapzPOS.Base.extend({
   sku: null,
   taxRate: null,
   completedAt: null,
+  customer_id: null,
   customer: null,
   lines: null,
+  location_id: null,
   location: null,
   payment: null,
+  store_id: null,
   store: null,
+  till_id: null,
   till: null,
   logs: null,
+  user_id: null,
   user: null,
   images: null,
   init: function() {
@@ -116,17 +121,19 @@ SwapzPOS.Repair.reopen({
       identifier: this.get('identifier'),
       identifier_type: this.get('identifierType'),
       symptoms: this.get('symptoms'),
-      sku: this.get('sku'),
       tax_rate: this.get('taxRate'),
-      customer_id: null,
+      customer_id: this.get('customer_id'),
       lines_attributes: [],
-      location_id: null,
+      location_id: this.get('location_id'),
       logs_attributes: [],
       payment_attributes: null,
-      user_id: null,
-      store_id: null,
-      till_id: null
+      user_id: this.get('user_id'),
+      store_id: this.get('store_id'),
+      till_id: this.get('till_id')
     });
+    if (this.get('sku')) {
+      entity.repair.sku = this.get('sku');
+    }
     if (this.get('customer')) {
       entity.repair.customer_id = this.get('customer.id');
     }
@@ -143,13 +150,15 @@ SwapzPOS.Repair.reopen({
       entity.repair.till_id = this.get('till.id');
     }
     if (this.get('payment')) {
-      entity.sale.payment_attributes = {
-        id: this.get('payment.id'),
+      entity.repair.payment_attributes = {
         cash: this.get('payment.cash'),
         credit: this.get('payment.credit'),
         check: this.get('payment.check'),
         gift_card: this.get('payment.giftCard'),
         store_credit: this.get('payment.storeCredit')
+      }
+      if (this.get('payment.id')) {
+        entity.repair.payment_attributes.id = this.get('payment.id');
       }
     }
     this.get('logs').forEach(function(log) {
@@ -166,7 +175,6 @@ SwapzPOS.Repair.reopen({
     });
     this.get('lines').forEach(function(line) {
       var _line = {
-        id: line.get('id'),
         amount: line.get('amount'),
         amount_cash: line.get('amountCash'),
         amount_credit: line.get('amountCredit'),
@@ -180,6 +188,9 @@ SwapzPOS.Repair.reopen({
         title: line.get('title'),
         _remove: line.get('_remove')
       };
+      if (line.get('id')) {
+        _line.id = line.get('id');
+      }
       if (line.get('certificate')) {
         _line.certificate_id = line.get('certificate.id');
       }
@@ -196,6 +207,11 @@ SwapzPOS.Repair.reopen({
   assign: function(data) {
     this._super(data);
     this.setProperties({
+      customer_id: data.customer_id,
+      location_id: data.location_id,
+      store_id: data.store_id,
+      till_id: data.till_id,
+      user_id: data.user_id,
       complete: data.complete,
       flagged: data.flagged,
       imageUrl: data.image_url,

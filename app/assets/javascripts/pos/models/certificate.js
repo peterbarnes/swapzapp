@@ -4,6 +4,7 @@ SwapzPOS.Certificate = SwapzPOS.Base.extend({
   amountFmt: 0,
   balance: 0,
   sku: null,
+  customer_id: null,
   customer: null,
   init: function() {
     this._super();
@@ -37,7 +38,8 @@ SwapzPOS.Certificate.reopen({
       active: this.get('active'),
       amount: this.get('amount'),
       balance: this.get('balance'),
-      sku: this.get('sku')
+      sku: this.get('sku'),
+      customer_id: this.get('customer_id')
     });
     if (this.get('customer')) {
       entity.sale.customer_id = this.get('customer.id');
@@ -50,7 +52,8 @@ SwapzPOS.Certificate.reopen({
       active: data.active,
       amount: data.amount,
       balance: data.balance,
-      sku: data.sku
+      sku: data.sku,
+      customer_id: data.customer_id
     });
     if (data.customer) {
       this.set('customer', SwapzPOS.Customer.create().assign(data.customer));

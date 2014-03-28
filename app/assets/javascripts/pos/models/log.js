@@ -3,6 +3,7 @@ SwapzPOS.Log = Ember.Object.extend({
   note: null,
   createdAt: null,
   updatedAt: null,
+  user_id: null,
   user: null,
   init: function() {
     this._super();

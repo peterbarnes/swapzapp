@@ -62,10 +62,14 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
   }.observes('customerQuery'),
   actions: {
     save: function() {
-      
+      var repair = this.get('model');
+      console.log(repair);
+      repair.save();
     },
     complete: function() {
-      
+      var repair = this.get('model');
+      repair.set('complete', true);
+      repair.save();
     },
     createCustomer: function() {
       this.get('controllers.customerUpdate').set('model', SwapzPOS.Customer.create());
@@ -90,6 +94,19 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
       this.get('controllers.lineEdit').set('model', line);
       this.get('controllers.lineEdit').set('parent', this.get('model'));
       this.send('openModal', 'line.edit');
+    },
+    amountDue: function(field) {
+      var repair = this.get('model');
+      var payment = this.get('model.payment');
+      payment.set(field, repair.get('due'));
+    },
+    increment: function(amount) {
+      var payment = this.get('model.payment');
+      payment.incrementProperty('cash', parseInt(amount));
+    },
+    clear: function(field) {
+      var payment = this.get('model.payment');
+      payment.set(field, 0);
     }
   }
 });

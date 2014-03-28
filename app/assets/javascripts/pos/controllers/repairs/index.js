@@ -25,6 +25,10 @@ SwapzPOS.RepairsIndexController = Ember.ArrayController.extend({
     view: function(repair) {
       this.transitionToRoute('repair', repair.id);
     },
+    flag: function(repair) {
+      repair.set('flagged', !repair.get('flagged'));
+      repair.save();
+    },
     print: function(repair) {
       this.transitionToRoute('repair.print', repair.id);
     },

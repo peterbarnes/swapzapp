@@ -2,7 +2,9 @@ SwapzPOS.Sale = SwapzPOS.Base.extend({
   complete: null,
   completedAt: null,
   configurable: null,
+  certificate_id: null,
   certificate: null,
+  customer_id: null,
   customer: null,
   flagged: null,
   lines: null,
@@ -10,8 +12,11 @@ SwapzPOS.Sale = SwapzPOS.Base.extend({
   payment: null,
   sku: null,
   taxRate: null,
+  till_id: null,
   till: null,
+  store_id: null,
   store: null,
+  user_id: null,
   user: null,
   init: function() {
     this._super();
@@ -108,11 +113,11 @@ SwapzPOS.Sale.reopen({
       flagged: this.get('flagged'),
       tax_rate: this.get('taxRate'),
       note: this.get('note'),
-      certificate_id: null,
-      customer_id: null,
-      till_id: null,
-      user_id: null,
-      store_id: null,
+      certificate_id: this.get('certificate_id'),
+      customer_id: this.get('customer_id'),
+      till_id: this.get('till_id'),
+      user_id: this.get('user_id'),
+      store_id: this.get('store_id'),
       lines_attributes: [],
       payment_attributes: null
     });
@@ -177,7 +182,12 @@ SwapzPOS.Sale.reopen({
       complete: data.complete,
       flagged: data.flagged,
       taxRate: data.tax_rate,
-      note: data.note
+      note: data.note,
+      certificate_id: data.certificate_id,
+      customer_id: data.customer_id,
+      till_id: data.till_id,
+      user_id: data.user_id,
+      store_id: data.store_id,
     });
     if (data.completed_at) {
       this.set('completedAt', new Date(data.completed_at));

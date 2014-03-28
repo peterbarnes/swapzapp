@@ -8,6 +8,7 @@ SwapzPOS.Location = SwapzPOS.Base.extend({
   restock: null,
   sku: null,
   target: null,
+  store_id: null,
   store: null,
   image: null,
   init: function() {
@@ -29,7 +30,7 @@ SwapzPOS.Location.reopen({
       restock: this.get('restock'),
       sku: this.get('sku'),
       target: this.get('target'),
-      store_id: null
+      store_id: this.get('store_id')
     });
     if (this.get('store')) {
       entity.location.store_id = this.get('store.id');
@@ -43,7 +44,8 @@ SwapzPOS.Location.reopen({
       name: data.name,
       restock: data.restock,
       sku: data.sku,
-      target: data.target
+      target: data.target,
+      store_id: data.store_id
     });
     if (data.image) {
       var _image = data.image;

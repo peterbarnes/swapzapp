@@ -6,6 +6,7 @@ SwapzPOS.Unit = SwapzPOS.Base.extend({
   sku: null,
   price: 0,
   taxable: true,
+  item_id: null,
   item: null,
   components: null,
   conditions: null,
@@ -51,7 +52,7 @@ SwapzPOS.Unit.reopen({
   entity: function() {
     var entity = this._super();
     $.extend(entity.unit, {
-      
+      item_id: this.get('item_id')
     });
     return entity;
   },
@@ -64,7 +65,8 @@ SwapzPOS.Unit.reopen({
       name: data.name,
       sku: data.sku,
       price: data.price,
-      taxable: data.taxable
+      taxable: data.taxable,
+      item_id: data.item_id
     });
     if (data.components) {
       var components = [];

@@ -8,9 +8,13 @@ SwapzPOS.Purchase = SwapzPOS.Base.extend({
   credit: 0,
   ratio: 0,
   configurable: null,
+  customer_id: null,
   customer: null,
+  till_id: null,
   till: null,
+  store_id: null,
   store: null,
+  user_id: null,
   user: null,
   lines: null,
   init: function() {
@@ -125,10 +129,10 @@ SwapzPOS.Purchase.reopen({
       flagged: this.get('flagged'),
       ratio: this.get('ratio'),
       note: this.get('note'),
-      customer_id: null,
-      till_id: null,
-      store_id: null,
-      user_id: null,
+      customer_id: this.get('customer_id'),
+      till_id: this.get('till_id'),
+      store_id: this.get('store_id'),
+      user_id: this.get('user_id'),
       lines_attributes: []
     });
     if (this.get('customer')) {
@@ -151,7 +155,9 @@ SwapzPOS.Purchase.reopen({
         amount_credit: line.get('amountCredit'),
         bullets: line.get('bullets'),
         inventory: line.get('inventory'),
-        certificate: line.get('certificate'),
+        certificate_id: line.get('certificate_id'),
+        unit_id: line.get('unit_id'),
+        item_id: line.get('item_id'),
         quantity: line.get('quantity'),
         note: line.get('note'),
         sku: line.get('sku'),
@@ -179,7 +185,11 @@ SwapzPOS.Purchase.reopen({
       complete: data.complete,
       flagged: data.flagged,
       ratio: parseFloat(data.ratio),
-      note: data.note
+      note: data.note,
+      customer_id: data.customer_id,
+      till_id: data.till_id,
+      store_id: data.store_id,
+      user_id: data.user_id,
     });
     if (data.completed_at) {
       this.set('completedAt', new Date(data.completed_at));
@@ -205,7 +215,9 @@ SwapzPOS.Purchase.reopen({
           amountCash: _line.amount_cash,
           amountCredit: _line.amount_credit,
           inventory: _line.inventory,
-          certificate: _line.certificate,
+          certificate_id: _line.certificate_id,
+          unit_id: _line.unit_id,
+          item_id: _line.item_id,
           quantity: _line.quantity,
           note: _line.note,
           sku: _line.sku,

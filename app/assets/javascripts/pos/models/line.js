@@ -9,8 +9,11 @@ SwapzPOS.Line = Ember.Object.extend({
   sku: null,
   taxable: true,
   title: null,
+  certificate_id: null,
   certificate: null,
+  unit_id: null,
   unit: null,
+  item_id: null,
   item: null,
   _remove: false,
   init: function() {

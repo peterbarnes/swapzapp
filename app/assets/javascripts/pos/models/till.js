@@ -4,7 +4,9 @@ SwapzPOS.Till = SwapzPOS.Base.extend({
   taxRate: 0,
   minimum: 0,
   balance: 0,
+  store_id: null,
   store: null,
+  user_id: null,
   user: null,
   _selected: false,
   init: function() {
@@ -34,8 +36,8 @@ SwapzPOS.Till.reopen({
       name: this.get('name'),
       taxRate: this.get('taxRate'),
       minimum: this.get('minimum'),
-      store_id: null,
-      user_id: null
+      store_id: this.get('store_id'),
+      user_id: this.get('user_id')
     });
     if (this.get('store')) {
       entity.till.store_id = this.get('store.id');
@@ -63,8 +65,8 @@ SwapzPOS.Till.reopen({
       balance: data.balance,
       taxRate: data.tax_rate,
       adjustments: Ember.A(),
-      store: null,
-      user: null
+      store: data.store_id,
+      user: data.user_id
     });
     if (data.adjustments) {
       var adjustments = [];
