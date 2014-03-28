@@ -1,0 +1,40 @@
+#activites_index
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-bolt'}
+        &nbsp;
+        Activities
+    .col-md-4
+      .pull-right
+  %hr
+  .row
+    .col-md-6
+      = render :partial => 'shared/filter', :locals => {:path => activities_path}
+    .col-md-6
+      = render :partial => 'shared/search', :locals => {:action => activities_path}
+  %hr
+  .row
+    .col-md-12
+      - unless @activities.empty?
+        - @activities.each do |activity|
+          .well
+            .row
+              .col-lg-9
+                = activity.user.fullname
+                = link_to raw("<em>(#{activity.user.username})</em>"), edit_user_path(activity.user)
+                performed
+                = activity.action
+                on
+                = activity.trackable_type.downcase
+                - unless activity.trackable.nil?
+                  = link_to activity.trackable.name, url_for([:show, activity.trackable]) rescue nil
+                - else
+                  that was deleted
+              .col-lg-3
+                %span.pull-right
+                  = "#{time_ago_in_words(activity.created_at)} ago"
+      - else
+        %p.text-center No activities found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @activities, :search => @search, :path => :activities_path}

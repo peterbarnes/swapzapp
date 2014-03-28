@@ -1,0 +1,9 @@
+<ul class="nav nav-tabs">
+  {{#each tab in tabs}}
+    <li {{bind-attr class="tab.active:active"}}>
+      <a {{action 'showTab' tab}} class="pointer"><i {{bind-attr class="tab.icon"}}></i>&nbsp;{{ tab.name }}</a>
+    </li>
+  {{/each}}
+</ul>
+<br>
+{{ yield }}

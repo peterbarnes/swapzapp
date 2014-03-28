@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8 />
+    <title>Customer</title>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/2.1.3/normalize.min.css">
+    <style type="text/css">
+      body {
+        margin: 0px;
+        padding: 20px;
+        font-size: 14px;
+        font-family: Arial, sans-serif;
+        line-height: 18px;
+        color: black;
+      }
+      hr {
+        clear: both;
+        border: none;
+        height: 2px;
+        background-color: lightgray;
+      }
+      dl {
+        clear: both;
+      }
+      dl dt {
+        float: left;
+        width: 20%;
+        margin: 0;
+        padding: 10px 0px;
+        clear: both;
+        border-top: 1px solid lightgray;
+      }
+      dl dd {
+        float: right;
+        width: 80%;
+        text-align: right;
+        margin: 0;
+        padding: 10px 0px;
+        border-top: 1px solid lightgray;
+      }
+      p#barcode {
+        text-align: center;
+      }
+    </style>
+    <!--[if IE]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <h1>{{ customer.fullname }}</h1>
+      <h2>{{ customer.email }}</h2>
+      <h3>{{ customer.organization }}</h3>
+    </header>
+    <hr>
+    <div>
+      <dl>
+        <dt>SKU</dt>
+        <dd>{{ customer.sku }}</dd>
+        <dt>Identification</dt>
+        <dd>{{ customer.identifier_type }} {{ customer.identifier }}</dd>
+        <dt>Date of Birth</dt>
+        <dd>{{ customer.date_of_birth }}</dd>
+        <dt>Credit</dt>
+        <dd>{{ customer.credit | currency }}</dd>
+      </dl>
+      <dl>
+        <dt>Phones</dt>
+        <dd>
+          {% for phone in customer.phones %}
+          <div>
+            <em><strong>{{ phone.name }}</strong></em>
+            <br>
+            1-560-018-7079
+          </div>
+          {% endfor %}
+        </dd>
+      </dl>
+      <dl>
+        <dt>Addresses</dt>
+        <dd>
+          {% for address in customer.addresses %}
+          <address>
+            <strong>{{ address.name }}</strong>
+            <br>
+            {{ address.first_line }}
+            <br>
+            {{ address.second_line }}
+            <br>
+            {{ address.city }} {{ address.state }}, {{ address.zip }} {{ address.country }}
+          </address>
+          {% endfor %}
+        </dd>
+      </dl>
+    </div>
+    <hr>
+    <p id="barcode"><img src="{{customer.sku | barcode}}" alt="Barcode" /></p>
+    <hr>
+  </body>
+</html>

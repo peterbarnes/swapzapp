@@ -1,0 +1,106 @@
+#account_stores_show
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-building-o'}
+        &nbsp;
+        View Store
+    .col-md-4
+      .pull-right
+        = link_to edit_store_path(@store), :class => 'btn btn-flat' do
+          %i.fa.fa-pencil
+          &nbsp;
+          Edit
+        = link_to store_path(@store), :title => 'Delete', :class => 'btn btn-flat danger', :confirm => 'Are you sure?', :method => :delete do
+          %i.fa.fa-trash-o
+          &nbsp;
+          Delete
+  %hr
+  .row
+    .col-md-6
+      = image_tag(@store.image.url(:medium), :size => "84x84", :alt => @store.image.name, :title => @store.image.description, :class => 'img-circle') if @store.image
+    .col-md-6
+      .name.clearfix
+        %h3.pull-right
+          %strong= @store.name
+  %hr
+  .row
+    .col-md-6
+      %dl
+        %dt Phones
+        %dd
+          - @store.phones.each do |phone|
+            - if phone.name
+              %em= phone.name
+            %p= phone.formatted
+    .col-md-6
+      %dl
+        %dt Address
+        %dd
+          %address
+            - address = @store.address
+            - if address.name
+              %em= address.name.capitalize
+              %br
+            = address.first_line
+            %br
+            - if address.second_line
+              = address.second_line
+              %br
+            = "#{address.city} #{address.state}, #{address.zip} #{address.country}"
+  %hr
+  .row
+    .col-md-12
+      %h4 Description
+    .col-md-12
+      %br
+      %p= @store.description
+  %hr
+  .row
+    .col-md-12
+      %h4 Legal
+    .col-md-12
+      %br
+      %p= @store.legal
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Sales
+    .col-md-8
+      .pull-right
+        = link_to sales_path(:store_id => @store.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all store sales
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'sales'
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Purchases
+    .col-md-8
+      .pull-right
+        = link_to purchases_path(:store_id => @store.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all store purchases
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'purchases'
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Repairs
+    .col-md-8
+      .pull-right
+        = link_to repairs_path(:store_id => @store.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all store repairs
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'repairs'

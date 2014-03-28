@@ -1,0 +1,63 @@
+#operation_customers_index
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-group'}
+            &nbsp;
+            Customers
+        .col-md-4
+          .pull-right
+            = link_to new_customer_path, :class => 'btn btn-flat' do
+              %i.fa.fa-plus
+              &nbsp;
+              New Customer
+      %hr
+      .row
+        .col-md-6
+          = render :partial => 'shared/filter', :locals => {:path => customers_path}
+        .col-md-6
+          = render :partial => 'shared/search', :locals => {:action => customers_path}
+      %hr
+    .col-md-12
+      - unless @customers.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th
+                %th SKU
+                %th Name
+                %th Credit
+                %th Customer Since
+                %th.pull-right Actions
+            %tbody
+              - @customers.each do |customer|
+                %tr
+                  %td
+                    = image_tag(customer.image.url(:small), :size => "48x48", :alt => customer.image.name, :title => customer.image.description, :class => 'img-circle') if customer.image
+                  %td
+                    = link_to customer.sku, customer_path(customer)
+                  %td= customer.fullname
+                  %td
+                    %strong= currency(customer.credit)
+                  %td= "#{time_ago_in_words(customer.created_at)} ago" if customer.created_at
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to edit_customer_path(customer), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to customer_path(customer), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to print_customer_path(customer), :title => 'Print' do
+                          %i.fa.fa-print
+                      %li
+                        = link_to customer_path(customer), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No customers found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @customers, :search => @search, :path => :customers_path}

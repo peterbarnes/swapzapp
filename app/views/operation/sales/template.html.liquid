@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8 />
+    <title>Sale Receipt</title>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/2.1.3/normalize.min.css">
+    <style type="text/css">
+      body {
+        margin: 0px;
+        padding: 20px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+        line-height: 18px;
+        color: black;
+      }
+      hr {
+        clear: both;
+        border: none;
+        height: 2px;
+        background-color: lightgray;
+      }
+      header {
+        position: relative;
+      }
+      header h1 {
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: right;
+        text-transform: uppercase;
+        color: lightgray;
+      }
+      table {
+        width: 100%;
+      }
+      table thead {
+        background-color: lightgray;
+      }
+      table th {
+        padding: 4px;
+        text-align: left;
+      }
+      table td {
+        padding: 10px 0px 0px 0px;
+        text-align: left;
+        border-bottom: 1px solid lightgray;
+        vertical-align: top;
+      }
+      table th.price, 
+      table td.price,
+      table th.subtotal, 
+      table td.subtotal {
+        text-align: right;
+      }
+      div#store {
+        float: left;
+      }
+      div#info {
+        float: right;
+        margin-top: 40px;
+        margin-bottom: 20px;
+      }
+      div#info dl dt {
+        float: left;
+        padding: 4px;
+        font-weight: bold;
+        clear: both;
+      }
+      div#info dl dd {
+        float: right;
+        padding: 4px;
+        padding-left: 20px;
+        margin: 0px;
+        text-align: right;
+      }
+      div#summary dl {
+        width: 100%;
+        overflow: auto;
+        clear: both;
+      }
+      div#summary dl dt {
+        float: left;
+        width: 90%;
+        text-align: right;
+        clear: right;
+      }
+      div#summary dl dd {
+        float: right;
+        width: 10%;
+        margin: 0px;
+        text-align: right;
+      }
+      p#credit, p#barcode {
+        text-align: center;
+      }
+      p#legal {
+        font-size: 10px;
+      }
+    </style>
+    <!--[if IE]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="certificate">
+      <header>
+        <h1>Sales Receipt</h1>
+        <div id="store">
+          <h2>{{ sale.account.title }}</h2>
+          <address>
+            {{ sale.store.name }}
+            <br>
+            {{ sale.store.address.first_line }}
+            {% if sale.store.address.second_line != "" %}
+              <br>
+              {{ sale.store.address.second_line }}
+            {% endif %}
+            <br>
+            {{ sale.store.address.city }} {{ sale.store.address.state }}, {{ sale.store.address.zip }} {{ sale.store.address.country }}
+          </address>
+          <p>{{sale.store.description}}</p>
+          {% for phone in sale.store.phones %}
+            <p><strong>{{ phone.formatted }}</strong></p>
+          {% endfor %}
+        </div>
+        <div id="info">
+          <dl>
+            <dt>Date</dt>
+            {% if sale.complete %}
+              <dd>{{ sale.completed_at | date: "%c" }}</dd>
+            {% else %}
+              <dd>{{ sale.created_at | date: "%c" }}</dd>
+            {% endif %}
+            <dt>SKU</dt>
+            <dd>{{ sale.sku }}</dd>
+            <dt>Customer</dt>
+            <dd>{{ sale.customer.fullname }}</dd>
+            <dt>Swapz</dt>
+            <dd>{{ sale.user.fullname }}</dd>
+            <dt>Till</dt>
+            <dd>{{ sale.till.name }}</dd>
+          </dl>
+        </div>
+      </header>
+      <hr>
+      <div id="lines">
+        <table>
+          <thead>
+            <tr>
+              <th>Quantity</th>
+              <th>Description</th>
+              <th class="price">Price</th>
+              <th class="subtotal">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for line in sale.lines %}
+            <tr>
+              <td>{{ line.quantity }}</td>
+              <td>
+                <strong>{{ line.title }}</strong>
+                <br>
+                {{ line.sku }}
+                {% if line.note %}
+                  <br>
+                  {{ line.note }}
+                {% endif %}
+                {% if line.bullets %}
+                  <ul>
+                    {% for bullet in line.bullets %}
+                      <li>{{ bullet }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </td>
+              <td class="price">{{ line.amount | currency }}</td>
+              <td class="subtotal"><strong>{{ line.subtotal | currency }}</strong></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div id="summary">
+        <dl>
+          <dt>Subtotal:</dt>
+          <dd>{{ sale.subtotal | currency }}</dd>
+          <dt>Store Credit:</dt>
+          <dd>{{ sale.subtotal | currency }}</dd>
+          <dt>Subtotal After Store Credit:</dt>
+          <dd>{{ sale.subtotal_after_store_credit | currency }}</dd>
+          <dt>Tax ({{ sale.tax_rate }}%):</dt>
+          <dd>{{ sale.tax | currency }}</dd>
+          <dt><strong>Total:</strong></dt>
+          <dd><strong>{{ sale.total | currency }}</strong></dd>
+        </dl>
+        <dl>
+          {% if sale.payment.cash > 0 %}
+            <dt>Cash:</dt>
+            <dd>{{ sale.payment.cash | currency }}</dd>
+          {% endif %}
+          {% if sale.payment.credit > 0 %}
+            <dt>Credit:</dt>
+            <dd>{{ sale.payment.credit | currency }}</dd>
+          {% endif %}
+          {% if sale.payment.check > 0 %}
+            <dt>Check:</dt>
+            <dd>{{ sale.payment.check | currency }}</dd>
+          {% endif %}
+          {% if sale.payment.gift_card > 0 && sale.certificate %}
+            <dt>Gift Certificate ({{ sale.certificate.sku }}):</dt>
+            <dd>{{ sale.payment.gift_card | currency }}</dd>
+          {% endif %}
+        </dl>
+        <dl>
+          {% if sale.due > 0 %}
+            <dt><strong>Amount Due:</strong></dt>
+            <dd><strong>{{ sale.due | currency }}</strong></dd>
+          {% else %}
+            <dt><strong>Change Due:</strong></dt>
+            <dd><strong>{{ sale.due | currency }}</strong></dd>
+          {% endif %}
+        </dl>
+      </div>
+      {% if sale.customer %}
+        <hr>
+        <p id="credit">Credit Available: <strong>{{ sale.customer.credit | currency }}</strong></p>
+      {% endif %}
+      <hr>
+      <p id="barcode"><img src="{{sale.sku | barcode}}" alt="Barcode" /></p>
+      <hr>
+      <p id="legal">{{ sale.store.legal }}</p>
+      <hr>
+    </div>
+  </body>
+</html>

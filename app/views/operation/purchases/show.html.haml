@@ -1,0 +1,131 @@
+#operation_purchases_show
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-gavel'}
+            &nbsp;
+            View Purchase
+        .col-md-4
+          .pull-right
+            = link_to print_purchase_path(@purchase), :class => 'btn btn-flat' do
+              %i.fa.fa-print
+              &nbsp;
+              Print
+  %hr
+  .row
+    .col-md-4
+      %dl
+        %dt SKU
+        %dd
+          %p= @purchase.sku
+        %dt Completed
+        %dd
+          %p= @purchase.complete? ? 'Yes' : 'No'
+        %dt Completed At
+        %dd= @purchase.completed_at.strftime('%B %d at %I:%M %p') if @purchase.completed_at
+    .col-md-4
+      %dl
+        %dt Store
+        %dd
+          %p= link_to @purchase.store.name, store_path(@purchase.store) if @purchase.store
+        %dt Till
+        %dd= link_to @purchase.till.name, till_path(@purchase.till) if @purchase.till
+    .col-md-4
+      %dl
+        %dt Customer
+        %dd
+          %p= link_to @purchase.customer.fullname, customer_path(@purchase.customer) if @purchase.customer
+        %dt User
+        %dd= link_to @purchase.user.fullname, user_path(@purchase.user) if @purchase.user
+  %hr
+  .row
+    .col-md-8
+      %table.table.table-striped.cart
+        %thead
+          %tr
+            %th.quantity Qty
+            %th.title Title
+            %th.amount Amount
+            %th.subtotal Subtotal
+        %tbody
+          - @purchase.lines.each do |line|
+            %tr.cart-line
+              %td.quantity= line.quantity
+              %td.description
+                %strong= line.title
+                %br
+                = line.sku
+                - if line.note
+                  %br
+                  = line.note
+                - if line.bullets
+                  %ul
+                    - line.bullets.each do |bullet|
+                      %li= bullet
+                - if line.item
+                  %br
+                  = "Item: #{line.item.sku}"
+              %td.amount
+                = currency(line.amount_cash)
+                %br
+                = "(#{currency(line.amount_credit)})"
+              %td.subtotal
+                = currency(line.subtotal_cash)
+                %br
+                = "(#{currency(line.subtotal_credit)})"
+    .col-md-4
+      .well
+        %table.table.table-striped.summary
+          %thead
+            %tr
+              %th.quantity Qty
+              %th.title Title
+              %th.amount Amount
+              %th.subtotal Subtotal
+          %tbody
+            - @purchase.lines.each do |line|
+              %tr.summary-line
+                %td.quantity= line.quantity
+                %td.title= line.title
+                %td.amount
+                  = currency(line.amount_cash)
+                  %br
+                  = "(#{currency(line.amount_credit)})"
+                %td.subtotal
+                  = currency(line.subtotal_cash)
+                  %br
+                  = "(#{currency(line.subtotal_credit)})"
+        %ul.total.clearfix
+          %li
+            %span
+              %strong Cash Subtotal:
+            %span
+              %strong= currency(@purchase.subtotal_cash)
+          %li
+            %span
+              %strong Credit Subtotal:
+            %span
+              %strong= currency(@purchase.subtotal_credit)
+        %hr
+        %ul.payment.clearfix
+          %li
+            %span Cash:
+            %span= currency(@purchase.cash)
+          %li
+            %span Credit:
+            %span= currency(@purchase.credit)
+        %hr
+        .clearfix
+          %p.lead.pull-left
+            %strong= @purchase.due > 0 ? "Amount Due:" : "Change Due:"
+          %p.lead.pull-right
+            %strong= currency(@purchase.due)
+  - if @purchase.note
+    %hr
+    .row
+      .col-md-12
+        %p
+          %strong Notes:
+        = @purchase.note

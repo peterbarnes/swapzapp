@@ -1,0 +1,56 @@
+#inventory_units_index
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-tag'}
+            &nbsp;
+            Units
+        .col-md-4
+          .pull-right
+      %hr
+      .row
+        .col-md-6
+          = render :partial => 'shared/filter', :locals => {:path => units_path}
+        .col-md-6
+          = render :partial => 'shared/search', :locals => {:action => units_path}
+      %hr
+    .col-md-12
+      - unless @units.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th SKU
+                %th Item
+                %th Location
+                %th Quantity
+                %th Price
+                %th.pull-right Actions
+            %tbody
+              - @units.each do |unit|
+                %tr
+                  %td
+                    = link_to unit.sku, unit_path(unit)
+                  %td
+                    = link_to unit.item.name, item_path(unit.item)
+                  %td= unit.location.name.truncate(20) if unit.location
+                  %td= unit.quantity
+                  %td
+                    %strong= unit.calculated? ? currency(unit.price_calculated) : currency(unit.price)
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to edit_unit_path(unit), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to unit_path(unit), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to unit_path(unit), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No units found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @units, :search => @search, :path => :units_path}

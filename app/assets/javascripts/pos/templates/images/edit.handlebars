@@ -1,0 +1,49 @@
+{{#modal-dialog title="Edit Image" confirm="Done" close="closeModal" accept="done"}}
+  <div class="form-horizontal">
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="image_data">Image</label>
+      </div>
+      <div class="col-lg-8">
+        <p>
+          {{#if imageSrc }}
+            <img {{bind-attr src="imageSrc"}} class="img-responsive img-thumbnail" />
+          {{/if}}
+        </p>
+        {{view SwapzPOS.FileField fileBinding="data" class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="image_url">Image URL</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="image_url" value=url placeholder="http://www.example.com/image.png" class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="image_name">Name</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="image_name" value=name class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="image_description">Description</label>
+      </div>
+      <div class="col-lg-8">
+        {{textarea id="image_description" value=description rows="4" class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="image_name">Index</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="image_index" type="number" value=index class="form-control"}}
+      </div>
+    </div>
+  </div>
+{{/modal-dialog}}

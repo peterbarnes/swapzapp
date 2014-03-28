@@ -1,0 +1,48 @@
+#till_adjustments_index
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-cogs'}
+        &nbsp;
+        = "Adjustments - #{@till.name}"
+    .col-md-4
+      .pull-right
+        = link_to new_till_adjustment_path, :class => 'btn btn-flat' do
+          %i.fa.fa-plus
+          &nbsp;
+          New Adjustment
+  %hr
+  .row
+    .col-md-6
+      = render :partial => 'shared/filter', :locals => {:path => till_adjustments_path}
+    .col-md-6
+      = render :partial => 'shared/search', :locals => {:action => till_adjustments_path}
+  %hr
+  .row
+    .col-md-12
+      %p.lead.well
+        = "Current Balance: #{currency(@till.balance)}"
+      %hr
+      - unless @adjustments.empty?
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Created
+              %th User
+              %th Title
+              %th Description
+              %th Balance
+              %th Amount
+          %tbody
+            - @adjustments.each do |adjustment|
+              %tr
+                %td= adjustment.created_at.strftime('%B %d at %I:%M %p')
+                %td= adjustment.user.fullname if adjustment.user
+                %td= adjustment.title
+                %td= adjustment.description
+                %td= currency(adjustment.balance)
+                %td= currency(adjustment.amount)
+      - else
+        %p.center No adjustments found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @adjustments, :path => :till_adjustments_path}

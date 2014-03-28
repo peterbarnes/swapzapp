@@ -1,0 +1,36 @@
+= render :partial => 'shared/error', :locals => {:object => adjustment}
+= form_for adjustment, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'adjustment'}
+    %legend Adjustment
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :amount, 'Amount', :class => 'control-label'
+      .col-lg-8
+        = f.currency_field :amount, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :title, 'Title', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :title, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :description, 'Description', :class => 'control-label'
+      .col-lg-8
+        = f.text_area :description, :rows => 3, :class => 'form-control'
+    .hidden
+      = f.hidden_field :balance, :class => 'form-control'
+    %hr
+  %fieldset{:id => 'user'}
+    %legend User
+    .form-group
+      .col-lg-4
+        = f.label :user, 'User', :class => 'control-label'
+      .col-lg-8
+        = f.collection_select :user_id, User.all, :id, :fullname, {:prompt => true}, {:class => 'form-control'}
+    %hr
+    

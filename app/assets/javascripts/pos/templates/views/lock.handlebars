@@ -1,0 +1,19 @@
+<div class="lock-screen-overlay"></div>
+<div class="lock-screen-wrapper">
+  <div class="box">
+    <div class="content-wrap">
+      <h6>
+        <i class="fa fa-lock"></i>
+        &nbsp;
+        {{ view.model.fullname }}
+      </h6>
+      <p>Enter PIN to unlock screen</p>
+      <div class="form-horizontal">
+        {{input type="password" class="form-control" placeholder="PIN" valueBinding="view.pin"}}
+        <p>Forgot your PIN? <a {{action "logout" target="view"}} class="pointer">Logout</a></p>
+        <br>
+        <button {{action "unlock" target="view"}} class="btn btn-primary login">Unlock</button>
+      </div>
+    </div>
+  </div>
+</div>

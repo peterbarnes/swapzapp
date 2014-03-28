@@ -1,0 +1,96 @@
+#inventory_locations_show
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-compass'}
+        &nbsp;
+        View Location
+    .col-md-4
+      .pull-right
+        = link_to edit_location_path(@location), :class => 'btn btn-flat' do
+          %i.fa.fa-pencil
+          &nbsp;
+          Edit
+        = link_to location_path(@location), :title => 'Delete', :class => 'btn btn-flat danger', :confirm => 'Are you sure?', :method => :delete do
+          %i.fa.fa-trash-o
+          &nbsp;
+          Delete
+  %hr
+  .row
+    .col-md-6
+      = image_tag(@location.image.url(:small), :size => "84x84", :alt => @location.image.name, :title => @location.image.description, :class => 'img-circle') if @location.image
+    .col-md-6
+      .name.clearfix
+        %h3.pull-right
+          %strong= @location.name
+  %hr
+  .row
+    .col-md-6
+      %dl
+        %dt SKU
+        %dd
+          %p= @location.sku
+        %dt Restock
+        %dd
+          %p= @location.restock
+        %dt Target
+        %dd
+          %p= @location.target
+        %dt Quantity
+        %dd= @location.units.count + @location.repairs.count
+    .col-md-6
+      %dl
+        %dt Store
+        %dd
+          %p= link_to @location.store.name, store_path(@location.store)
+        %dt Parent
+        %dd= link_to @location.parent.name, location_path(@location.parent) if @location.parent
+  %hr
+  .row
+    .col-md-12
+      %h4 Description
+    .col-md-12
+      %br
+      %p= @location.description
+  %hr
+  .row
+    .col-md-4
+      %h4 Sub Locations
+    .col-md-8
+      .pull-right
+        = link_to locations_path(:parent_id => @location.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all sub locations
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'locations'
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Repairs
+    .col-md-8
+      .pull-right
+        = link_to repairs_path(:location_id => @location.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all location repairs
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'repairs'
+  %hr
+  .row
+    .col-md-4
+      %h4 Units
+    .col-md-8
+      .pull-right
+        = link_to units_path(:location_id => @location.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all location units
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'units'

@@ -1,0 +1,65 @@
+= render :partial => 'shared/error', :locals => {:object => user}
+= form_for user, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'user'}
+    %legend User
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :first_name, 'First Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :first_name, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :last_name, 'Last Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :last_name, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :username, 'Username', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :username, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :email, 'Email', :class => 'control-label'
+      .col-lg-8
+        = f.email_field :email, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :pin, 'PIN', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :pin, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :time_zone, 'Time Zone', :class => 'control-label'
+      .col-lg-8
+        = f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, {}, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :administrator, 'Administrator', :class => 'control-label'
+      .col-lg-8
+        = f.check_box :administrator, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :active, 'Active', :class => 'control-label'
+      .col-lg-8
+        = f.check_box :active, :class => 'form-control'
+    .hidden
+      = f.hidden_field :account_id
+    %hr
+  %fieldset{:id => 'password'}
+    %legend Password
+    .form-group
+      .col-lg-4
+        = f.label :password, 'Password', :class => 'control-label'
+      .col-lg-8
+        = f.password_field :password, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :password_confirmation, 'Password Confirmation', :class => 'control-label'
+      .col-lg-8
+        = f.password_field :password_confirmation, :class => 'form-control'
+    %hr

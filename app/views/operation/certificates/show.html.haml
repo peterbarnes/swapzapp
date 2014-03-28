@@ -1,0 +1,60 @@
+#operation_certificates_show
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-gift'}
+        &nbsp;
+        View Gift Certificate
+    .col-md-4
+      .pull-right
+        = link_to edit_certificate_path(@certificate), :class => 'btn btn-flat' do
+          %i.fa.fa-pencil
+          &nbsp;
+          Edit
+        = link_to certificate_path(@certificate), :title => 'Delete', :class => 'btn btn-flat danger', :confirm => 'Are you sure?', :method => :delete do
+          %i.fa.fa-trash-o
+          &nbsp;
+          Delete
+  %hr
+  .row
+    .col-md-12
+      .well
+        %p.lead.no-bottom
+          = "Amount: #{currency(@certificate.amount)}"
+      .well.no-bottom
+        %p.lead.no-bottom
+          = "Current Balance: #{currency(@certificate.balance)}"
+  %hr
+  .row
+    .col-md-6
+      %dl
+        %dt SKU
+        %dd
+          %p= @certificate.sku
+        %dt Active
+        %dd= @certificate.active? ? 'Yes' : 'No'
+    .col-md-6
+      %dl
+        %dt Customer
+        %dd
+          %p
+            - if @certificate.customer
+              = link_to @certificate.customer.fullname, customer_path(@certificate.customer)
+            - else
+              None
+        %dt Amount
+        %dd
+          %p= currency(@certificate.amount)
+        %dt Balance
+        %dd= currency(@certificate.balance)
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Sales
+    .col-md-8
+      .pull-right
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'sales'
+  %hr

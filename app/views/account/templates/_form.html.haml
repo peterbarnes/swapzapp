@@ -1,0 +1,25 @@
+= render :partial => 'shared/error', :locals => {:object => template}
+= form_for template, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'template'}
+    %legend Template
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :name, 'Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :name, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :category, 'Category', :class => 'control-label'
+      .col-lg-8
+        = f.select :category, options_for_select([['Sale', 'sale'], ['Purchase', 'purchase'], ['Repair', 'repair'], ['Gift Certificate', 'certificate'], ['Customer', 'customer']], f.object.category), {}, :class => 'form-control'
+    .form-group
+      .col-lg-12
+        #editor_container
+          #editor
+          = f.text_area :body, :'data-editor' => 'html', :class => 'editor form-control'
+    %hr

@@ -1,0 +1,62 @@
+#account_users_index
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-user'}
+        &nbsp;
+        Users
+    .col-md-4
+      .pull-right
+        = link_to new_user_path, :class => 'btn btn-flat' do
+          %i.fa.fa-plus
+          &nbsp;
+          New User
+  %hr
+  .row
+    .col-md-6
+      = render :partial => 'shared/filter', :locals => {:path => users_path}
+    .col-md-6
+      = render :partial => 'shared/search', :locals => {:action => users_path}
+  %hr
+  .row
+    .col-md-12
+      - unless @users.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th
+                %th Name
+                %th Username
+                %th Administrator
+                %th Active
+                %th.pull-right Actions
+            %tbody
+              - @users.each do |user|
+                %tr
+                  %td
+                    = image_tag user.gravatar_url, :class => 'img-circle'
+                  %td
+                    = link_to user.fullname, user_path(user)
+                  %td= user.username
+                  %td
+                    - if user.administrator
+                      %i.fa.fa-check
+                  %td
+                    - if user.active
+                      %i.fa.fa-check
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to edit_user_path(user), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to user_path(user), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to user_path(user), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No users found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @users, :search => @search, :path => :users_path}

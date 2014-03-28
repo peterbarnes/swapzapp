@@ -1,0 +1,21 @@
+jobs:
+  purchases_export_csv:
+    name: Purchases Export CSV
+    token: purchases_export_csv
+    handler: PurchasesExportCSVReportJob
+    
+  repairs_export_csv:
+    name: Repairs Export CSV
+    token: repairs_export_csv
+    handler: RepairsExportCSVReportJob
+    
+  sales_export_csv:
+    name: Sales Export CSV
+    token: sales_export_csv
+    handler: SalesExportCSVReportJob
+    
+  timecards_export_csv:
+    name: Timecards Export CSV
+    token: timecards_export_csv
+    handler: TimecardsExportCSVReportJob
+    

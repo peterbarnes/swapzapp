@@ -1,0 +1,45 @@
+= render :partial => 'shared/error', :locals => {:object => store}
+= form_for store, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'store'}
+    %legend Store
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :name, 'Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :name, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :description, 'Description', :class => 'control-label'
+      .col-lg-8
+        = f.text_area :description, :rows => 3, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :legal, 'Legal', :class => 'control-label'
+      .col-lg-8
+        = f.text_area :legal, :rows => 3, :class => 'form-control'
+    .hidden
+      = f.hidden_field :account_id
+    %hr
+  %fieldset{:id => 'image'}
+    %legend Image
+    = f.fields_for :image do |i|
+      = render 'image_fields', :f => i
+    %hr
+  %fieldset{:id => 'address'}
+    %legend Address
+    = f.fields_for :address do |a|
+      = render 'address_fields', :f => a
+    %hr
+  %fieldset{:id => 'phones'}
+    %legend Phone Numbers
+    %p
+      = link_to_add_fields 'Add phone number', f, :phones
+    #phone_accordian.fields.panel-group
+      = f.fields_for :phones do |p|
+        = render 'phone_fields', :f => p
+    %hr

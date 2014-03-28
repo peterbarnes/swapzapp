@@ -1,0 +1,129 @@
+#operation_customers_show
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-group'}
+        &nbsp;
+        View Customer
+    .col-md-4
+      .pull-right
+        = link_to edit_customer_path(@customer), :class => 'btn btn-flat' do
+          %i.fa.fa-pencil
+          &nbsp;
+          Edit
+        = link_to customer_path(@customer), :title => 'Delete', :class => 'btn btn-flat danger', :confirm => 'Are you sure?', :method => :delete do
+          %i.fa.fa-trash-o
+          &nbsp;
+          Delete
+  %hr
+  .row
+    .col-md-6
+      = image_tag(@customer.image.url(:medium), :size => "84x84", :alt => @customer.image.name, :title => @customer.image.description, :class => 'img-circle') if @customer.image
+    .col-md-6
+      .name.clearfix
+        %h3.pull-right
+          %strong= @customer.fullname
+      .email.clearfix
+        %h6.pull-right
+          %em= @customer.email
+      - if @customer.organization
+        .organization.clearfix
+          %p.pull-right
+            %em= @customer.organization
+  %hr
+  .row
+    .col-md-4
+      %dl
+        %dt SKU
+        %dd
+          %p= @customer.sku
+        %dt Identification
+        %dd
+          %p= "#{@customer.identifier_type} #{@customer.identifier}"
+        %dt Date of Birth
+        %dd
+          %p= @customer.date_of_birth
+        %dt Credit
+        %dd= currency(@customer.credit)
+    .col-md-4
+      %dl
+        %dt Phones
+        %dd
+          - @customer.phones.each do |phone|
+            - if phone.name
+              %em= phone.name
+            %p= phone.formatted
+    .col-md-4
+      %dl
+        %dt Addresses
+        %dd
+          - @customer.addresses.each do |address|
+            %address
+              - if address.name
+                %em= address.name.capitalize
+                %br
+              = address.first_line
+              %br
+              - if address.second_line
+                = address.second_line
+                %br
+              = "#{address.city} #{address.state}, #{address.zip} #{address.country}"
+  %hr
+  .row
+    .col-md-4
+      %h4 Images
+    .col-md-8
+      .pull-right
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'images'
+  %hr
+  .row
+    .col-md-12
+      %h4 Notes
+    .col-md-12
+      %br
+      %p= @customer.notes
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Sales
+    .col-md-8
+      .pull-right
+        = link_to sales_path(:customer_id => @customer.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all customer sales
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'sales'
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Purchases
+    .col-md-8
+      .pull-right
+        = link_to purchases_path(:customer_id => @customer.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all customer purchases
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'purchases'
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Repairs
+    .col-md-8
+      .pull-right
+        = link_to repairs_path(:customer_id => @customer.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all customer repairs
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'repairs'

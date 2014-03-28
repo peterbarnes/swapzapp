@@ -1,0 +1,70 @@
+#operation_repairs_index
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-wrench'}
+            &nbsp;
+            Repairs
+        .col-md-4
+          .pull-right
+      %hr
+      .row
+        .col-md-6
+          = render :partial => 'shared/filter', :locals => {:path => repairs_path}
+        .col-md-6
+          = render :partial => 'shared/search', :locals => {:action => repairs_path}
+      %hr
+    .col-md-12
+      - unless @repairs.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th
+                  %i.fa.fa-flag
+                %th SKU
+                %th Customer
+                %th Store
+                %th Location
+                %th Status
+                %th Total
+                %th Completed
+                %th.pull-right Actions
+            %tbody
+              - @repairs.each do |repair|
+                %tr
+                  %td
+                    - if repair.flagged
+                      %i.fa.fa-flag
+                  %td
+                    = link_to repair.sku, repair_path(repair)
+                  %td
+                    - if repair.customer
+                      = link_to repair.customer.fullname, customer_path(repair.customer)
+                  %td= (repair.store.name.truncate(20) if repair.store)
+                  %td= (repair.location.name.truncate(20) if repair.location)
+                  %td= repair.status
+                  %td
+                    %strong= currency(repair.subtotal)
+                  %td= "#{time_ago_in_words(repair.completed_at)} ago" if repair.completed_at
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to flag_repair_path(repair), :title => 'Flag' do
+                          %i.fa.fa-flag
+                      %li
+                        = link_to repair_path(repair), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to print_repair_path(repair), :title => 'Print' do
+                          %i.fa.fa-print
+                      - unless repair.complete?
+                        %li
+                          = link_to repair_path(repair), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                            %i.fa.fa-trash-o
+      - else
+        %p.center No repairs found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @repairs, :search => @search, :path => :repairs_path}

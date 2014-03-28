@@ -1,0 +1,26 @@
+<div class="page-control row">
+  <div class="page-control-page col-lg-4">
+    <div class="btn-group">
+      <button {{ action 'prev' }} {{bind-attr disabled=cantPrev}} class="btn btn-flat">
+        <i class="fa fa-chevron-left"></i>
+        &nbsp;
+        Prev
+      </button>
+      <button {{ action 'next' }} {{bind-attr disabled=cantNext}} class="btn btn-flat">
+        Next
+        &nbsp;
+        <i class="fa fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+  <div class="page-control-label col-lg-4">
+    <p class="no-bottom center">{{ begin }} - {{ end }} of {{ total }}</p>
+  </div>
+  <div class="page-control-per col-lg-4">
+    <div class="btn-group pull-right">
+      <button {{ action 'ten' }} {{bind-attr class=":btn :btn-flat isTen:default:white"}}>10</button>
+      <button {{ action 'twentyfive' }} {{bind-attr class=":btn :btn-flat isTwentyFive:default:white"}}>25</button>
+      <button {{ action 'fifty' }} {{bind-attr class=":btn :btn-flat isFifty:default:white"}}>50</button>
+    </div>
+  </div>
+</div>

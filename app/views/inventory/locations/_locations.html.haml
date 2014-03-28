@@ -1,0 +1,37 @@
+- unless @location.children.empty?
+  .table-wrapper
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+          %th SKU
+          %th Name
+          %th Description
+          %th Sub Locations
+          %th.pull-right Actions
+      %tbody
+        - @location.children.each do |location|
+          %tr
+            %td
+              = image_tag(location.image.url(:icon), :size => "48x48", :alt => "Image", :class => 'img-circle')
+            %td
+              = link_to location.sku, location_path(location)
+            %td= location.name
+            %td= location.description
+            %td
+              = link_to location.children.count, locations_path(:parent_id => location.id)
+              |
+              = link_to 'Create Sub Location', new_location_path(:parent_id => location.id, :store_id => location.store.id)
+            %td
+              %ul.actions
+                %li
+                  = link_to edit_location_path(location), :title => 'Edit' do
+                    %i.fa.fa-pencil
+                %li
+                  = link_to location_path(location), :title => 'View' do
+                    %i.fa.fa-eye
+                %li
+                  = link_to location_path(location), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                    %i.fa.fa-trash-o
+- else
+  %p.center No locations found

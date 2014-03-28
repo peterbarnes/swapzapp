@@ -1,0 +1,258 @@
+.lock-screen-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background-color: black;
+  opacity: 0.6;
+}
+
+.lock-screen-wrapper {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  z-index: 10001;
+  text-align: center;
+}
+
+.lock-screen-wrapper .box {
+  margin: 0 auto;
+  padding: 35px 0 30px;
+  float: none;
+  width: 400px;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 1.0);
+}
+
+.lock-screen-wrapper .box .content-wrap {
+  width: 82%;
+  margin: 0 auto;
+}
+
+.lock-screen-wrapper .box h6 {
+  text-transform: uppercase;
+  margin: 0 0 30px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.lock-screen-wrapper .box input[type="text"],
+.lock-screen-wrapper .box input[type="password"] {
+  font-size: 15px;
+  height: 40px;
+  margin-bottom: 18px;
+  border-color: #b2bfc7;
+  padding-left: 12px;
+}
+
+.lock-screen-wrapper .box input[type="password"] {
+  margin-bottom: 10px;
+}
+
+.lock-screen-wrapper .box input:-moz-placeholder {
+  color: #9ba8b6;
+  font-size: 15px;
+  letter-spacing: 0px;
+  font-style: italic;
+}
+
+.lock-screen-wrapper .box input:-ms-input-placeholder {
+  color: #9ba8b6;
+  font-style: italic;
+  letter-spacing: 0px;
+  font-size: 15px;
+}
+
+.lock-screen-wrapper .box input::-webkit-input-placeholder {
+  color: #9ba8b6;
+  font-style: italic;
+  letter-spacing: 0px;
+  font-size: 15px;
+}
+
+.login-wrapper .box .login {
+  text-transform: uppercase;
+  font-size: 13px;
+  padding: 8px 30px;
+}
+
+.login-wrapper h2 i {
+  color: rgb(50, 160, 238);
+}
+
+.date-badge {
+  display: block;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: rgb(51, 51, 51);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.date-badge.date-badge-in {
+  background-color: rgb(67, 135, 191);
+}
+
+.date-badge.date-badge-flagged {
+  background-color: #b85e80;
+}
+
+.date-badge .flag {
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 4px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.date-badge .day {
+  display: block;
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding-top: 16px;
+  padding-bottom: 2px;
+}
+
+.date-badge .date {
+  display: block;
+  color: white;
+  font-size: 10px;
+}
+
+.modal {
+  display: block !important;
+}
+
+.modal .qr-code-wrapper {
+  position: relative;
+  float: right;
+  right: 50%;
+}
+
+.modal .qr-code-center {
+  float: right;
+  right: -50%;
+  position: relative;
+}
+
+.page-control-label p {
+  line-height: 32px;
+  font-size: 14px;
+}
+
+table.audit tr td:first-child {
+  width: 120px;
+  text-align: left;
+}
+
+table.audit tr td:last-child {
+  width: 120px;
+  text-align: right;
+}
+
+.home .panel-body {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.navbar .btn-flat {
+  margin: 8px 0px;
+}
+
+/*body {
+  padding: 70px 0px;
+}
+
+button.header { margin-top: 15px; }
+input.pin { width: 100px; }
+
+form.search input[type=text] {
+  width: 528px;
+}
+form.item_search { width: 85%; }
+form.payment input[type=number] {
+  width: 100px;
+}
+
+form.ratio .input-group { max-width: 30%; }
+form.ratio .input-group:nth-child(2) { margin: 0 5% !important; }
+
+span.navbar-brand.footer { padding-left: 0px !important; }
+span.minus { width: 140px; text-align: center;}
+
+.container-fluid { padding-left: 15px; padding-right: 15px; margin-left: auto; margin-right: auto; }
+
+.cart .lead { margin-bottom: 0px; }
+.navbar-fixed-bottom .navbar-right { padding-right: 15px; }
+.navbar-fixed-bottom .navbar-right .navbar-text { font-size: 16px; margin: 13px 0px; padding-right: 10px; }
+.center { text-align: center; }
+
+.img-zoom { position: relative; }
+.img-zoom img.img-large { display: inline-block; visibility: hidden; position: absolute; z-index: 10; max-width: 554px; left: 100px; top: -50%; border: 10px white solid; box-shadow: 2px 2px 5px #888888; }
+.img-zoom:hover img.img-large { visibility: visible; }
+
+table.sales tr td { vertical-align: middle; }
+table.sales tr td.note { width: 160px; word-wrap: break-word; }
+table.sales tr td.receipt { width: 164px; }
+table.purchases tr td { vertical-align: middle; }
+table.purchases tr td.note { width: 160px; word-wrap: break-word; }
+table.purchases tr td.receipt { width: 164px; }
+table.customers tr td { vertical-align: middle; }
+table.users tr td { vertical-align: middle; }
+table.tills tr td { vertical-align: middle; }
+table.items tr td { vertical-align: middle; }
+table.certificates tr td { vertical-align: middle; }
+
+table tr td .img-thumbnail { width: 38px; height: 38px !important; }
+table tr.add td span { line-height: 38px; }
+table tr.line td.remove { width: 40px; }
+table tr.line td.quantity { width: 160px; }
+table tr.line td.quantity input[type=number] {
+  width: 70px;
+}
+table tr.line td.description p { margin-bottom: 5px; text-align: left; }
+table tr.line td.amount { width: 90px; }
+table tr.line td.value { width: 90px; }
+table tr.line td.subtotal { width: 90px; }
+
+table tr.cart-line td.quantity { max-width: 10%; }
+table tr.cart-line td.description { max-width: 50%; }
+table tr.cart-line td.amount { max-width: 20%; }
+table tr.cart-line td.value { max-width: 20%; }
+table tr.cart-line td.subtotal { max-width: 20%; }
+
+table tr td.pin { width: 100px; }
+input.pin { display: inline !important; }
+
+figure { text-align: center; }
+figure img { padding: 50px !important; }
+
+span.new-line { height: 34px; line-height: 34px; }
+
+ul.bullets { list-style-position: inside; text-align: left; padding-left: 0px; }
+
+ul.summary { 
+  list-style-type: none;
+  list-style-position: inside;
+  padding: 0px;
+}
+ul.summary li span:first-child { display: inline-block; width: 80%; }
+ul.summary li span:last-child { display: inline-block; width: 20%; text-align: center; }
+
+ul.payment { 
+  list-style-type: none;
+  list-style-position: inside;
+  padding: 0px;
+}
+ul.payment li span:first-child { display: inline-block; width: 80%; }
+ul.payment li span:last-child { display: inline-block; width: 20%; text-align: center; }*/

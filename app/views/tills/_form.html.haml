@@ -1,0 +1,44 @@
+= render :partial => 'shared/error', :locals => {:object => till}
+= form_for till, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'till'}
+    %legend Till
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :name, 'Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :name, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :minimum, 'Minimum', :class => 'control-label'
+      .col-lg-8
+        = f.currency_field :minimum, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :tax_rate, 'Tax Rate', :class => 'control-label'
+      .col-lg-8
+        = f.number_field :tax_rate, :min => 0, :step => 0.01, :class => 'form-control'
+    .hidden
+      = f.hidden_field :account_id
+    %hr
+  %fieldset{:id => 'store'}
+    %legend Store
+    .form-group
+      .col-lg-4
+        = f.label :store, 'Store', :class => 'control-label'
+      .col-lg-8
+        = f.collection_select :store_id, Store.all, :id, :name, {:prompt => true}, {:class => 'form-control'}
+    %hr
+  %fieldset{:id => 'user'}
+    %legend User
+    .form-group
+      .col-lg-4
+        = f.label :user, 'User', :class => 'control-label'
+      .col-lg-8
+        = f.collection_select :user_id, User.all, :id, :fullname, {:include_blank => 'None'}, {:class => 'form-control'}
+    %hr
+    

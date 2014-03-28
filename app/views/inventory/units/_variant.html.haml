@@ -1,0 +1,22 @@
+- if @unit.variant
+  .table-wrapper
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Description
+          %th Identifier
+          %th Adjustment
+          %th Adjustment (Cash)
+          %th Adjustment (Credit)
+      %tbody
+        - variant = @unit.variant
+        %tr
+          %td= variant.name
+          %td= variant.description
+          %td= "#{variant.identifier_type} #{variant.identifier}" if variant.identifier
+          %td= variant.adjustment_percentage? ? "%#{variant.adjustment}" : currency(variant.adjustment)
+          %td= variant.adjustment_cash_percentage? ? "%#{variant.adjustment_cash}" : currency(variant.adjustment_cash)
+          %td= variant.adjustment_credit_percentage? ? "%#{variant.adjustment_credit}" : currency(variant.adjustment_credit)
+- else
+  %p.center No variants found

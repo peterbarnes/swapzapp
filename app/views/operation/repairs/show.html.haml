@@ -1,0 +1,144 @@
+#operation_repairs_show
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-wrench'}
+            &nbsp;
+            View Repair
+        .col-md-4
+          .pull-right
+            = link_to print_repair_path(@repair), :class => 'btn btn-flat' do
+              %i.fa.fa-print
+              &nbsp;
+              Print
+  %hr
+  .row
+    .col-md-4
+      %dl
+        %dt SKU
+        %dd
+          %p= @repair.sku
+        %dt Identifier
+        %dd
+          %p= "#{@repair.identifier_type} #{@repair.identifier}"
+        %dt Completed
+        %dd
+          %p= @repair.complete? ? 'Yes' : 'No'
+        %dt Completed At
+        %dd= @repair.completed_at.strftime('%B %d at %I:%M %p') if @repair.completed_at
+    .col-md-4
+      %dl
+        %dt Store
+        %dd
+          %p= link_to @repair.store.name, store_path(@repair.store) if @repair.store
+        %dt Location
+        %dd
+          %p= link_to @repair.location.name, location_path(@repair.location) if @repair.location
+        %dl
+          %dt User
+          %dd= link_to @repair.user.fullname, user_path(@repair.user) if @repair.user
+        %dt Customer
+        %dd= link_to @repair.customer.fullname, customer_path(@repair.customer) if @repair.customer
+    .col-md-4
+      %dl
+        %dt Status
+        %dd= @repair.status
+  %hr
+  .row
+    .col-md-8
+      %table.table.table-striped.cart
+        %thead
+          %tr
+            %th.quantity Qty
+            %th.description Description
+            %th.amount Amount
+            %th.subtotal Subtotal
+        %tbody
+          - @repair.lines.each do |line|
+            %tr.cart-line
+              %td.quantity= line.quantity
+              %td.description
+                %strong= line.title
+                %br
+                = line.sku
+                - if line.note
+                  %br
+                  = line.note
+                - if line.bullets
+                  %ul
+                    - line.bullets.each do |bullet|
+                      %li= bullet
+              %td.amount= currency(line.amount)
+              %td.subtotal= currency(line.subtotal)
+    .col-md-4
+      .well
+        %table.table.table-striped.summary
+          %thead
+            %tr
+              %th.quantity Qty
+              %th.description Description
+              %th.amount Amount
+              %th.subtotal Subtotal
+          %tbody
+            - @repair.lines.each do |line|
+              %tr.summary-line
+                %td.quantity= line.quantity
+                %td.description= line.title
+                %td.amount= currency(line.amount)
+                %td.subtotal= currency(line.subtotal)
+        %ul.total.clearfix
+          %li
+            %span Subtotal:
+            %span= currency(@repair.subtotal)
+          %li
+            %span= "Tax (#{@repair.tax_rate}%):"
+            %span= currency(@repair.tax)
+          %li
+            %span
+              %strong Total:
+            %span
+              %strong= currency(@repair.total)
+        %hr
+  - if @repair.images
+    %hr
+    .row
+      .col-md-12
+        %p
+          %strong Images:
+        = render :partial => 'images'
+  - if @repair.symptoms
+    %hr
+    .row
+      .col-md-12
+        %p
+          %strong Symptoms:
+        = @repair.symptoms
+  - if @repair.note
+    %hr
+    .row
+      .col-md-12
+        %p
+          %strong Notes:
+        = @repair.note
+  - unless @repair.logs.empty?
+    %hr
+    .row
+      .col-md-12
+        %p
+          %strong Logs:
+        %table.table.table-striped.cart
+          %thead
+            %tr
+              %th Time
+              %th Name
+              %th User
+              %th Note
+          %tbody
+          - @repair.logs.desc(:created_at).each do |log|
+            %tr
+              %td= log.created_at.strftime('%B %d at %I:%M:%S %p')
+              %td= log.name
+              %td= log.user.fullname if log.user
+              %td= log.note

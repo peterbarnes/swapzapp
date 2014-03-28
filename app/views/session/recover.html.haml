@@ -1,0 +1,5 @@
+%h6 Forgot Password?
+= form_tag recover_path, :class => 'form-horizontal' do
+  = text_field_tag 'email', nil, {:class => 'form-control', :placeholder => 'E-Mail Address'}
+  = link_to 'Back to login', login_path, :class => 'forgot'
+  %button.btn.btn-primary{type: "submit"} Recover My Password

@@ -1,0 +1,60 @@
+{{#modal-dialog title="Edit Address" confirm="Done" close="closeModal" accept="done"}}
+  <div class="form-horizontal">
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="address_name">Name</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="address_name" value=name class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="address_first_line">First Line</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="address_first_line" value=firstLine class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="address_second_line">Second Line</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="address_second_line" value=secondLine class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="address_city">City</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="address_city" value=city class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="address_state">State</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="address_state" value=state class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="address_zip">Zip</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="address_zip" value=zip class="form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label class="control-label" for="address_country">Country</label>
+      </div>
+      <div class="col-lg-8">
+        {{input id="address_country" value=country class="form-control"}}
+      </div>
+    </div>
+  </div>
+{{/modal-dialog}}

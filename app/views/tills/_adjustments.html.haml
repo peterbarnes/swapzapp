@@ -1,0 +1,21 @@
+- unless @till.adjustments.empty?
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Created
+        %th User
+        %th Title
+        %th Description
+        %th Balance
+        %th Amount
+    %tbody
+      - @till.adjustments.desc(:created_at).limit(5).each do |adjustment|
+        %tr
+          %td= adjustment.created_at.strftime('%B %d at %I:%M %p')
+          %td= adjustment.user.fullname if adjustment.user
+          %td= adjustment.title
+          %td= adjustment.description
+          %td= currency(adjustment.balance)
+          %td= currency(adjustment.amount)
+- else
+  %p.center No adjustments found

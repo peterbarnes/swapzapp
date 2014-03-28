@@ -1,0 +1,8 @@
+{{#each images in sliced}}
+  <div class="row">
+    {{#each image in images}}
+      <div {{bind-attr class="columnClass"}}>{{ partial partialTemplate }}</div>
+    {{/each}}
+  </div>
+  <br>
+{{/each}}

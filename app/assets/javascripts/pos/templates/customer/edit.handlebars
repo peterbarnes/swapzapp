@@ -1,0 +1,187 @@
+<div class="content-wrapper">
+  {{view SwapzPOS.FlashView modelBinding="flash"}}
+  <div class="row">
+    <div class="col-md-8">
+      <h4>
+        <i class="fa fa-group"></i>
+        &nbsp;
+        Edit Customer
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+        <button {{action "save"}} class="btn btn-flat">
+          <i class="fa fa-save"></i>
+          &nbsp;
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <fieldset class="form-horizontal">
+        <legend>Customer</legend>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_first_name">First Name</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_first_name" value=firstName class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_last_name">Last Name</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_last_name" value=lastName class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_organization">Organization / Company</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_organization" value=organization class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_identifier">Identifier</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_identifier" value=identifier class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_identifier_type">Identifier Type</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_identifier_type" value=identifierType class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_email">Email</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_email" value=email class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_date_of_birth">Date Of Birth</label>
+          </div>
+          <div class="col-lg-8">
+            {{view SwapzPOS.DateField dateBinding="dateOfBirth" class="form-control"}}
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <fieldset class="form-horizontal">
+        <legend>Notes</legend>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_notes">Notes</label>
+          </div>
+          <div class="col-lg-8">
+            {{textarea id="customer_notes" value=notes rows=4 class="form-control"}}
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <fieldset class="form-horizontal">
+        <legend>Phones</legend>
+        <p><button {{ action "addPhone" }} class="btn btn-flat"><i class="fa fa-plus"></i>&nbsp;Add Phone</button></p>
+        <div class="table-wrapper">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><i class="fa fa-trash-o"></i></th>
+                <th>Name</th>
+                <th>Number</th>
+                <th class="pull-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each phone in phones}}
+              <tr>
+                <td>
+                  {{#if phone._destroy }}
+                  <i class="fa fa-trash-o"></i>
+                  {{/if}}
+                </td>
+                <td>{{ phone.name }}</td>
+                <td>{{ phone.formatted }}</td>
+                <td>
+                  <ul class="actions">
+                    <li><a {{ action "editPhone" phone}} class="pointer"><i class="fa fa-pencil"></i></a></li>
+                    <li><a {{ action "removePhone" phone}} class="pointer"><i class="fa fa-trash-o"></i></a></li>
+                  </ul>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <fieldset class="form-horizontal">
+        <legend>Addresses</legend>
+        <p><button {{ action "addAddress" }} class="btn btn-flat"><i class="fa fa-plus"></i>&nbsp;Add Address</button></p>
+        <div class="table-wrapper">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><i class="fa fa-trash-o"></i></th>
+                <th>Name</th>
+                <th>Address</th>
+                <th class="pull-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each address in addresses}}
+              <tr>
+                <td>
+                  {{#if address._destroy }}
+                  <i class="fa fa-trash-o"></i>
+                  {{/if}}
+                </td>
+                <td>{{ address.name }}</td>
+                <td>{{ address.formatted }}</td>
+                <td>
+                  <ul class="actions">
+                    <li><a {{ action "editAddress" address}} class="pointer"><i class="fa fa-pencil"></i></a></li>
+                    <li><a {{ action "removeAddress" address}} class="pointer"><i class="fa fa-trash-o"></i></a></li>
+                  </ul>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <fieldset class="form-horizontal">
+        <legend>Images</legend>
+        <p><button {{ action "addImage" }} class="btn btn-flat"><i class="fa fa-plus"></i>&nbsp;Add Image</button></p>
+        {{image-grid images=imagesSorted columns=4 remove="removeImage" edit="editImage" partialTemplate="customer/image_edit"}}
+      </fieldset>
+    </div>
+  </div>
+</div>

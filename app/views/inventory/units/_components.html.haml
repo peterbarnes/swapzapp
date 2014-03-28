@@ -1,0 +1,24 @@
+- unless @unit.components.empty?
+  .table-wrapper
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Typical
+          %th Name
+          %th Description
+          %th Adjustment
+          %th Adjustment (Cash)
+          %th Adjustment (Credit)
+      %tbody
+        - @unit.components.each do |component|
+          %tr
+            %td
+              - if component.typical
+                %i.fa.fa-check
+            %td= component.name
+            %td= component.description
+            %td= component.adjustment_percentage? ? "%#{component.adjustment}" : currency(component.adjustment)
+            %td= component.adjustment_cash_percentage? ? "%#{component.adjustment_cash}" : currency(component.adjustment_cash)
+            %td= component.adjustment_credit_percentage? ? "%#{component.adjustment_credit}" : currency(component.adjustment_credit)
+- else
+  %p.center No components found

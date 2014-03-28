@@ -1,0 +1,136 @@
+.btn-flat {
+  display: inline-block;
+  margin: 0;
+  line-height: 15px;
+  vertical-align: middle;
+  font-size: 12px;
+  text-shadow: none;
+  box-shadow: none;
+  background-image: none;
+  border: 0 none;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 4px;
+  background: #4387bf;
+  border: 1px solid #3883c0;
+  cursor: pointer;
+  padding: 7px 14px;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  transition: all .1s linear;
+}
+
+.btn-flat [class^="icon-"],
+.btn-flat [class*=" icon-"] {
+  margin-right: 3px;
+}
+
+.btn-flat:active {
+  -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.3) inset;
+  -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.3) inset;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.3) inset;
+  background: #30628b;
+  opacity: 1;
+}
+
+.btn-flat:hover {
+  text-decoration: none;
+  opacity: 0.87;
+  color: #fff;
+}
+
+.btn-flat.large {
+  font-size: 13px;
+  padding: 10px 16px;
+}
+
+.btn-flat.small {
+  font-size: 11px;
+  padding: 5px 9px;
+}
+
+.btn-flat.inverse {
+  background: #343e4b;
+  border: 1px solid #000;
+}
+
+.btn-flat.inverse:active {
+  background: #000;
+}
+
+.btn-flat.gray {
+  background: #7e91aa;
+  border: 1px solid #888e97;
+}
+
+.btn-flat.gray:active {
+  background: #5d6b7e;
+  color: #f3f3f3;
+}
+
+.btn-flat.primary {
+  background: #3b9ff3;
+  border: 1px solid #3596e7;
+}
+
+.btn-flat.primary:active {
+  background: #2b76b6;
+  color: #edf6fd;
+}
+
+.btn-flat.success {
+  background: #96bf48;
+  border: 1px solid #7ea13d;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+}
+
+.btn-flat.white {
+  color: #626263;
+  background: #fff;
+  border: 1px solid #d0dde9;
+}
+
+.btn-flat.white:hover {
+  border-color: #bbb;
+  color: #000;
+}
+
+.btn-flat.info {
+  background: #5ba0a3;
+  color: #fff;
+  border-color: #5ba0a3;
+}
+
+.btn-flat.info:active {
+  background: #30696c;
+}
+
+.btn-flat.danger {
+  background: #b85e80;
+  border-color: #b85e80;
+  color: #fff;
+}
+
+.btn-flat.danger:active {
+  background: #6e354a;
+}
+
+.btn-flat.icon {
+  padding: 7px 10px;
+  color: #1a2129;
+  background: #e6ebf3;
+  border: 1px solid #d8dde4;
+  box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.4) inset, 0px 1px 0px 0px #cccccc;
+}
+
+.btn-flat.icon:active {
+  background: #e0e6ef;
+  -webkit-box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.3) inset;
+  -moz-box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.3) inset;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.3) inset;
+}
+
+.btn-flat.icon i {
+  font-size: 14px;
+}

@@ -1,0 +1,17 @@
+#account_account_edit
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-cog'}
+        &nbsp;
+        Account Settings
+    .col-md-4
+      .pull-right
+        = link_to account_path(@account), :class => 'save btn btn-flat' do
+          %i.fa.fa-save
+          &nbsp;
+          Save
+  %hr
+  .row
+    .col-md-12
+      = render :partial => 'form', :locals => {:account => @account, :url => account_path(@account)}

@@ -1,0 +1,64 @@
+= render :partial => 'shared/error', :locals => {:object => unit}
+= form_for unit, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'unit'}
+    %legend Unit
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :filing_formatted, 'Filing Number', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :filing_formatted, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :name, 'Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :name, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :sku, 'SKU', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :sku, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :quantity, 'Quantity', :class => 'control-label'
+      .col-lg-8
+        = f.number_field :quantity, :min => 0, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :price, 'Price', :class => 'control-label'
+      .col-lg-8
+        = f.currency_field :price, :class => 'form-control'
+        %span{:class => 'help-block'} Price is used ONLY if calculate price dynamically is unchecked.
+    .form-group
+      .col-lg-4
+        = f.label :calculated, 'Calculate price dynamically?', :class => 'control-label'
+      .col-lg-8
+        = f.check_box :calculated, :class => 'form-control'
+    .hidden
+      = f.hidden_field :account_id
+      = f.hidden_field :item_id
+    %hr
+  %fieldset{:id => 'location'}
+    %legend Location
+    .form-group
+      .col-lg-4
+        = f.label :location, 'Location', :class => 'control-label'
+      .col-lg-8
+        = f.collection_select :location_id, flattened_tree_for_select(Location.roots), :id, :name, {:prompt => true}, {:class => 'form-control'}
+    %hr
+  %fieldset{:id => 'components'}
+    %legend Components
+    = render :partial => 'components_fields', :locals => {:f => f}
+    %hr
+  %fieldset{:id => 'conditions'}
+    %legend Conditions
+    = render :partial => 'conditions_fields', :locals => {:f => f}
+    %hr
+  %fieldset{:id => 'variant'}
+    %legend Variant
+    = render :partial => 'variant_fields', :locals => {:f => f}
+    %hr

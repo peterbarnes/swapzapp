@@ -1,0 +1,248 @@
+<div class="content-wrapper">
+  {{view SwapzPOS.FlashView modelBinding="flash"}}
+  <div class="row">
+    <div class="col-md-8">
+      <h4>
+        <i class="fa fa-wrench"></i>
+        &nbsp;
+        View Repair
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+        <button {{ action "edit"}} class="btn btn-flat">
+          <i class="fa fa-pencil"></i>
+          &nbsp;
+          Edit
+        </button>
+        <button {{ action "print"}} class="btn btn-flat">
+          <i class="fa fa-print"></i>
+          &nbsp;
+          Print
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-4">
+      <dl>
+        <dt>SKU</dt>
+        <dd>
+          <p>
+            {{ sku }}
+          </p>
+        </dd>
+        <dt>Serial</dt>
+        <dd>
+          <p>
+            {{ serial }}
+          </p>
+        </dd>
+        <dt>Completed</dt>
+        <dd>
+          <p>
+            {{ boolean complete }}
+          </p>
+        </dd>
+        <dt>Completed At</dt>
+        <dd>
+          {{ format-date completedAt 'LLL' }}
+        </dd>
+      </dl>
+    </div>
+    <div class="col-md-4">
+      <dl>
+        <dt>Store</dt>
+        <dd>
+          <p>
+            {{ store.name }}
+          </p>
+        </dd>
+        <dt>Location</dt>
+        <dd>
+          <p>
+            {{ location.name }}
+          </p>
+        </dd>
+        <dl>
+          <dt>User</dt>
+          <dd>
+            {{ user.fullname }}
+          </dd>
+        </dl>
+        <dt>Customer</dt>
+        <dd>
+          {{ customer.fullname }}
+        </dd>
+      </dl>
+    </div>
+    <div class="col-md-4">
+      <dl>
+        <dt>Status</dt>
+        <dd>
+          {{ status }}
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table table-striped cart">
+        <thead>
+          <tr>
+            <th class="quantity">Qty</th>
+            <th class="description">Description</th>
+            <th class="amount">Amount</th>
+            <th class="subtotal">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each line in lines }}
+            <tr class="cart-line">
+              <td class="quantity">
+                {{ line.quantity }}
+              </td>
+              <td class="description">
+                <strong>
+                  {{ line.title }}
+                </strong>
+                <br/>
+                {{ line.sku }}
+                {{#if line.note }}
+                  <br/>
+                  {{ line.note }}
+                {{/if}}
+                {{#if line.bullets }}
+                  <ul>
+                    {{#each bullet in line.bullets }}
+                      <li>
+                        {{ bullet }}
+                      </li>
+                    {{/each}}
+                  </ul>
+                {{/if}}
+              </td>
+              <td class="amount">
+                {{ currency line.amount }}
+              </td>
+              <td class="subtotal">
+                {{ currency line.subtotal }}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <div class="well">
+        <table class="table table-striped summary">
+          <thead>
+            <tr>
+              <th class="quantity">Qty</th>
+              <th class="description">Description</th>
+              <th class="amount">Amount</th>
+              <th class="subtotal">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each line in lines}}
+              <tr class="summary-line">
+                <td class="quantity">
+                  {{ line.quantity }}
+                </td>
+                <td class="description">
+                  {{ line.title }}
+                </td>
+                <td class="amount">
+                  {{ currency line.amount }}
+                </td>
+                <td class="subtotal">
+                  {{ currency line.subtotal }}
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        <ul class="total clearfix">
+          <li>
+            <span>Subtotal:</span>
+            <span>
+              {{ currency subtotal }}
+            </span>
+          </li>
+          <li>
+            <span>
+              <strong>Total:</strong>
+            </span>
+            <span>
+              <strong>
+                {{ currency total }}
+              </strong>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {{#if symptoms}}
+    <hr/>
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          <strong>Symptoms:</strong>
+        </p>
+        {{ symptoms }}
+      </div>
+    </div>
+  {{/if}}
+  {{#if note}}
+    <hr/>
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          <strong>Notes:</strong>
+        </p>
+        {{ note }}
+      </div>
+    </div>
+  {{/if}}
+  {{#if logs}}
+    <hr/>
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          <strong>Logs:</strong>
+        </p>
+        <table class="table table-striped cart">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Name</th>
+              <th>User</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          {{#each log in logs}}
+            <tr>
+              <td>
+                {{ format-date log.createdAt 'LLL' }}
+              </td>
+              <td>
+                {{ log.name }}
+              </td>
+              <td>
+                {{ log.user.fullname }}
+              </td>
+              <td>
+                {{ log.note }}
+              </td>
+            </tr>
+          {{/each}}
+        </table>
+      </div>
+    </div>
+  {{/if}}
+</div>

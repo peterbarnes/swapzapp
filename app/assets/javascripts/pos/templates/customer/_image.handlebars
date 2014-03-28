@@ -1,0 +1,12 @@
+<figure>
+  {{#if image.imageSrc }}
+    <img {{bind-attr src="image.imageSrc"}} {{bind-attr alt="image.name"}} {{bind-attr title="image.description"}} class="img-responsive img-thumbnail" />
+  {{/if}}
+  {{#if image._destroy }}
+    <div class="lead overlay"><i class="fa fa-trash-o"></i></div>
+  {{/if}}
+  <figcaption>
+    <p><strong>{{ image.name }}</strong></p>
+    <p>{{ image.description }}</p>
+  </figcaption>
+</figure>

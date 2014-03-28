@@ -1,0 +1,6 @@
+%h6 Reset Password
+= form_tag reset_path(:reset_token => params[:reset_token]), :class => 'form-horizontal' do
+  = password_field_tag 'password', nil, {:class => 'form-control', :placeholder => 'Password'}
+  = password_field_tag 'password_confirmation', nil, {:class => 'form-control', :placeholder => 'Password Confirmation'}
+  = link_to 'Back to login', login_path, :class => 'forgot'
+  %button.btn.btn-primary{type: "submit"} Reset Password

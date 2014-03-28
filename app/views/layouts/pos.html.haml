@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title Swapz Point-of-Sale
+    %meta{content: "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}
+    %meta{name: "application-name", content: "Swapz"}
+    %meta{name: "apple-mobile-web-app-capable", content: "yes"}
+    - if current_account
+      %meta{name: "current-account", content: "#{@account}"}
+    - if current_user
+      %meta{name: "current-user", content: "#{@user}"}
+    %meta{name: "socket-url", content: "#{@socket_url}"}
+    = favicon_link_tag 'favicon.png', :rel => 'icon', :type => 'image/png'
+    = favicon_link_tag 'favicon.png', :rel => 'apple-touch-icon', :type => 'image/png'
+    = stylesheet_link_tag "pos"
+    = javascript_include_tag "pos"
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800", rel: "stylesheet", type: "text/css"}
+    %link{href: "http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic", rel: "stylesheet", type: "text/css"}
+    /[if IE] <link rel="SHORTCUT ICON" href="favicon.ico"/>
+    /[if lt IE 9] <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  %body
+    = yield

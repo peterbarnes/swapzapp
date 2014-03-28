@@ -1,0 +1,14 @@
+<div {{bind-attr class="isSearch::hidden"}}>
+  <div class="clearfix well">
+    <div class="input-group">
+      {{input name="query" value=query class="form-control"}}
+      <span class="input-group-btn">
+        <button type="button" {{action 'search'}} class="btn btn-primary">
+          <i class="fa fa-search"></i> 
+          &nbsp;
+          Search
+        </button>
+      </span>
+    </div>
+  </div>
+</div>

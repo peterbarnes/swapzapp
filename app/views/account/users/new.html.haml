@@ -1,0 +1,21 @@
+#account_users_new
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-user'}
+        &nbsp;
+        New User
+    .col-md-4
+      .pull-right
+        = link_to users_path, :class => 'save btn btn-flat' do
+          %i.fa.fa-save
+          &nbsp;
+          Save
+        = link_to users_path, :class => 'btn btn-flat white' do
+          %i.fa.fa-ban
+          &nbsp;
+          Cancel
+  %hr
+  .row
+    .col-md-12
+      = render :partial => 'form', :locals => {:user => @user, :url => users_path}

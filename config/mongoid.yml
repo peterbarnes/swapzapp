@@ -1,0 +1,27 @@
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOLAB_URI'] %>
+  options:
+    include_root_in_json: true
+development:
+  sessions:
+    default:
+      database: swapzapp_development
+      hosts:
+        - localhost:27017
+      options:
+  options:
+    include_root_in_json: true
+test:
+  sessions:
+    default:
+      database: swapzapp_test
+      hosts:
+        - localhost:27017
+      options:
+        consistency: :strong
+        max_retries: 1
+        retry_interval: 0
+  options:
+    include_root_in_json: true

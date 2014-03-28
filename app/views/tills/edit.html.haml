@@ -1,0 +1,21 @@
+#tills_edit
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-money'}
+        &nbsp;
+        Edit Till
+    .col-md-4
+      .pull-right
+        = link_to till_path(@till), :class => 'save btn btn-flat' do
+          %i.fa.fa-save
+          &nbsp;
+          Save
+        = link_to tills_path, :class => 'btn btn-flat white' do
+          %i.fa.fa-ban
+          &nbsp;
+          Cancel
+  %hr
+  .row
+    .col-md-12
+      = render :partial => 'form', :locals => {:till => @till, :url => till_path(@till)}

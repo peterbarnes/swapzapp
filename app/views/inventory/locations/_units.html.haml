@@ -1,0 +1,35 @@
+- unless @location.units.empty?
+  .table-wrapper
+    %table.table.table-hover
+      %thead
+        %tr
+          %th SKU
+          %th Item
+          %th Location
+          %th Quantity
+          %th Price
+          %th.pull-right Actions
+      %tbody
+        - @location.units.limit(50).each do |unit|
+          %tr
+            %td
+              = link_to unit.sku, unit_path(unit)
+            %td
+              = link_to unit.item.name, item_path(unit.item)
+            %td= unit.location.name if unit.location
+            %td= unit.quantity
+            %td
+              %strong= unit.calculated? ? currency(unit.price_calculated) : currency(unit.price)
+            %td
+              %ul.actions
+                %li
+                  = link_to edit_unit_path(unit), :title => 'Edit' do
+                    %i.fa.fa-pencil
+                %li
+                  = link_to unit_path(unit), :title => 'View' do
+                    %i.fa.fa-eye
+                %li
+                  = link_to unit_path(unit), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                    %i.fa.fa-trash-o
+- else
+  %p.center No units found

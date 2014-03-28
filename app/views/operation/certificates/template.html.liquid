@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8 />
+    <title>Gift Certificate</title>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/2.1.3/normalize.min.css">
+    <style type="text/css">
+      body {
+        margin: 0px;
+        padding: 20px;
+        font-size: 14px;
+        font-family: Arial, sans-serif;
+        line-height: 18px;
+        color: black;
+      }
+      h1 {
+        background-color: lightgray;
+        font-size: 24px;
+        text-align: center;
+        line-height: 60px;
+        margin-top: 0px;
+      }
+      h2 {
+        text-align: center;
+      }
+      dl {
+        margin: 40px 0px;
+      }
+      dd {
+        margin: 10px 0px;
+      }
+      p#sku, p#barcode {
+        text-align: center;
+        font-size: 12px;
+      }
+      p#amount {
+        background-color: lightgray;
+        font-size: 24px;
+        text-align: center;
+        line-height: 60px;
+      }
+    </style>
+    <!--[if IE]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="certificate">
+      <h1>{{certificate.account.title}}</h1>
+      <h2>Gift Certificate</h2>
+      <dl>
+        <dt><strong>To:</strong></dt>
+        <dd></dd>
+        <dt><strong>From:</strong></dt>
+        <dd></dd>
+        <dt><strong>Message:</strong></dt>
+        <dd></dd>
+      </dl>
+      <p id="barcode"><img src="{{certificate.sku | barcode}}" alt="Barcode" /></p>
+      <p id="sku">SKU: {{certificate.sku}}</p>
+      <p id="amount"><strong>Amount: {{ certificate.amount | currency }}</strong></p>
+    </div>
+  </body>
+</html>

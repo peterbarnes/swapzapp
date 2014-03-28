@@ -1,0 +1,54 @@
+<div class="well">
+  <div class="table-wrapper">
+    <table class="table table-striped cart">
+      <thead>
+        <tr>
+          <th>Qty</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each line in lines}}
+          <tr {{bind-attr class="line.remove:hidden"}}>
+            <td class="quantity">{{ line.quantity }}</td>
+            <td class="description">{{ line.title }}</td>
+            <td class="amount">{{ currency line.amount }}</td>
+            <td class="subtotal">{{ currency line.subtotal }}</td>
+          </tr>
+        {{else}}
+          <tr><td colspan="4" class="center">Cart is empty</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  <ul class="total clearfix">
+    <li><span>Subtotal:</span><span>{{currency subtotal}}</span></li>
+    <li><span>Store Credit:</span><span>{{currency payment.storeCredit}}</span></li>
+    <li><span>Subtotal (After Store Credit):</span><span>{{currency subtotalAfterStoreCredit}}</span></li>
+    <li><span>Tax ({{taxRate}}%):</span><span>{{currency tax}}</span></li>
+    <li><span><strong>Total:</strong></span><span><strong>{{currency total}}</strong></span></li>
+  </ul>
+  <hr>
+  <ul class="payment clearfix">
+    {{#if payment.cash}}
+    <li><span>Cash:</span><span>{{currency payment.cash}}</span></li>
+    {{/if}}
+    {{#if payment.credit}}
+    <li><span>Credit:</span><span>{{currency payment.credit}}</span></li>
+    {{/if}}
+    {{#if payment.check}}
+    <li><span>Check:</span><span>{{currency payment.check}}</span></li>
+    {{/if}}
+    {{#if payment.giftCard}}
+    <li><span>Gift Card:</span><span>{{currency payment.giftCard}}</span></li>
+    {{/if}}
+  </ul>
+  <hr>
+  <div class="clearfix">
+    <p class="lead pull-left"><strong>{{dueLabel}}</strong></p>
+    <p class="lead pull-right"><strong>{{currency due}}</strong></p>
+  </div>
+</div>

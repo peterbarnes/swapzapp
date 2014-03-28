@@ -1,0 +1,39 @@
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title
+      %a{:'data-toggle' => 'collapse', :'data-parent' => '#image_accordian', :href => "##{f.object.object_id}"}= f.object.name ||= 'New Image'
+      = link_to '#', :class => 'remove_fields pull-right' do
+        %i.fa.fa-trash-o
+  %div{:id => "#{f.object.object_id}", :class => 'panel-collapse collapse'}
+    .panel-body
+      .form-group
+        .col-lg-4
+        .col-lg-8
+          = image_tag(f.object.image.url, :class => 'img-responsive img-thumbnail') if f.object.image
+      .form-group
+        .col-lg-4
+          = f.label :name, 'Name', :class => 'control-label'
+        .col-lg-8
+          = f.text_field :name, :class => 'form-control'
+      .form-group
+        .col-lg-4
+          = f.label :description, 'Description', :class => 'control-label'
+        .col-lg-8
+          = f.text_area :description, :rows => 4, :class => 'form-control'
+      .form-group
+        .col-lg-4
+          = f.label :index, 'Index', :class => 'control-label'
+        .col-lg-8
+          = f.number_field :index, :class => 'form-control'
+      .form-group
+        .col-lg-4
+          = f.label :image, 'Image', :class => 'control-label'
+        .col-lg-8
+          = f.file_field :image, :class => 'form-control'
+      .form-group
+        .col-lg-4
+        .col-lg-8
+          = f.text_field :image_url, :placeholder => 'http://example.com/path/to/image.png', :value => nil, :class => 'form-control'
+      .hidden
+        = f.hidden_field :_destroy, :class => 'destroy'
+        = f.hidden_field :id unless f.object.new_record?

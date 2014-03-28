@@ -1,0 +1,20 @@
+- unless @activities.empty?
+  - @activities.each do |activity|
+    .well
+      .row
+        .col-lg-9
+          = activity.user.fullname if activity.user
+          = link_to raw("<em>(#{activity.user.username})</em>"), edit_user_path(activity.user)
+          performed
+          = activity.action
+          on
+          = activity.trackable_type.downcase
+          - unless activity.trackable.nil?
+            = link_to activity.trackable.name, url_for([:show, activity.trackable]) rescue nil
+          - else
+            that was deleted
+        .col-lg-3
+          %span.pull-right
+            = "#{time_ago_in_words(activity.created_at)} ago"
+- else
+  %p.text-center No activities found

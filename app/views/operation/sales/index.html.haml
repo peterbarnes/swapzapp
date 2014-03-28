@@ -1,0 +1,70 @@
+#operation_sales_index
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-credit-card'}
+            &nbsp;
+            Sales
+        .col-md-4
+          .pull-right
+      %hr
+      .row
+        .col-md-6
+          = render :partial => 'shared/filter', :locals => {:path => sales_path}
+        .col-md-6
+          = render :partial => 'shared/search', :locals => {:action => sales_path}
+      %hr
+    .col-md-12
+      - unless @sales.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th
+                  %i.fa.fa-flag
+                %th SKU
+                %th User
+                %th Store
+                %th Till
+                %th Customer
+                %th Total
+                %th Completed
+                %th.pull-right Actions
+            %tbody
+              - @sales.each do |sale|
+                %tr
+                  %td
+                    - if sale.flagged
+                      %i.fa.fa-flag
+                  %td
+                    = link_to sale.sku, sale_path(sale)
+                  %td= (sale.user.fullname if sale.user)
+                  %td= (sale.store.name.truncate(20) if sale.store)
+                  %td= (sale.till.name if sale.till)
+                  %td
+                    - if sale.customer
+                      = link_to sale.customer.fullname, customer_path(sale.customer)
+                  %td
+                    %strong= currency(sale.total)
+                  %td= "#{time_ago_in_words(sale.completed_at)} ago" if sale.completed_at
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to flag_sale_path(sale), :title => 'Flag' do
+                          %i.fa.fa-flag
+                      %li
+                        = link_to sale_path(sale), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to print_sale_path(sale), :title => 'Print' do
+                          %i.fa.fa-print
+                      - unless sale.complete?
+                        %li
+                          = link_to sale_path(sale), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                            %i.fa.fa-trash-o
+      - else
+        %p.center No sales found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @sales, :search => @search, :path => :sales_path}

@@ -1,0 +1,22 @@
+#item_items_edit
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-tags'}
+            &nbsp;
+            Edit Item
+        .col-md-4
+          .pull-right
+            = link_to item_path(@item), :class => 'save btn btn-flat' do
+              %i.fa.fa-save
+              &nbsp;
+              Save
+            = link_to items_path, :class => 'btn btn-flat white' do
+              %i.fa.fa-ban
+              &nbsp;
+              Cancel
+      %hr
+    .col-md-12
+      = render :partial => 'form', :locals => {:item => @item, :url => item_path(@item)}

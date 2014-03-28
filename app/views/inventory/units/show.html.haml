@@ -1,0 +1,142 @@
+#inventory_units_show
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-tags'}
+        &nbsp;
+        View Unit
+    .col-md-4
+      .pull-right
+        = link_to edit_unit_path(@unit), :class => 'btn btn-flat' do
+          %i.fa.fa-pencil
+          &nbsp;
+          Edit
+        = link_to unit_path(@unit), :title => 'Delete', :class => 'btn btn-flat danger', :confirm => 'Are you sure?', :method => :delete do
+          %i.fa.fa-trash-o
+          &nbsp;
+          Delete
+  %hr
+  .row
+    .col-md-6
+      = image_tag(@unit.item.image.url(), :size => "84x84", :alt => "Image", :class => 'img-circle')
+    .col-md-6
+      .name.clearfix
+        %h3.pull-right
+          %strong= @unit.name
+      .inventory.clearfix
+        %h6.pull-right
+          %em= @unit.item.inventory.name if @unit.item.inventory
+      .price.clearfix
+        %p.pull-right
+          %em= @unit.calculated? ? currency(@unit.price_calculated) : currency(@unit.price)
+  %hr
+  .row
+    .col-md-3
+      %dl
+        %dt SKU
+        %dd
+          %p= @unit.sku
+        %dt Identification
+        %dd
+          %p= "#{@unit.item.identifier_type} - #{@unit.item.identifier}"
+        %dt Manufacturer
+        %dd
+          %p= @unit.item.manufacturer
+        %dt Saleable
+        %dd= @unit.item.saleable? ? 'Yes' : 'No'
+    .col-md-3
+      %dl
+        %dt Price
+        %dd
+          %p= currency(@unit.price)
+        %dt Price Calculated
+        %dd
+          %p= @unit.calculated? ? currency(@unit.price_calculated) : currency(@unit.price)
+        %dt Taxable
+        %dd= @unit.item.taxable? ? 'Yes' : 'No'
+    .col-md-3
+      %dl
+        %dt Width
+        %dd
+          %p= "#{@unit.item.width} #{@unit.item.dimension_measure}"
+        %dt Height
+        %dd
+          %p= "#{@unit.item.height} #{@unit.item.dimension_measure}"
+        %dt Depth
+        %dd
+          %p= "#{@unit.item.depth} #{@unit.item.dimension_measure}"
+        %dt Weight
+        %dd= "#{@unit.item.weight} #{@unit.item.weight_measure}"
+    .col-md-3
+      %dl
+        %dt Filing Number
+        %dd
+          %p= @unit.filing_formatted
+        %dt Inventory
+        %dd
+          %p= link_to @unit.item.inventory.name, inventory_path(@unit.item.inventory) if @unit.item.inventory
+        %dt Item
+        %dd
+          %p= link_to @unit.item.name, item_path(@unit.item) if @unit.item
+        %dt Location
+        %dd= link_to @unit.location.name, location_path(@unit.location) if @unit.location
+  %hr
+  .row
+    .col-md-12
+      %h4 Description
+    .col-md-12
+      %br
+      %p= @unit.item.description
+  - unless @unit.item.tags.empty?
+    %hr
+    .row
+      .col-md-12
+        %h4 Tags
+      .col-md-12
+        %br
+        %p= @unit.item.tags.map(&:name).join(', ')
+  - unless @unit.item.props.empty?
+    %hr
+    .row
+      .col-md-12
+        %h4 Properties
+      .col-md-12
+        %br
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th Key
+                %th Value
+            %tbody
+              - @unit.item.props.each do |property|
+                %tr
+                  %td= property.key
+                  %td= property.value
+  %hr
+  .row
+    .col-md-4
+      %h4 Components
+    .col-md-8
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'components'
+  %hr
+  .row
+    .col-md-4
+      %h4 Conditions
+    .col-md-8
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'conditions'
+  %hr
+  .row
+    .col-md-4
+      %h4 Variant
+    .col-md-8
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'variant'

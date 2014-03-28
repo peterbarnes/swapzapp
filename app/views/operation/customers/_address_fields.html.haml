@@ -1,0 +1,46 @@
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title
+      %a{:'data-toggle' => 'collapse', :'data-parent' => '#address_accordian', :href => "##{f.object.object_id}"}= f.object.first_line ||= 'New Address'
+      = link_to '#', :class => 'remove_fields pull-right' do
+        %i.fa.fa-trash-o
+  %div{:id => "#{f.object.object_id}", :class => 'panel-collapse collapse'}
+    .panel-body
+      .form-group
+        .col-lg-4
+          = f.label :name, 'Name', :class => 'control-label'
+        .col-lg-8
+          = f.text_field :name, :class => 'form-control'
+      .form-group
+        .col-lg-4
+          = f.label :first_line, 'First Line', :class => 'control-label'
+        .col-lg-8
+          = f.text_field :first_line, :class => 'form-control'
+      .form-group
+        .col-lg-4
+          = f.label :second_line, 'Second Line', :class => 'control-label'
+        .col-lg-8
+          = f.text_field :second_line, :class => 'form-control'
+      .form-group
+        .col-lg-4
+          = f.label :city, 'City', :class => 'control-label'
+        .col-lg-8
+          = f.text_field :city, :class => 'form-control'
+      .form-group
+        .col-lg-4
+          = f.label :state, 'State / Province', :class => 'control-label'
+        .col-lg-8
+          = render :partial => 'state',  :locals => {:country => f.object.country, :selected => f.object.state, :index => f.object_name.gsub(/[^0-9]+/,'')}
+      .form-group
+        .col-lg-4
+          = f.label :zip, 'Zip', :class => 'control-label'
+        .col-lg-8
+          = f.text_field :zip, :class => 'form-control'
+      .form-group
+        .col-lg-4
+          = f.label :country, 'Country', :class => 'control-label'
+        .col-lg-8
+          = f.country_select :country, {priority: %w(US CA)}, prompt: 'Select a country', :class => 'country form-control'
+      .hidden
+        = f.hidden_field :_destroy, :class => 'destroy'
+        = f.hidden_field :id unless f.object.new_record?

@@ -1,0 +1,98 @@
+#tills_show
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-money'}
+        &nbsp;
+        View Till
+    .col-md-4
+      .pull-right
+        = link_to edit_till_path(@till), :class => 'btn btn-flat' do
+          %i.fa.fa-pencil
+          &nbsp;
+          Edit
+        = link_to till_path(@till), :title => 'Delete', :class => 'btn btn-flat danger', :confirm => 'Are you sure?', :method => :delete do
+          %i.fa.fa-trash-o
+          &nbsp;
+          Delete
+  %hr
+  .row
+    .col-md-12
+      %h4= @till.name
+  %hr
+  .row
+    .col-md-12
+      .well.no-bottom
+        %p.lead.no-bottom
+          = "Current Balance: #{currency(@till.balance)}"
+  %hr
+  .row
+    .col-md-4
+      %dl
+        %dt Minimum
+        %dd
+          %p= currency(@till.minimum)
+        %dt Tax Rate
+        %dd
+          %p= @till.tax_rate
+    .col-md-4
+      %dl
+        %dt Store
+        %dd
+          %p= link_to @till.store.name, store_path(@till.store)
+        %dt User
+        %dd
+          %p
+            - if @till.user
+              = link_to @till.user.fullname, user_path(@till.user)
+            - else
+              None
+    .col-md-4
+      %dl
+        %dt QR Code
+        %dd
+          %br
+          %p.qr-code.img.img-thumbnail{:'data-qr-code' => @till_metadata}
+            %i.fa.fa-spinner.fa-spin 
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Sales
+    .col-md-8
+      .pull-right
+        = link_to sales_path(:till_id => @till.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all till sales
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'sales'
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Purchases
+    .col-md-8
+      .pull-right
+        = link_to purchases_path(:till_id => @till.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all till purchases
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'purchases'
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Adjustments
+    .col-md-8
+      .pull-right
+        = link_to till_adjustments_path(:till_id => @till.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all till adjustments
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'adjustments'

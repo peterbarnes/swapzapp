@@ -1,0 +1,83 @@
+<div class="content-wrapper">
+  {{view SwapzPOS.FlashView modelBinding="flash"}}
+  <div class="row">
+    <div class="col-md-8">
+      <h4>
+        <i class="fa fa-credit-card"></i>
+        &nbsp;
+        Sales
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+        <button {{ action 'create' }} type="button" class="btn btn-flat"><i class="fa fa-plus"></i>&nbsp;New Sale</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="filter pull-left"></div>
+    </div>
+    <div class="col-md-6">
+      <div class="search pull-right">
+        {{input type="search" value=query class="search" placeholder="Search..."}}
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-wrapper">
+        <table class="sales table table-hover">
+          <thead>
+            <tr>
+              <th><i class="fa fa-flag"></i></th>
+              <th>SKU</th>
+              <th>User</th>
+              <th>Store</th>
+              <th>Till</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Completed</th>
+              <th class="pull-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each sale in controller}}
+            <tr>
+              <td>
+                {{#if sale.flagged}}
+                <i class="fa fa-flag"></i>
+                {{/if}}
+              </td>
+              <td>
+                <a {{action 'view' sale}} class="pointer">{{ sale.sku }}</a>
+              </td>
+              <td>{{ sale.user.fullname }}</td>
+              <td>{{ truncate sale.store.name 20 }}</td>
+              <td>{{ truncate sale.till.name 20 }}</td>
+              <td>{{ sale.customer.fullname }}</td>
+              <td>{{ currency sale.total }}</td>
+              <td>
+                {{#if sale.completedAt }}
+                  {{ format-date-ago sale.completedAt }}
+                {{/if}}
+              </td>
+              <td>
+                <ul class="actions">
+                  <li><a {{action 'edit' sale}}><i class="fa fa-pencil"></i></a></li>
+                  <li><a {{action 'view' sale}}><i class="fa fa-eye"></i></a></li>
+                  <li><a {{action 'print' sale}}><i class="fa fa-print"></i></a></li>
+                </ul>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+  {{ page-control model=SwapzPOS.Sale paginate="paginate" }}
+</div>

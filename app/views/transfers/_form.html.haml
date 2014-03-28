@@ -1,0 +1,30 @@
+= render :partial => 'shared/error', :locals => {:object => transfer}
+= form_for transfer, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'transfer'}
+    %legend Transfer
+    .form-group
+      .col-lg-4
+        = f.label :amount, 'Amount', :class => 'control-label'
+      .col-lg-8
+        = f.currency_field :amount, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :description, 'Description', :class => 'control-label'
+      .col-lg-8
+        = f.text_area :description, :rows => 3, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :destination, 'Destination', :class => 'control-label'
+      .col-lg-8
+        = f.collection_select :destination, Till.asc(:store), :id, :name, {:prompt => true}, {:class => 'form-control'}
+    .hidden
+    %hr
+  %fieldset{:id => 'user'}
+    %legend User
+    .form-group
+      .col-lg-4
+        = f.label :user, 'User', :class => 'control-label'
+      .col-lg-8
+        = f.collection_select :user, User.all, :id, :fullname, {:prompt => true}, {:class => 'form-control'}
+    %hr
+    

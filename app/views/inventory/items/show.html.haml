@@ -1,0 +1,146 @@
+#inventory_items_show
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-tags'}
+        &nbsp;
+        View Item
+    .col-md-4
+      .pull-right
+        = link_to edit_item_path(@item), :class => 'btn btn-flat' do
+          %i.fa.fa-pencil
+          &nbsp;
+          Edit
+        = link_to item_path(@item), :title => 'Delete', :class => 'btn btn-flat danger', :confirm => 'Are you sure?', :method => :delete do
+          %i.fa.fa-trash-o
+          &nbsp;
+          Delete
+  %hr
+  .row
+    .col-md-6
+      = image_tag(@item.image.url(:small), :size => "84x84", :alt => @item.image.name, :title => @item.image.description, :class => 'img-circle') if @item.image
+    .col-md-6
+      .name.clearfix
+        %h3.pull-right
+          %strong= @item.name
+      .inventory.clearfix
+        %h6.pull-right
+          %em= @item.inventory.name if @item.inventory
+      .price.clearfix
+        %p.pull-right
+          %em= currency(@item.price)
+  %hr
+  .row
+    .col-md-3
+      %dl
+        %dt SKU
+        %dd
+          %p= @item.sku
+        %dt Identification
+        %dd
+          %p= "#{@item.identifier_type} - #{@item.identifier}"
+        %dt Manufacturer
+        %dd
+          %p= @item.manufacturer
+        %dt Saleable
+        %dd= @item.saleable? ? 'Yes' : 'No'
+    .col-md-3
+      %dl
+        %dt Price
+        %dd
+          %p= currency(@item.price)
+        %dt Purchase Price (Cash)
+        %dd
+          %p= currency(@item.price_cash)
+        %dt Purchase Price (Credit)
+        %dd
+          %p= currency(@item.price_credit)
+        %dt Taxable
+        %dd= @item.taxable? ? 'Yes' : 'No'
+    .col-md-3
+      %dl
+        %dt Width
+        %dd
+          %p= "#{@item.width} #{@item.dimension_measure}"
+        %dt Height
+        %dd
+          %p= "#{@item.height} #{@item.dimension_measure}"
+        %dt Depth
+        %dd
+          %p= "#{@item.depth} #{@item.dimension_measure}"
+        %dt Weight
+        %dd= "#{@item.weight} #{@item.weight_measure}"
+    .col-md-3
+      %dl
+        %dt Inventory
+        %dd= link_to @item.inventory.name, inventory_path(@item.inventory) if @item.inventory
+  %hr
+  .row
+    .col-md-4
+      %h4 Images
+    .col-md-8
+      .pull-right
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'images'
+  %hr
+  .row
+    .col-md-12
+      %h4 Description
+    .col-md-12
+      %br
+      %p= @item.description
+  - unless @item.tags.empty?
+    %hr
+    .row
+      .col-md-12
+        %h4 Tags
+      .col-md-12
+        %br
+        %p= @item.tags.map(&:name).join(', ')
+  - unless @item.props.empty?
+    %hr
+    .row
+      .col-md-12
+        %h4 Properties
+      .col-md-12
+        %br
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th Key
+                %th Value
+            %tbody
+              - @item.props.each do |property|
+                %tr
+                  %td= property.key
+                  %td= property.value
+  %hr
+  .row
+    .col-md-4
+      %h4 Components
+    .col-md-8
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'components'
+  %hr
+  .row
+    .col-md-4
+      %h4 Conditions
+    .col-md-8
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'conditions'
+  %hr
+  .row
+    .col-md-4
+      %h4 Variants
+    .col-md-8
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'variants'

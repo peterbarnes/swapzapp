@@ -1,0 +1,73 @@
+<div class="content-wrapper">
+  {{view SwapzPOS.FlashView modelBinding="flash"}}
+  <div class="row">
+    <div class="col-md-8">
+      <h4>
+        <i class="fa fa-group"></i>
+        &nbsp;
+        Customers
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+        <button {{ action 'create' }} type="button" class="btn btn-flat"><i class="fa fa-plus"></i>&nbsp;New Customer</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="filter pull-left"></div>
+    </div>
+    <div class="col-md-6">
+      <div class="search pull-right">
+        {{input type="search" value=query class="search" placeholder="Search..."}}
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-wrapper">
+        <table class="customers table table-hover no-bottom">
+          <thead>
+            <tr>
+              <th></th>
+              <th>SKU</th>
+              <th>Name</th>
+              <th>Credit</th>
+              <th>Customer Since</th>
+              <th class="pull-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each customer in controller}}
+            <tr>
+              <td>
+                {{#if customer.images.firstObject}}
+                <img {{bind-attr src="customer.images.firstObject.imageUrl"}} width="48" height="48" {{bind-attr alt="customer.images.firstObject.name"}} {{bind-attr title="customer.images.firstObject.description"}} class="img img-circle" />
+                {{/if}}
+              </td>
+              <td>
+                <a {{action 'view' customer}} class="pointer">{{ customer.sku }}</a>
+              </td>
+              <td>{{ customer.fullname }}</td>
+              <td>{{ currency customer.credit }}</td>
+              <td>{{format-date-ago customer.createdAt}}</td>
+              <td>
+                <ul class="actions">
+                  <li><a {{action 'edit' customer}}><i class="fa fa-pencil"></i></a></li>
+                  <li><a {{action 'view' customer}}><i class="fa fa-eye"></i></a></li>
+                  <li><a {{action 'print' customer}}><i class="fa fa-print"></i></a></li>
+                </ul>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+  {{ page-control model=SwapzPOS.Customer paginate="paginate" }}
+</div>

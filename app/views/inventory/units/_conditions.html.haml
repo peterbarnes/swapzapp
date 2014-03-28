@@ -1,0 +1,20 @@
+- unless @unit.conditions.empty?
+  .table-wrapper
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Description
+          %th Adjustment
+          %th Adjustment (Cash)
+          %th Adjustment (Credit)
+      %tbody
+        - @unit.conditions.each do |condition|
+          %tr
+            %td= condition.name
+            %td= condition.description
+            %td= condition.adjustment_percentage? ? "%#{condition.adjustment}" : currency(condition.adjustment)
+            %td= condition.adjustment_cash_percentage? ? "%#{condition.adjustment_cash}" : currency(condition.adjustment_cash)
+            %td= condition.adjustment_credit_percentage? ? "%#{condition.adjustment_credit}" : currency(condition.adjustment_credit)
+- else
+  %p.center No conditions found

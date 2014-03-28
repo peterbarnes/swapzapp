@@ -1,0 +1,27 @@
+#account_templates_show
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-file-text'}
+        &nbsp;
+        View Template
+    .col-md-4
+      .pull-right
+        = link_to edit_template_path(@template), :class => 'btn btn-flat' do
+          %i.fa.fa-pencil
+          &nbsp;
+          Edit
+        = link_to template_path(@template), :title => 'Delete', :class => 'btn btn-flat danger', :confirm => 'Are you sure?', :method => :delete do
+          %i.fa.fa-trash-o
+          &nbsp;
+          Delete
+  %hr
+  .row
+    .col-md-12
+      %h4= "#{@template.name} (#{@template.category.capitalize})"
+  %hr
+  .row
+    .col-md-12
+      #editor_container
+        #editor
+        %textarea{:'data-editor' => 'html', :'data-read-only' => true, :rows => 20, :class => 'editor'}= @template.body

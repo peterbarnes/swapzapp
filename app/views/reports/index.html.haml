@@ -1,0 +1,57 @@
+#reports_index
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-bar-chart-o'}
+        &nbsp;
+        Reports
+    .col-md-4
+      .pull-right
+        = link_to new_report_path, :class => 'btn btn-flat' do
+          %i.fa.fa-plus
+          &nbsp;
+          New Report
+  %hr
+  .row
+    .col-md-6
+      = render :partial => 'shared/filter', :locals => {:path => reports_path}
+    .col-md-6
+      = render :partial => 'shared/search', :locals => {:action => reports_path}
+  %hr
+  .row
+    .col-md-12
+      - unless @reports.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th Name
+                %th Type
+                %th From
+                %th To
+                %th.pull-right Actions
+            %tbody
+              - @reports.each do |report|
+                %tr
+                  %td= report.name
+                  %td= Job.find(report.job).name if report.job
+                  %td= report.from
+                  %td= report.to
+                  %td
+                    %ul.actions
+                      %li{:class => "#{"hidden" unless report.complete}"}
+                        = link_to regenerate_report_path(report), :title => 'Regenerate' do
+                          %i.fa.fa-refresh
+                      %li{:class => "#{"hidden" unless report.complete}"}
+                        = link_to report.file.url, :title => 'View' do
+                          %i.fa.fa-eye
+                      %li{:class => "#{"hidden" unless report.complete}"}
+                        = link_to download_report_path(report), :title => 'Download' do
+                          %i.fa.fa-download
+                      %li
+                        = link_to report_path(report), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No reports found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @reports, :search => @search, :path => :reports_path}

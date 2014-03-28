@@ -1,0 +1,42 @@
+= render :partial => 'shared/error', :locals => {:object => timecard}
+= form_for timecard, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'timecard'}
+    %legend Timecard
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :in, 'In', :class => 'control-label'
+      .col-lg-8
+        = f.datetime_select :in, {:ampm => true, :include_seconds => true, :datetime_separator => "", :time_separator => ""}, :class => 'form-control datetime_select'
+    - if current_action?('edit') || current_action?('update')
+      .form-group
+        .col-lg-4
+          = f.label :out, 'Out', :class => 'control-label'
+        .col-lg-8
+          = f.datetime_select :out, {:ampm => true, :include_seconds => true, :datetime_separator => "", :time_separator => ""}, :class => 'form-control datetime_select'
+    .form-group
+      .col-lg-4
+        = f.label :note, 'Note', :class => 'control-label'
+      .col-lg-8
+        = f.text_area :note, :rows => 3, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :flagged, 'Flagged', :class => 'control-label'
+      .col-lg-8
+        = f.check_box :flagged, :class => 'form-control'
+    .hidden
+      = f.hidden_field :account_id
+    %hr
+  %fieldset{:id => 'user'}
+    %legend User
+    .form-group
+      .col-lg-4
+        = f.label :user, 'User', :class => 'control-label'
+      .col-lg-8
+        = f.collection_select :user_id, User.all, :id, :fullname, {:prompt => true}, {:class => 'form-control'}
+    %hr
+    

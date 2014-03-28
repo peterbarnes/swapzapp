@@ -1,0 +1,131 @@
+{{#modal-dialog title="Audit Till" confirm="Confirm" close="closeModal" accept="audit"}}
+  <fieldset>
+    <legend>{{ name }}</legend>
+    <div class="table-wrapper">
+      <table class="audit table table-striped">
+        <tbody>
+          <tr>
+            <td>Pennies</td>
+            <td>{{input name="pennies" type="number" value=pennies step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'pennies'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'pennies'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency penniesSum }}</strong></td>
+          </tr>
+          <tr>
+            <td>Nickels</td>
+            <td>{{input name="nickels" type="number" value=nickels step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'nickels'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'nickels'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency nickelsSum }}</strong></td>
+          </tr>
+          <tr>
+            <td>Dimes</td>
+            <td>{{input name="dimes" type="number" value=dimes step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'dimes'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'dimes'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency dimesSum }}</strong></td>
+          </tr>
+          <tr>
+            <td>Quarters</td>
+            <td>{{input name="quarters" type="number" value=quarters step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'quarters'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'quarters'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency quartersSum }}</strong></td>
+          </tr>
+          <tr>
+            <td>Ones</td>
+            <td>{{input name="ones" type="number" value=ones step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'ones'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'ones'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency onesSum }}</strong></td>
+          </tr>
+          <tr>
+            <td>Fives</td>
+            <td>{{input name="fives" type="number" value=fives step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'fives'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'fives'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency fivesSum }}</strong></td>
+          </tr>
+          <tr>
+            <td>Tens</td>
+            <td>{{input name="tens" type="number" value=tens step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'tens'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'tens'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency tensSum }}</strong></td>
+          </tr>
+          <tr>
+            <td>Twenties</td>
+            <td>{{input name="twenties" type="number" value=twenties step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'twenties'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'twenties'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency twentiesSum }}</strong></td>
+          </tr>
+          <tr>
+            <td>Fifties</td>
+            <td>{{input name="fifties" type="number" value=fifties step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'fifties'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'fifties'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency fiftiesSum }}</strong></td>
+          </tr>
+          <tr>
+            <td>Hundreds</td>
+            <td>{{input name="hundreds" type="number" value=hundreds step="1" min="0" class="form-control input-sm"}}</td>
+            <td>
+              <div class="btn-group">
+                <button {{ action 'minus' 'hundreds'}} class="btn btn-sm"><i class="fa fa-minus"></i></button>
+                <button {{ action 'plus' 'hundreds'}} class="btn btn-sm"><i class="fa fa-plus"></i></button>
+              </div>
+            </td>
+            <td><strong>{{ currency hundredsSum }}</strong></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="lead"><strong>Total</strong></td>
+            <td class="lead"><strong>{{ currency total }}</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Description</legend>
+    {{textarea id="description" valueBinding="description" rows="3" class="form-control"}}
+  </fieldset>
+{{/modal-dialog}}

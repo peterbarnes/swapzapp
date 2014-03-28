@@ -1,0 +1,15 @@
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button {{action 'close'}} class="close"><i class="fa fa-times"></i></button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">{{ yield }}</div>
+      <div class="modal-footer">
+        <button {{action 'close'}} class="btn btn-flat white">Close</button>
+        <button {{action 'accept'}} class="btn btn-flat">{{ confirm }}</button>
+      </div>
+    </div>
+  </div>
+</div>

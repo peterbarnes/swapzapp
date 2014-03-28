@@ -1,0 +1,41 @@
+- @purchases = @customer.purchases.where(:complete => true).desc(:completed_at).limit(5)
+- unless @purchases.empty?
+  .table-wrapper
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %i.fa.fa-flag
+          %th SKU
+          %th User
+          %th Till
+          %th Paid (Cash / Credit)
+          %th Completed
+          %th.pull-right Actions
+      %tbody
+        - @purchases.each do |purchase|
+          %tr
+            %td
+              - if purchase.flagged
+                %i.fa.fa-flag
+            %td
+              = link_to purchase.sku, purchase_path(purchase)
+            %td= (purchase.user.fullname if purchase.user)
+            %td= (purchase.till.name if purchase.till)
+            %td
+              %strong= "#{currency(purchase.cash)} (#{currency(purchase.credit)})"
+            %td= "#{time_ago_in_words(purchase.completed_at)} ago" if purchase.completed_at
+            %td
+              %ul.actions
+                %li
+                  = link_to flag_purchase_path(purchase), :title => 'Flag' do
+                    %i.fa.fa-flag
+                %li
+                  = link_to purchase_path(purchase), :title => 'View' do
+                    %i.fa.fa-eye
+                - unless purchase.complete?
+                  %li
+                    = link_to purchase_path(purchase), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                      %i.fa.fa-trash-o
+- else
+  %p.center No purchases found

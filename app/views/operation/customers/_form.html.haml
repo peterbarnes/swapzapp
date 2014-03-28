@@ -1,0 +1,92 @@
+= render :partial => 'shared/error', :locals => {:object => customer}
+= form_for customer, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'customer'}
+    %legend Customer
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :sku, 'SKU', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :sku, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :first_name, 'First Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :first_name, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :last_name, 'Last Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :last_name, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :organization, 'Organization / Company', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :organization, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :identifier, 'Identifier', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :identifier, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :identifier_type, 'Identifier Type', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :identifier_type, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :email, 'Email', :class => 'control-label'
+      .col-lg-8
+        = f.email_field :email, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :date_of_birth, 'Date Of Birth', :class => 'control-label'
+      .col-lg-8
+        = f.date_select :date_of_birth, {}, :class => 'form-control date_select'
+    .hidden
+      = f.hidden_field :account_id
+    %hr
+  %fieldset{:id => 'images'}
+    %legend Images
+    %p
+      = link_to_add_fields 'Add image', f, :images
+    #image_accordian.fields.panel-group
+      = f.fields_for :images do |i|
+        = render 'image_fields', :f => i
+    %hr
+  %fieldset{:id => 'phones'}
+    %legend Phone Numbers
+    %p
+      = link_to_add_fields 'Add phone number', f, :phones
+    #phone_accordian.fields.panel-group
+      = f.fields_for :phones do |p|
+        = render 'phone_fields', :f => p
+    %hr
+  %fieldset{:id => 'addresses'}
+    %legend Addresses
+    %p
+      = link_to_add_fields 'Add address', f, :addresses
+    #address_accordian.fields.panel-group
+      = f.fields_for :addresses do |a|
+        = render 'address_fields', :f => a
+    %hr
+  %fieldset{:id => 'credit'}
+    %legend Credit
+    .form-group
+      .col-lg-4
+        = f.label :credit, 'Credit', :class => 'control-label'
+      .col-lg-8
+        = f.currency_field :credit, :class => 'form-control'
+    %hr
+  %fieldset{:id => 'notes'}
+    %legend Notes
+    .form-group
+      .col-lg-4
+        = f.label :notes, 'Notes', :class => 'control-label'
+      .col-lg-8
+        = f.text_area :notes, :rows => 6, :class => 'form-control'
+    %hr

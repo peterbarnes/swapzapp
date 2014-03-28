@@ -1,0 +1,64 @@
+#inventory_items_index
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-tags'}
+            &nbsp;
+            Items
+        .col-md-4
+          .pull-right
+            = link_to new_item_path, :class => 'btn btn-flat' do
+              %i.fa.fa-plus
+              &nbsp;
+              New Item
+      %hr
+      .row
+        .col-md-6
+          = render :partial => 'shared/filter', :locals => {:path => items_path}
+        .col-md-6
+          = render :partial => 'shared/search', :locals => {:action => items_path}
+      %hr
+    .col-md-12
+      - unless @items.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th
+                %th SKU
+                %th Name
+                %th Description
+                %th Price
+                %th Units
+                %th.pull-right Actions
+            %tbody
+              - @items.each do |item|
+                %tr
+                  %td
+                    = image_tag(item.image.url(:small), :size => "48x48", :alt => item.image.name, :title => item.image.description, :class => 'img-circle') if item.image
+                  %td
+                    = link_to item.sku, item_path(item)
+                  %td= item.name
+                  %td= item.description.truncate(20)
+                  %td= currency(item.price)
+                  %td
+                    = link_to item.units.count, units_path(:item_id => item.id)
+                    |
+                    = link_to 'Create Unit', new_unit_path(:item_id => item.id)
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to edit_item_path(item), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to item_path(item), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to item_path(item), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No items found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @items, :search => @search, :path => :items_path}

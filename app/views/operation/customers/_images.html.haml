@@ -1,0 +1,14 @@
+- unless @customer.images.empty?
+  - @customer.images.asc(:index).each_slice(4) do |images|
+    .row
+      - images.each do |image|
+        .col-lg-3
+          %figure
+            = image_tag(image.url(:large), :alt => image.name, :title => image.description, :class => 'img img-thumbnail')
+            %figcaption
+              %p
+                %strong= image.name
+              %p= image.description
+    %br
+- else
+  %p.center No images

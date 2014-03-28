@@ -1,0 +1,319 @@
+<div class="content-wrapper">
+  {{view SwapzPOS.FlashView modelBinding="flash"}}
+  <div class="row">
+    <div class="col-md-8">
+      <h4>
+        <i class="fa fa-group"></i>
+        &nbsp;
+        View Customer
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+        {{#link-to 'customer.edit' id class="btn btn-flat"}}
+          <i class="fa fa-pencil"></i>
+          &nbsp;
+          Edit
+        {{/link-to}}
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      {{#if images.firstObject }}
+        <img {{bind-attr src="images.firstObject.imageUrl"}} {{bind-attr alt="images.firstObject.name"}} {{bind-attr title="images.firstObject.description"}} class="img-circle" height="84" width="84" />
+      {{/if}}
+    </div>
+    <div class="col-md-6">
+      <div class="name clearfix">
+        <h3 class="pull-right">
+          <strong>{{ fullname }}</strong>
+        </h3>
+      </div>
+      <div class="email clearfix">
+        <h6 class="pull-right">
+          <em>{{ email }}</em>
+        </h6>
+      </div>
+      <div class="organization clearfix">
+        <p class="pull-right">
+          <em>{{ organization }}</em>
+        </p>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-4">
+      <dl>
+        <dt>SKU</dt>
+        <dd>
+          <p>{{ sku }}</p>
+        </dd>
+        <dt>Identification</dt>
+        <dd>
+          <p>{{ identifierType }} {{ identifier }}</p>
+        </dd>
+        <dt>Credit</dt>
+        <dd>{{ currency credit }}</dd>
+      </dl>
+    </div>
+    <div class="col-md-4">
+      <dl>
+        <dt>Phones</dt>
+        <dd>
+          {{#each phone in phones}}
+            <em>{{ phone.name }}</em>
+            <p>{{ phone.formatted }}</p>
+          {{/each}}
+        </dd>
+      </dl>
+    </div>
+    <div class="col-md-4">
+      <dl>
+        <dt>Addresses</dt>
+        <dd>
+          {{#each address in addresses}}
+          <address>
+            <em>{{ address.name }}</em>
+            <br>
+            {{ address.firstLine }}
+            <br>
+            {{ address.secondLine }}
+            <br>
+            {{ address.city }} {{ address.state }}, {{ address.zip }} {{ address.country }}
+          </address>
+          {{/each}}
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Notes</h4>
+    </div>
+    <div class="col-md-12">
+      <br>
+      <p>{{ notes }}</p>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Images</h4>
+    </div>
+    <div class="col-md-12">
+      <br>
+      {{image-grid images=imagesSorted columns=4 partialTemplate="customer/image"}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <h4>Recent Sales</h4>
+    </div>
+    <div class="col-md-8">
+      <div class="pull-right"></div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      {{#if sales}}
+        <div class="table-wrapper">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>SKU</th>
+                <th>User</th>
+                <th>Store</th>
+                <th>Till</th>
+                <th>Total</th>
+                <th>Completed</th>
+                <th class="pull-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each sale in sales}}
+                <tr>
+                  <td>
+                    {{#link-to 'sale' sale.id}}{{ sale.sku }}{{/link-to}}
+                  </td>
+                  <td>{{ sale.user.fullname }}</td>
+                  <td>{{ truncate sale.store.name 20 }}</td>
+                  <td>{{ truncate sale.till.name 20 }}</td>
+                  <td>{{ currency sale.total }}</td>
+                  <td>{{ format-date-ago sale.completedAt }}</td>
+                  <td>
+                    <ul class="actions">
+                      <li>{{#link-to 'sale' sale.id}}<i class="fa fa-eye"></i>{{/link-to}}</li>
+                      <li>{{#link-to 'sale.print' sale.id}}<i class="fa fa-print"></i>{{/link-to}}</li>
+                    </ul>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{else}}
+        <p class="center">No recent sales found</p>
+      {{/if}}
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-4">
+      <h4>Recent Purchases</h4>
+    </div>
+    <div class="col-md-8">
+      <div class="pull-right"></div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      {{#if purchases}}
+        <div class="table-wrapper">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>SKU</th>
+                <th>User</th>
+                <th>Store</th>
+                <th>Till</th>
+                <th>Paid (Cash / Credit)</th>
+                <th>Completed</th>
+                <th class="pull-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each purchase in purchases}}
+                <tr>
+                  <td>
+                    {{#link-to 'purchase' purchase.id}}{{ purchase.sku }}{{/link-to}}
+                  </td>
+                  <td>{{ purchase.user.fullname }}</td>
+                  <td>{{ truncate purchase.store.name 20 }}</td>
+                  <td>{{ truncate purchase.till.name 20 }}</td>
+                  <td>{{ currency purchase.cash }} ({{ currency purchase.credit }})</td>
+                  <td>{{ format-date-ago purchase.completedAt }}</td>
+                  <td>
+                    <ul class="actions">
+                      <li>{{#link-to 'purchase' purchase.id}}<i class="fa fa-eye"></i>{{/link-to}}</li>
+                      <li>{{#link-to 'purchase.print' purchase.id}}<i class="fa fa-print"></i>{{/link-to}}</li>
+                    </ul>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{else}}
+        <p class="center">No recent purchases found</p>
+      {{/if}}
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-4">
+      <h4>Recent Repairs</h4>
+    </div>
+    <div class="col-md-8">
+      <div class="pull-right"></div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      {{#if repairs}}
+        <div class="table-wrapper">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>SKU</th>
+                <th>Total</th>
+                <th>Completed</th>
+                <th class="pull-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each repair in repairs}}
+                <tr>
+                  <td>
+                    {{#link-to 'repair' repair.id}}{{ repair.sku }}{{/link-to}}
+                  </td>
+                  <td>{{ currency repair.total }}</td>
+                  <td>{{ format-date-ago repair.completedAt }}</td>
+                  <td>
+                    <ul class="actions">
+                      <li>{{#link-to 'repair' repair.id}}<i class="fa fa-eye"></i>{{/link-to}}</li>
+                      <li>{{#link-to 'repair.print' repair.id}}<i class="fa fa-print"></i>{{/link-to}}</li>
+                    </ul>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{else}}
+        <p class="center">No recent repairs found</p>
+      {{/if}}
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-4">
+      <h4>Gift Certificates</h4>
+    </div>
+    <div class="col-md-8">
+      <div class="pull-right"></div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      {{#if certificates}}
+        <div class="table-wrapper">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Active</th>
+                <th>SKU</th>
+                <th>Amount</th>
+                <th>Balance</th>
+                <th>Created</th>
+                <th class="pull-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each certificate in certificates}}
+                <tr>
+                  <td>
+                    {{#if certificate.active }}
+                      Active
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{#link-to 'certificate' certificate.id}}{{ certificate.sku }}{{/link-to}}
+                  </td>
+                  <td>{{ currency certificate.amount }}</td>
+                  <td>{{ currency certificate.balance }}</td>
+                  <td>{{ format-date-ago certificate.createdAt }}</td>
+                  <td>
+                    <ul class="actions">
+                      <li>{{#link-to 'certificate' certificate.id}}<i class="fa fa-eye"></i>{{/link-to}}</li>
+                      <li>{{#link-to 'certificate.print' certificate.id}}<i class="fa fa-print"></i>{{/link-to}}</li>
+                    </ul>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{else}}
+        <p class="center">No certificates found</p>
+      {{/if}}
+    </div>
+  </div>
+</div>

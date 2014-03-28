@@ -1,0 +1,69 @@
+#tills_index
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-money'}
+        &nbsp;
+        Tills
+    .col-md-4
+      .pull-right
+        = link_to new_till_path, :class => 'btn btn-flat' do
+          %i.fa.fa-plus
+          &nbsp;
+          New Till
+  %hr
+  .row
+    .col-md-6
+      = render :partial => 'shared/filter', :locals => {:path => tills_path}
+    .col-md-6
+      = render :partial => 'shared/search', :locals => {:action => tills_path}
+  %hr
+  .row
+    .col-md-12
+      - unless @tills.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th Name
+                %th Store
+                %th User
+                %th Tax Rate
+                %th Minimum
+                %th Balance
+                %th Adjustments
+                %th Transfer
+                %th.pull-right Actions
+            %tbody
+              - @tills.each do |till|
+                %tr
+                  %td= link_to till.name, till_path(till)
+                  %td= till.store.name.truncate(20) if till.store
+                  %td
+                    - if till.user
+                      = till.user.fullname
+                      |
+                      = link_to 'Release', release_till_path(till)
+                  %td= till.tax_rate
+                  %td= currency(till.minimum)
+                  %td
+                    %strong= currency(till.balance)
+                  %td
+                    = link_to till.adjustments.count, till_adjustments_path(till)
+                  %td
+                    = link_to 'Transfer..', new_till_transfer_path(till)
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to edit_till_path(till), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to till_path(till), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to till_path(till), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No tills found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @tills, :search => @search, :path => :tills_path}

@@ -1,0 +1,22 @@
+#inventory_locations_new
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-compass'}
+            &nbsp;
+            New Location
+        .col-md-4
+          .pull-right
+            = link_to locations_path, :class => 'save btn btn-flat' do
+              %i.fa.fa-save
+              &nbsp;
+              Save
+            = link_to locations_path, :class => 'btn btn-flat white' do
+              %i.fa.fa-ban
+              &nbsp;
+              Cancel
+      %hr
+    .col-md-12
+      = render :partial => 'form', :locals => {:location => @location, :url => locations_path}

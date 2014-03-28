@@ -1,0 +1,60 @@
+<div class="clearfix">
+  <div>
+    <button {{action 'addLine'}} class="btn btn-flat navbar-btn" title="Add Line">
+      <i class="fa fa-plus"></i>
+      &nbsp;
+      Add Line
+    </button>
+    <button {{action 'removeLines'}} class="btn btn-flat danger navbar-btn" title="Remove All Lines">
+      <i class="fa fa-trash-o"></i>
+      &nbsp;
+      Remove All Lines
+    </button>
+  </div>
+</div>
+<br>
+<div class="table-wrapper">
+  <table class="table table-striped cart">
+    <thead>
+      <tr>
+        <th class="quantity">Qty</th>
+        <th class="description">Description</th>
+        <th class="amount">Amount</th>
+        <th class="subtotal">Subtotal</th>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each line in lines}}
+        <tr {{bind-attr class=":cart-line line.remove:hidden"}}>
+          <td class="quantity">
+            {{input name="quantity" type="number" value=line.quantity step="1" min="0" class="form-control input-sm"}}
+          </td>
+          <td class="description">
+            <p><strong>{{line.title}}</strong></p>
+            <p><em>{{line.sku}}</em></p>
+            <p>{{view Ember.TextField valueBinding="line.note" class="form-control input-sm" placeholder="Add a note..."}}</p>
+            {{#if line.bullets}}
+            <ul class="bullets">
+              {{#each bullet in line.bullets}}
+              <li>{{bullet}}</li>
+              {{/each}}
+            </ul>
+            {{/if}}
+          </td>
+          <td class="amount">{{currency line.amount}}</td>
+          <td class="subtotal"><strong>{{currency line.subtotal}}</strong></td>
+          <td class="actions">
+            <ul class="actions">
+              {{#if line.editable}}
+                <li><a {{action 'editLine' line}}><i class="fa fa-pencil"></i></a></li>
+              {{/if}}
+              <li><a {{action 'pinLine' line}}><i class="fa fa-thumb-tack"></i></a></li>
+              <li><a {{action 'removeLine' line}}><i class="fa fa-trash-o"></i></a></li>
+            </ul>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

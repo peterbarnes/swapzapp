@@ -1,0 +1,65 @@
+#timecards_index
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-clock-o'}
+        &nbsp;
+        Timecards
+    .col-md-4
+      .pull-right
+        = link_to new_timecard_path, :class => 'btn btn-flat' do
+          %i.fa.fa-plus
+          &nbsp;
+          New Timecard
+  %hr
+  .row
+    .col-md-6
+      = render :partial => 'shared/filter', :locals => {:path => timecards_path}
+    .col-md-6
+      = render :partial => 'shared/search', :locals => {:action => timecards_path}
+  %hr
+  .row
+    .col-md-12
+      - unless @timecards.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th
+                  %i.fa.fa-flag
+                %th User
+                %th In
+                %th Out
+                %th Hours
+                %th Note
+                %th.pull-right Actions
+            %tbody
+              - @timecards.each do |timecard|
+                %tr
+                  %td
+                    - if timecard.flagged
+                      %i.fa.fa-flag
+                  %td= (timecard.user.fullname if timecard.user)
+                  %td= timecard.in.strftime('%b %d at %I:%M:%S %p') if timecard.in
+                  %td
+                    - if timecard.out
+                      = timecard.out.strftime('%b %d at %I:%M:%S %p')
+                    - else
+                      = link_to 'Clock out', clockout_timecard_path(timecard), :title => 'Clockout', :confirm => 'Are you sure?'
+                  %td= timecard.hours.round(2)
+                  %td= timecard.note.truncate(40)
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to flag_timecard_path(timecard), :title => 'Flag' do
+                          %i.fa.fa-flag
+                      %li
+                        = link_to edit_timecard_path(timecard), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to timecard_path(timecard), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No timecards found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @timecards, :search => @search, :path => :timecards_path}

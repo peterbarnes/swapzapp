@@ -1,0 +1,21 @@
+- if f.object.item
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+        %th Name
+        %th Description
+        %th Typical
+        %th Adjustment
+        %th Adjustment (Calculated)
+    %tbody
+      - f.object.item.components.asc(:title).each do |component|
+        %tr
+          %td= check_box_tag :component_ids, component.id, @unit.components.include?(component) || (@unit.new_record? && component.typical), :name => 'unit[component_ids][]'
+          %td= component.name
+          %td= component.description
+          %td= component.typical? ? 'Yes' : 'No'
+          %td= "#{component.adjustment_percentage? ? component.adjustment.to_s + '%' : number_to_currency(component.adjustment)}"
+          %td= component.typical? ? currency(component.adjuster(f.object.item.price) * -1) : currency(component.adjuster(f.object.item.price))
+- else
+  %p No item selected

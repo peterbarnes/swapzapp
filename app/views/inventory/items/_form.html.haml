@@ -1,0 +1,166 @@
+= render :partial => 'shared/error', :locals => {:object => item}
+= form_for item, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'item'}
+    %legend Item
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :name, 'Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :name, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :manufacturer, 'Manufacturer', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :manufacturer, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :sku, 'SKU', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :sku, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :identifier, 'Identifier', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :identifier, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :identifier_type, 'Identifier Type', :class => 'control-label'
+      .col-lg-8
+        = f.select :identifier_type, options_for_select(['ASIN', 'EAN', 'ISBN', 'UPC', 'MPN'], f.object.identifier_type), {}, {:class => 'form-control'}
+    .form-group
+      .col-lg-4
+        = f.label :description, 'Description', :class => 'control-label'
+      .col-lg-8
+        = f.text_area :description, :rows => 5, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :flagged, 'Flagged', :class => 'control-label'
+      .col-lg-8
+        = f.check_box :flagged, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :saleable, 'Saleable', :class => 'control-label'
+      .col-lg-8
+        = f.check_box :saleable, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :taxable, 'Taxable', :class => 'control-label'
+      .col-lg-8
+        = f.check_box :taxable, :class => 'form-control'
+    .hidden
+      = f.hidden_field :account_id
+    %hr
+  %fieldset{:id => 'pricing'}
+    %legend Pricing
+    .form-group
+      .col-lg-4
+        = f.label :price, 'Price', :class => 'control-label'
+      .col-lg-8
+        = f.currency_field :price, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :price_cash, 'Purchase Price (Cash)', :class => 'control-label'
+      .col-lg-8
+        = f.currency_field :price_cash, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :price_credit, 'Purchase Price (Credit)', :class => 'control-label'
+      .col-lg-8
+        = f.currency_field :price_credit, :class => 'form-control'
+    %hr
+  %fieldset{:id => 'inventory'}
+    %legend Inventory
+    .form-group
+      .col-lg-4
+        = f.label :inventory, 'Inventory', :class => 'control-label'
+      .col-lg-8
+        = f.collection_select :inventory_id, Inventory.all, :id, :name, {:prompt => true}, {:class => 'form-control'}
+    %hr
+  %fieldset{:id => 'images'}
+    %legend Images
+    %p
+      = link_to_add_fields 'Add image', f, :images
+    #image_accordian.fields.panel-group
+      = f.fields_for :images do |i|
+        = render 'image_fields', :f => i
+    %hr
+    %legend Image
+    %hr
+  %fieldset{:id => 'metrics'}
+    %legend Metrics
+    .form-group
+      .col-lg-4
+        = f.label :dimension_measure, 'Dimension Measure', :class => 'control-label'
+      .col-lg-8
+        = f.select :dimension_measure, options_for_select([['in', 'in'],['ft', 'ft'], ['m', 'm'], ['cm', 'cm']], :selected => f.object.dimension_measure), {}, {:class => 'form-control'}
+    .form-group
+      .col-lg-4
+        = f.label :width, 'Width', :class => 'control-label'
+      .col-lg-8
+        = f.number_field :width, :step => 0.1, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :height, 'Height', :class => 'control-label'
+      .col-lg-8
+        = f.number_field :height, :step => 0.1, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :depth, 'Depth', :class => 'control-label'
+      .col-lg-8
+        = f.number_field :depth, :step => 0.1, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :weight_measure, 'Weight Measure', :class => 'control-label'
+      .col-lg-8
+        = f.select :weight_measure, options_for_select([['mg', 'mg'],['g', 'g'], ['kg', 'kg'], ['lb', 'lb']], :selected => f.object.weight_measure), {}, {:class => 'form-control'}
+    .form-group
+      .col-lg-4
+        = f.label :weight, 'Weight', :class => 'control-label'
+      .col-lg-8
+        = f.number_field :weight, :step => 0.1, :class => 'form-control'
+    %hr
+  %fieldset{:id => 'tags'}
+    %legend Tags
+    %p
+      = link_to_add_fields 'Add tag', f, :tags
+    #tag_accordian.fields.panel-group
+      = f.fields_for :tags do |t|
+        = render 'tag_fields', :f => t
+    %hr
+  %fieldset{:id => 'properties'}
+    %legend Properties
+    %p
+      = link_to_add_fields 'Add property', f, :props
+    #property_accordian.fields.panel-group
+      = f.fields_for :props do |p|
+        = render 'prop_fields', :f => p
+    %hr
+  %fieldset{:id => 'components'}
+    %legend Components
+    %p
+      = link_to_add_fields 'Add component', f, :components
+    #component_accordian.fields.panel-group
+      = f.fields_for :components do |c|
+        = render 'component_fields', :f => c
+    %hr
+  %fieldset{:id => 'conditions'}
+    %legend Conditions
+    %p
+      = link_to_add_fields 'Add condition', f, :conditions
+    #condition_accordian.fields.panel-group
+      = f.fields_for :conditions do |c|
+        = render 'condition_fields', :f => c
+    %hr
+  %fieldset{:id => 'variants'}
+    %legend Variants
+    %p
+      = link_to_add_fields 'Add variants', f, :variants
+    #variant_accordian.fields.panel-group
+      = f.fields_for :variants do |v|
+        = render :partial => 'variant_fields', :locals => {:f => v}
+    %hr

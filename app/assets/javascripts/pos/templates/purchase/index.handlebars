@@ -1,0 +1,232 @@
+<div class="content-wrapper">
+  {{view SwapzPOS.FlashView modelBinding="flash"}}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-8">
+          <h4>
+            <i class="fa fa-gavel"></i>
+            &nbsp;
+            View Purchase
+          </h4>
+        </div>
+        <div class="col-md-4">
+          <div class="pull-right">
+            <button {{ action "edit"}} class="btn btn-flat">
+              <i class="fa fa-pencil"></i>
+              &nbsp;
+              Edit
+            </button>
+            <button {{ action "print"}} class="btn btn-flat">
+              <i class="fa fa-print"></i>
+              &nbsp;
+              Print
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-4">
+      <dl>
+        <dt>SKU</dt>
+        <dd>
+          <p>
+            {{ sku }}
+          </p>
+        </dd>
+        <dt>Completed</dt>
+        <dd>
+          <p>
+            {{ boolean complete }}
+          </p>
+        </dd>
+        <dt>Completed At</dt>
+        <dd>
+          {{ format-date completedAt 'LLL' }}
+        </dd>
+      </dl>
+    </div>
+    <div class="col-md-4">
+      <dl>
+        <dt>Store</dt>
+        <dd>
+          <p>
+            {{ store.name }}
+          </p>
+        </dd>
+        <dt>Till</dt>
+        <dd>
+          {{ till.name }}
+        </dd>
+      </dl>
+    </div>
+    <div class="col-md-4">
+      <dl>
+        <dt>Customer</dt>
+        <dd>
+          <p>
+            {{ customer.fullname }}
+          </p>
+        </dd>
+        <dt>User</dt>
+        <dd>
+          {{ user.fullname }}
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table table-striped transaction">
+        <thead>
+          <tr>
+            <th>Qty</th>
+            <th>Title</th>
+            <th>Value</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each line in lines}}
+            <tr>
+              <td>
+                {{ line.quantity }}
+              </td>
+              <td class="description">
+                <strong>
+                  {{ line.title }}
+                </strong>
+                <br/>
+                {{ line.sku }}
+                {{#if line.note }}
+                  <br/>
+                  {{ line.note }}
+                {{/if}}
+                {{#if line.bullets }}
+                  <ul>
+                    {{#each bullet in line.bullets }}
+                      <li>
+                        {{ bullet }}
+                      </li>
+                    {{/each}}
+                  </ul>
+                {{/if}}
+              </td>
+              <td>
+                {{ currency line.amountCash }}
+                <br/>
+                ({{ currency line.amountCredit }})
+              </td>
+              <td>
+                {{ currency line.subtotalCash }}
+                <br/>
+                ({{ currency line.subtotalCredit }})
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <div class="well">
+        <table class="table table-striped cart">
+          <thead>
+            <tr>
+              <th>Qty</th>
+              <th>Title</th>
+              <th>Value</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each line in lines}}
+              <tr class="cart-line">
+                <td class="quantity">
+                  {{ line.quantity }}
+                </td>
+                <td class="title">
+                  {{ line.title }}
+                </td>
+                <td class="amount">
+                  {{ currency line.amountCash }}
+                  <br/>
+                  ({{ currency line.amountCredit }})
+                </td>
+                <td class="subtotal">
+                  {{ currency line.subtotalCash }}
+                  <br/>
+                  ({{ currency line.subtotalCredit }})
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        <ul class="total clearfix">
+          <li>
+            <span>
+              <strong>Cash Subtotal:</strong>
+            </span>
+            <span>
+              <strong>
+                {{ currency subtotalCash }}
+              </strong>
+            </span>
+          </li>
+          <li>
+            <span>
+              <strong>Credit Subtotal:</strong>
+            </span>
+            <span>
+              <strong>
+                {{ currency subtotalCredit }}
+              </strong>
+            </span>
+          </li>
+        </ul>
+        <hr>
+        <ul class="payment clearfix">
+          <li>
+            <span>Cash:</span>
+            <span>
+              {{ currency cash }}
+            </span>
+          </li>
+          <li>
+            <span>Credit:</span>
+            <span>
+              {{ currency credit }}
+            </span>
+          </li>
+        </ul>
+        <hr>
+        <div class="clearfix">
+          <p class="lead pull-left">
+            <strong>
+              {{ dueLabel }}
+            </strong>
+          </p>
+          <p class="lead pull-right">
+            <strong>
+              {{ currency due }}
+            </strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#if note}}
+    <hr/>
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          <strong>Notes:</strong>
+        </p>
+        {{ note }}
+      </div>
+    </div>
+  {{/if}}
+</div>

@@ -1,0 +1,110 @@
+!!!
+%html
+  %head
+    %title Swapz
+    %meta{content: "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}
+    %meta{name: "application-name", content: "Swapz"}
+    %meta{name: "apple-mobile-web-app-capable", content: "yes"}
+    = favicon_link_tag 'favicon.png', :rel => 'icon', :type => 'image/png'
+    = favicon_link_tag 'favicon.png', :rel => 'apple-touch-icon', :type => 'image/png'
+    = stylesheet_link_tag "admin"
+    = javascript_include_tag "admin"
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800", rel: "stylesheet", type: "text/css"}
+    %link{href: "http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic", rel: "stylesheet", type: "text/css"}
+    /[if IE] <link rel="SHORTCUT ICON" href="favicon.ico"/>
+    /[if lt IE 9] <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  %body
+    %header.navbar.navbar-inverse{role: "banner"}
+      .navbar-header.pull-left
+        = link_to '#menu', :class => 'navbar-brand menu' do
+          %i.fa.fa-bars
+        = link_to root_path, :class => 'navbar-brand' do
+          %i.fa.fa-dollar
+          %strong CASHIER
+          ADMIN
+      .navbar-header.pull-right
+        %ul.nav
+          %li
+            = link_to pos_path(:trailing_slash => true), :role => 'button', :title => 'Go to Point-of-Sale' do
+              %i.fa.fa-shopping-cart
+          %li
+            - if current_user
+              = link_to user_path(current_user), :role => 'button', :title => 'Go to User Account' do
+                %i.fa.fa-user
+          %li
+            = link_to logout_path, :role => 'button', :title => 'Log Out' do
+              %i.fa.fa-sign-out
+    .sidebar-nav
+      %ul.sidebar-menu
+        %li{class: "#{'active' if current_controller?('dashboard')}"}
+          .pointer
+            .arrow
+            .arrow_border
+          = link_to root_path do
+            %i.fa.fa-dashboard
+            %span Dashboard
+        %li{class: "#{'active' if current_namespace?('operation')}"}
+          .pointer
+            .arrow
+            .arrow_border
+          %a.dropdown-toggle{href: "#"}
+            %i.fa.fa-rocket
+            %span Operations
+            %i.fa.fa-chevron-down
+          %ul.submenu
+            %li= link_to 'Sales', sales_path, :class => "#{'active' if current_controller?('operation/sales')}"
+            %li= link_to 'Purchases', purchases_path, :class => "#{'active' if current_controller?('operation/purchases')}"
+            %li= link_to 'Repairs', repairs_path, :class => "#{'active' if current_controller?('operation/repairs')}"
+            %li= link_to 'Gift Certificates', certificates_path, :class => "#{'active' if current_controller?('operation/certificates')}"
+            %li= link_to 'Customers', customers_path, :class => "#{'active' if current_controller?('operation/customers')}"
+        %li{class: "#{'active' if current_namespace?('inventory')}"}
+          .pointer
+            .arrow
+            .arrow_border
+          %a.dropdown-toggle{href: "#"}
+            %i.fa.fa-truck
+            %span Inventory
+            %i.fa.fa-chevron-down
+          %ul.submenu
+            %li= link_to 'Inventories', inventories_path, :class => "#{'active' if current_controller?('inventory/inventories')}"
+            %li= link_to 'Items', items_path, :class => "#{'active' if current_controller?('inventory/items')}"
+            %li= link_to 'Locations', locations_path, :class => "#{'active' if current_controller?('inventory/locations')}"
+            %li= link_to 'Units', units_path, :class => "#{'active' if current_controller?('inventory/units')}"
+        %li{class: "#{'active' if current_controller?('tills') || current_controller?('adjustments') || current_controller?('transfers')}"}
+          .pointer
+            .arrow
+            .arrow_border
+          = link_to tills_path do
+            %i.fa.fa-money
+            %span Tills
+        %li{class: "#{'active' if current_controller?('timecards')}"}
+          .pointer
+            .arrow
+            .arrow_border
+          = link_to timecards_path do
+            %i.fa.fa-clock-o
+            %span Timecards
+        %li{class: "#{'active' if current_controller?('reports')}"}
+          .pointer
+            .arrow
+            .arrow_border
+          = link_to reports_path do
+            %i.fa.fa-bar-chart-o
+            %span Reports
+        %li{class: "#{'active' if current_namespace?('account')}"}
+          .pointer
+            .arrow
+            .arrow_border
+          %a.dropdown-toggle{href: "#"}
+            %i.fa.fa-cog
+            %span Account
+            %i.fa.fa-chevron-down
+          %ul.submenu
+            %li= link_to 'Users', users_path, :class => "#{'active' if current_controller?('account/users')}"
+            %li= link_to 'Stores', stores_path, :class => "#{'active' if current_controller?('account/stores')}"
+            %li= link_to 'Templates', templates_path, :class => "#{'active' if current_controller?('account/templates')}"
+            %li= link_to 'Settings', edit_account_path, :class => "#{'active' if current_controller?('account/account')}"
+    .content
+      %div{class: "#{'content-wrapper' unless current_controller?('dashboard')}"}
+        = render :partial => 'shared/flash', :locals => {:flash => flash}
+        = yield

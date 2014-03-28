@@ -1,0 +1,80 @@
+{{#modal-dialog title="Update Customer" confirm="Done" close="closeModal" accept="done"}}
+  <div class="row">
+    <div class="col-md-12">
+      <fieldset class="form-horizontal">
+        <legend>Customer</legend>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_first_name">First Name</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_first_name" value=firstName class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_last_name">Last Name</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_last_name" value=lastName class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_organization">Organization / Company</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_organization" value=organization class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_identifier">Identifier</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_identifier" value=identifier class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_identifier_type">Identifier Type</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_identifier_type" value=identifierType class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_email">Email</label>
+          </div>
+          <div class="col-lg-8">
+            {{input id="customer_email" value=email class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_date_of_birth">Date Of Birth</label>
+          </div>
+          <div class="col-lg-8">
+            {{view SwapzPOS.DateField dateBinding="dateOfBirth" class="form-control"}}
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <fieldset class="form-horizontal">
+        <legend>Notes</legend>
+        <div class="form-group">
+          <div class="col-lg-4">
+            <label class="control-label" for="customer_notes">Notes</label>
+          </div>
+          <div class="col-lg-8">
+            {{textarea id="customer_notes" value=notes rows=4 class="form-control"}}
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+{{/modal-dialog}}

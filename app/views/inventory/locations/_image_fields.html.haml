@@ -1,0 +1,18 @@
+.form-group
+  .col-lg-4
+  .col-lg-8
+    = image_tag(f.object.image.url, :class => 'img-responsive img-thumbnail') if f.object.image
+.form-group
+  .col-lg-4
+    = f.label :image, 'Image', :class => 'control-label'
+  .col-lg-8
+    = f.file_field :image, :class => 'form-control'
+.form-group
+  .col-lg-4
+  .col-lg-8
+    = f.text_field :image_url, :placeholder => 'http://example.com/path/to/image.png', :value => nil, :class => 'form-control'
+.form-group
+  .col-lg-4
+    = f.label :image_delete, 'Remove Image?', :class => 'control-label'
+  .col-lg-8
+    = f.check_box :image_delete, :class => 'form-control'

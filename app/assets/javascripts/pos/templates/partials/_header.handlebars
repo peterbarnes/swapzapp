@@ -1,0 +1,38 @@
+<header class="navbar navbar-inverse" role="banner">
+  <div class="navbar-header pull-left">
+    <a {{action 'menu'}} class="navbar-brand menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="/pos/" class="navbar-brand">
+      <i class="fa fa-dollar"></i>
+      <strong>CASHIER</strong>
+      POINT-OF-SALE
+    </a>
+  </div>
+  <div class="navbar-header pull-right">
+    <ul class="nav">
+      {{#if currentUser.administrator }}
+      <li>
+        <a href="/" role="button" title="Go to Dashbord">
+          <i class="fa fa-dashboard"></i>
+        </a>
+      </li>
+      <li>
+        <a {{action "lock"}} class="pointer" role="button" title="Lock Screen">
+          <i class="fa fa-lock"></i>
+        </a>
+      </li>
+      {{/if}}
+      <li>
+        {{#link-to 'profile' role="button" title="Go to User Account"}}
+          <i class="fa fa-user"></i>
+        {{/link-to}}
+      </li>
+      <li>
+        <a {{action "logout"}} class="pointer" role="button" title="Log Out">
+          <i class="fa fa-sign-out"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>

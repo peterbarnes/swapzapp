@@ -1,0 +1,19 @@
+- if f.object.item
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+        %th Name
+        %th Description
+        %th Adjustment
+        %th Adjustment (Calculated)
+    %tbody
+      - f.object.item.variants.asc(:title).each do |variant|
+        %tr
+          %td= f.radio_button :variant_id, variant.id
+          %td= variant.name
+          %td= variant.description
+          %td= "#{variant.adjustment_percentage? ? variant.adjustment.to_s + '%' : number_to_currency(variant.adjustment)}"
+          %td= currency(variant.adjuster(f.object.item.price))
+- else
+  %p No item selected

@@ -1,0 +1,58 @@
+#account_users_show
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-user'}
+        &nbsp;
+        User Profile
+    .col-md-4
+      .pull-right
+        = link_to edit_user_path(@user), :class => 'btn btn-flat' do
+          %i.fa.fa-pencil
+          &nbsp;
+          Edit
+        = link_to user_path(@user), :title => 'Delete', :class => 'btn btn-flat danger', :confirm => 'Are you sure?', :method => :delete do
+          %i.fa.fa-trash-o
+          &nbsp;
+          Delete
+  %hr
+  .row
+    .col-md-6
+      = image_tag @user.gravatar_url(84), :class => 'img-circle'
+    .col-md-6
+      .name.clearfix
+        %h3.pull-right
+          %strong= @user.fullname
+      .email.clearfix
+        %h6.pull-right
+          %em= @user.email
+      .admin.clearfix
+        %span.pull-right= @user.administrator? ? "Administrator" : "User"
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Sales
+    .col-md-8
+      .pull-right
+        = link_to sales_path(:user_id => @user.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all user sales
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'sales'
+  %hr
+  .row
+    .col-md-4
+      %h4 Recent Purchases
+    .col-md-8
+      .pull-right
+        = link_to purchases_path(:user_id => @user.id), :class => 'btn btn-flat' do
+          %i.fa.fa-eye
+          &nbsp;
+          View all user purchases
+  %hr
+  .row  
+    .col-md-12
+      = render :partial => 'purchases'

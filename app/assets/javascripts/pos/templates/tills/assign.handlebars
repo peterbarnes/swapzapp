@@ -1,0 +1,12 @@
+{{#modal-dialog title="Assign Tills" confirm="Assign Tills" close="closeModal" accept="assign"}}
+  <h5>Available Tills</h5>
+  <hr>
+  <div class="list-group no-bottom">
+    {{#each till in controller}}
+      <a {{ action "select" till}} {{bind-attr class=":list-group-item till._selected:active"}}>
+        <h5 class="list-group-item-heading">{{ till.name }}</h5>
+        <p class="list-group-item-text">{{ till.store.name }}</p>
+      </a>
+    {{/each}}
+  </div>
+{{/modal-dialog}}

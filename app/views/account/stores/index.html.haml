@@ -1,0 +1,53 @@
+#account_stores_index
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-building-o'}
+        &nbsp;
+        Stores
+    .col-md-4
+      .pull-right
+        = link_to new_store_path, :class => 'btn btn-flat' do
+          %i.fa.fa-plus
+          &nbsp;
+          New Store
+  %hr
+  .row
+    .col-md-6
+      = render :partial => 'shared/filter', :locals => {:path => stores_path}
+    .col-md-6
+      = render :partial => 'shared/search', :locals => {:action => stores_path}
+  %hr
+  .row
+    .col-md-12
+      - unless @stores.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th
+                %th Name
+                %th Description
+                %th.pull-right Actions
+            %tbody
+              - @stores.each do |store|
+                %tr
+                  %td
+                    = image_tag(store.image.url(:small), :size => "48x48", :alt => store.image.name, :title => store.image.description, :class => 'img-circle') if store.image
+                  %td= link_to store.name, store_path(store)
+                  %td= store.description
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to edit_store_path(store), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to store_path(store), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to store_path(store), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No stores found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @stores, :search => @search, :path => :stores_path}

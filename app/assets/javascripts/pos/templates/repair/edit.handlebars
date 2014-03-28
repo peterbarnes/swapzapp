@@ -1,0 +1,54 @@
+<div class="content-wrapper">
+  {{view SwapzPOS.FlashView modelBinding="flash"}}
+  <div class="row">
+    <div class="col-md-8">
+      <h4>
+        <i class="fa fa-wrench"></i>
+        &nbsp;
+        Edit Repair
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+        <button {{action 'save'}} {{bind-attr disabled="nonSaveable"}} type="button" class="btn btn-flat white navbar-btn">
+          <i class="fa fa-save"></i>
+          &nbsp;
+          Save
+        </button>
+        <button {{action 'complete'}} {{bind-attr disabled="nonCompletable"}} type="button" class="btn btn-flat navbar-btn">
+          <i class="fa fa-check"></i>
+          &nbsp;
+          Complete
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-8">
+      {{#tab-group tabs=tabs}}
+        {{#tab-group-item key="cart" active=true}}
+          {{ partial 'repair/cart' }}
+        {{/tab-group-item}}
+        {{#tab-group-item key="customer"}}
+          {{ partial 'repair/customer' }}
+        {{/tab-group-item}}
+        {{#tab-group-item key="payment"}}
+          {{ partial 'repair/payment' }}
+        {{/tab-group-item}}
+        {{#tab-group-item key="pins"}}
+          {{ partial 'repair/pins' }}
+        {{/tab-group-item}}
+        {{#tab-group-item key="symptom"}}
+          {{ partial 'repair/symptom' }}
+        {{/tab-group-item}}
+        {{#tab-group-item key="note"}}
+          {{ partial 'repair/note' }}
+        {{/tab-group-item}}
+      {{/tab-group}}
+    </div>
+    <div class="col-lg-4">
+      {{ partial 'repair/summary' }}
+    </div>
+  </div>
+</div>

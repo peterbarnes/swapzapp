@@ -1,0 +1,52 @@
+= render :partial => 'shared/error', :locals => {:object => account}
+= form_for account, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'account'}
+    %legend Account
+    .form-group
+      .col-lg-4
+        = f.label :title, 'Title', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :title, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :token, 'Token', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :token, :class => 'form-control'
+    %hr
+  %fieldset{:id => 'billing'}
+    %legend Billing
+    .form-group
+      .col-lg-4
+        %label{:class => 'control-label'} Account Created
+      .col-lg-8
+        = text_field_tag 'account_type', account.created_at.strftime("%m/%d/%Y"), :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        %label{:class => 'control-label'} Account Type
+      .col-lg-8
+        = text_field_tag 'account_type', 'Beta', :disabled => true, :class => 'form-control'
+    %hr
+  %fieldset{:id => 'api'}
+    %legend API
+    .form-group
+      .col-lg-4
+        = label_tag 'qr_code', 'QR Code'
+      .col-lg-8
+        .qr-code.img.img-thumbnail{:'data-qr-code' => @account_metadata}
+          %i.fa.fa-spinner.fa-spin
+    .form-group
+      .col-lg-4
+        = f.label :api_secret, 'API Secret', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :api_secret, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :regenerate, 'Regenerate', :class => 'control-label'
+      .col-lg-8
+        = link_to 'Regenerate API Secret', regenerate_account_path, :id => 'regenerate', :class => 'btn btn-danger', :confirm => 'Are you sure?'
+    .form-group
+      .col-lg-4
+        = f.label :api_active, 'Enable API access', :class => 'control-label'
+      .col-lg-8
+        = f.check_box :api_active, :class => 'form-control'
+    %hr

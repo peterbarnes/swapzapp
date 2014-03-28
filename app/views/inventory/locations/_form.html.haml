@@ -1,0 +1,54 @@
+= render :partial => 'shared/error', :locals => {:object => location}
+= form_for location, :url => url, :html => {:class => 'form-horizontal'} do |f|
+  %fieldset{:id => 'location'}
+    %legend Location
+    .form-group
+      .col-lg-4
+        = f.label :id, 'ID', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :id, :disabled => true, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :name, 'Name', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :name, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :sku, 'SKU', :class => 'control-label'
+      .col-lg-8
+        = f.text_field :sku, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :restock, 'Restock', :class => 'control-label'
+      .col-lg-8
+        = f.number_field :restock, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :target, 'Target', :class => 'control-label'
+      .col-lg-8
+        = f.number_field :target, :class => 'form-control'
+    .form-group
+      .col-lg-4
+        = f.label :description, 'Description', :class => 'control-label'
+      .col-lg-8
+        = f.text_area :description, :rows => 3, :class => 'form-control'
+    .hidden
+      = f.hidden_field :account_id
+      = f.hidden_field :parent_id
+      - if !f.object.is_root?
+        = f.hidden_field :store_id
+    %hr
+  %fieldset{:id => 'store'}
+    %legend Store
+    .form-group
+      .col-lg-4
+        = f.label :store, 'Store', :class => 'control-label'
+      .col-lg-8
+        = f.collection_select :store_id, Store.all, :id, :name, {:prompt => true}, {:disabled => !f.object.is_root?, :class => 'form-control'}
+    %hr
+  %fieldset{:id => 'image'}
+    %legend Image
+    = f.fields_for :image do |i|
+      = render 'image_fields', :f => i
+    %hr
+    

@@ -1,0 +1,64 @@
+<div class="sidebar-nav">
+  <ul class="sidebar-menu">
+    {{#link-to 'home' tagName='li'}}
+      <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+      </div>
+      <a {{bind-attr href="view.href"}}>
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+      </a>
+    {{/link-to}}
+    {{#link-to 'sales' tagName='li'}}
+      <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+      </div>
+      <a {{bind-attr href="view.href"}}>
+        <i class="fa fa-credit-card"></i>
+        <span>Sales</span>
+      </a>
+    {{/link-to}}
+    {{#link-to 'purchases' tagName='li'}}
+      <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+      </div>
+      <a {{bind-attr href="view.href"}}>
+        <i class="fa fa-gavel"></i>
+        <span>Purchases</span>
+      </a>
+    {{/link-to}}
+    {{#link-to 'repairs' tagName='li'}}
+      <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+      </div>
+      <a {{bind-attr href="view.href"}}>
+        <i class="fa fa-wrench"></i>
+        <span>Repairs</span>
+      </a>
+    {{/link-to}}
+    {{#link-to 'customers' tagName='li'}}
+      <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+      </div>
+      <a {{bind-attr href="view.href"}}>
+        <i class="fa fa-group"></i>
+        <span>Customers</span>
+      </a>
+    {{/link-to}}
+    {{#link-to 'profile' tagName='li'}}
+      <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+      </div>
+      <a {{bind-attr href="view.href"}}>
+        <i class="fa fa-user"></i>
+        <span>Profile</span>
+      </a>
+    {{/link-to}}
+  </ul>
+</div>

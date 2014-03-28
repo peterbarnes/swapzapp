@@ -1,0 +1,22 @@
+#operation_purchases_print
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-gift'}
+        &nbsp;
+        Print Purchase
+    .col-md-4
+      .pull-right
+        = link_to '#print', :'data-url' => template_purchase_path(@purchase, :print => true), :class => 'print btn btn-flat' do
+          %i.fa.fa-print
+          &nbsp;
+          Print
+  %hr
+  .row
+    .col-md-12
+      = select_tag 'template', options_from_collection_for_select(@templates, :id, :name), {:prompt => 'Default', :class => 'template form-control'}
+  %hr
+  .row
+    .col-md-12
+      %iframe{:src => template_purchase_path(@purchase), :'data-url' => template_purchase_path(@purchase), :seamless => true}
+  %hr

@@ -1,0 +1,30 @@
+.form-group
+  .col-lg-4
+    = f.label :first_line, 'First Line', :class => 'control-label'
+  .col-lg-8
+    = f.text_field :first_line, :class => 'form-control'
+.form-group
+  .col-lg-4
+    = f.label :second_line, 'Second Line', :class => 'control-label'
+  .col-lg-8
+    = f.text_field :second_line, :class => 'form-control'
+.form-group
+  .col-lg-4
+    = f.label :city, 'City', :class => 'control-label'
+  .col-lg-8
+    = f.text_field :city, :class => 'form-control'
+.form-group
+  .col-lg-4
+    = f.label :state, 'State / Province', :class => 'control-label'
+  .col-lg-8
+    = render :partial => 'state',  :locals => {:country => f.object.country, :selected => f.object.state, :index => f.object_name.gsub(/[^0-9]+/,'')}
+.form-group
+  .col-lg-4
+    = f.label :zip, 'Zip', :class => 'control-label'
+  .col-lg-8
+    = f.text_field :zip, :class => 'form-control'
+.form-group
+  .col-lg-4
+    = f.label :country, 'Country', :class => 'control-label'
+  .col-lg-8
+    = f.country_select :country, {priority: %w(US CA)}, :prompt => 'Select a country', :class => 'country form-control'

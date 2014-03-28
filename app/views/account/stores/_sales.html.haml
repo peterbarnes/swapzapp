@@ -1,0 +1,45 @@
+- @sales = @store.sales.where(:complete => true).desc(:completed_at).limit(5)
+- unless @sales.empty?
+  .table-wrapper
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %i.fa.fa-flag
+          %th SKU
+          %th User
+          %th Till
+          %th Customer
+          %th Total
+          %th Completed
+          %th.pull-right Actions
+      %tbody
+        - @sales.each do |sale|
+          %tr
+            %td
+              - if sale.flagged
+                %i.fa.fa-flag
+            %td
+              = link_to sale.sku, sale_path(sale)
+            %td= (sale.user.fullname if sale.user)
+            %td= (sale.till.name if sale.till)
+            %td
+              - if sale.customer
+                = link_to sale.customer.fullname, customer_path(sale.customer)
+            %td
+              %strong= currency(sale.total)
+            %td= "#{time_ago_in_words(sale.completed_at)} ago" if sale.completed_at
+            %td
+              %ul.actions
+                %li
+                  = link_to flag_sale_path(sale), :title => 'Flag' do
+                    %i.fa.fa-flag
+                %li
+                  = link_to sale_path(sale), :title => 'View' do
+                    %i.fa.fa-eye
+                - unless sale.complete?
+                  %li
+                    = link_to sale_path(sale), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                      %i.fa.fa-trash-o
+- else
+  %p.center No sales found

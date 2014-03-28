@@ -1,0 +1,67 @@
+#inventory_locations_index
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-compass'}
+            &nbsp;
+            Locations
+        .col-md-4
+          .pull-right
+            = link_to new_location_path, :class => 'btn btn-flat' do
+              %i.fa.fa-plus
+              &nbsp;
+              New Location
+      %hr
+      .row
+        .col-md-6
+          = render :partial => 'shared/filter', :locals => {:path => locations_path}
+        .col-md-6
+          = render :partial => 'shared/search', :locals => {:action => locations_path}
+      %hr
+    .col-md-12
+      - unless @locations.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th
+                %th SKU
+                %th Name
+                %th Store
+                %th Parent Location
+                %th Sub Locations
+                %th.pull-right Actions
+            %tbody
+              - @locations.each do |location|
+                %tr
+                  %td
+                    = image_tag(location.image.url(:small), :size => "48x48", :alt => location.image.name, :title => location.image.description, :class => 'img-circle') if location.image
+                  %td
+                    = link_to location.sku, location_path(location)
+                  %td= location.name.truncate(20)
+                  %td= location.store.name.truncate(20)
+                  %td
+                    - if location.parent
+                      = link_to location.parent.name, location_path(location.parent)
+                    - else
+                      None
+                  %td
+                    = link_to location.children.count, locations_path(:parent_id => location.id)
+                    |
+                    = link_to 'Create Sub Location', new_location_path(:parent_id => location.id, :store_id => location.store.id)
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to edit_location_path(location), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to location_path(location), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to location_path(location), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No locations found
+      %hr

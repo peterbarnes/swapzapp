@@ -1,0 +1,8 @@
+%span.state_container{:'data-url' => state_stores_path, :'data-selected' => selected, :'data-index' => index}
+  - country = Carmen::Country.coded(country)
+  - if country.nil?
+    %em Please select a country below
+  - elsif country.subregions?
+    = select_tag "store[address_attributes][state]", region_options_for_select(country.subregions, selected), :class => 'form-control'
+  - else
+    = text_field_tag "store[address_attributes][state]", :class => 'form-control'

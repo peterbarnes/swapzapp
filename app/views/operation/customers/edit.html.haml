@@ -1,0 +1,22 @@
+#operation_customers_edit
+  .row
+    .col-md-12
+      .row
+        .col-md-8
+          %h4
+            %i{class: 'fa fa-group'}
+            &nbsp;
+            Edit Customer
+        .col-md-4
+          .pull-right
+            = link_to customer_path(@customer), :class => 'save btn btn-flat' do
+              %i.fa.fa-save
+              &nbsp;
+              Save
+            = link_to customers_path, :class => 'btn btn-flat white' do
+              %i.fa.fa-ban
+              &nbsp;
+              Cancel
+      %hr
+    .col-md-12
+      = render :partial => 'form', :locals => {:customer => @customer, :url => customer_path(@customer)}

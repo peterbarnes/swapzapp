@@ -1,0 +1,212 @@
+<div class="home content-wrapper">
+  {{view SwapzPOS.FlashView modelBinding="flash"}}
+  <div class="row">
+    <div class="col-md-8">
+      <h4>
+        <i class="fa fa-home"></i>
+        &nbsp;
+        Home
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+        <h4>Logged in as {{ currentUser.fullname }}&nbsp;&nbsp;<img {{bind-attr src="currentUser.gravatarUrl"}} height="32" alt="Avatar" class="img img-circle"/></h4>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="well clearfix">
+        {{#if currentUser.isClockedIn }}
+          <span class="lead pull-left no-bottom">You are currently clocked in</span>
+          <span class="pull-right">
+            <button class="btn btn-flat" {{action "clockOut"}}>
+              <i class="fa fa-clock-o"></i>
+              &nbsp;
+              Clock Out
+            </button>
+          </span>
+        {{/if}}
+        {{#if currentUser.isClockedOut }}
+          <span class="lead pull-left no-bottom">You are currently clocked out</span>
+          <span class="pull-right">
+            <button class="btn btn-flat" {{action "clockIn"}}>
+              <i class="fa fa-clock-o"></i>
+              &nbsp;
+              Clock In
+            </button>
+          </span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title pull-left">Timecards</h3>
+          <h3 class="panel-title pull-right"><small>Last 7 days</small></h3>
+        </div>
+        <div class="panel-body">
+          {{#unless currentUser.timecards}}
+            No timecards in past 7 days
+          {{else}}
+            <div class="table-wrapper">
+              <table class="table no-bottom">
+                <tbody>
+                  {{#each timecard in currentUser.timecards}}
+                  <tr>
+                    <td>
+                      <div {{bind-attr class=":date-badge timecard.isIn:date-badge-in timecard.flagged:date-badge-flagged"}}>
+                        {{#if timecard.flagged}}
+                          <span class="flag">
+                            <i class="fa fa-flag"></i>
+                          </span>
+                        {{/if}}
+                        <span class="day">{{ format-date timecard.in 'ddd' }}</span>
+                        <span class="date"><em>{{ format-date timecard.in 'MMM Do' }}</em></span>
+                      </div>
+                    </td>
+                    <td>
+                      {{ format-date timecard.in 'h:mm:ss a' }}
+                      {{#if timecard.out }}
+                        to {{ format-date timecard.out 'h:mm:ss a' }}
+                      {{/if}}
+                    </td>
+                    <td>
+                      <span class="pull-right"><span class="badge">{{ round timecard.hours 2 }}</span></span>
+                    </td>
+                    <td>
+                      <ul class="actions pull-right">
+                        <li>
+                          <a {{action 'flag' timecard}} class="pointer" title="Flag">
+                            <i class="fa fa-flag"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          {{/unless}}
+        </div>
+        <div class="panel-footer clearfix">
+          <span class="panel-title pull-left"><em><span class="text-muted">Total Hours:</span></em></span>
+          <span class="panel-title pull-right"><span class="badge">{{ round currentUser.totalHours 2 }}</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Tills</h3>
+        </div>
+        <div class="panel-body">
+          {{#unless currentUser.tills}}
+            No tills assigned
+          {{else}}
+            <div class="table-wrapper">
+              <table class="table no-bottom">
+                <tbody>
+                  {{#each till in currentUser.tills}}
+                    <tr>
+                      <td>
+                        <span class="pull-left">
+                          <em>{{ till.name }}</em>
+                          <br>
+                          <small>{{ till.store.name }}</small>
+                        </span>
+                      </td>
+                      <td>
+                        <ul class="actions pull-right">
+                          <li>
+                            <a {{action 'unassign' till}} class="pointer" title="Unassign">
+                              <i class="fa fa-unlock"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a {{action 'audit' till}} class="pointer" title="Audit">
+                              <i class="fa fa-crosshairs"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a {{action 'transfer' till}} class="pointer" title="Transfer">
+                              <i class="fa fa-exchange"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a {{action 'barcode' till}} class="pointer" title="View QR Code">
+                              <i class="fa fa-barcode"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          {{/unless}}
+        </div>
+        <div class="panel-footer clearfix">
+          <span class="panel-title pull-right">
+            <button class="btn btn-flat" {{action "assign"}}>
+              <i class="fa fa-plus"></i>
+              &nbsp;
+              Assign Tills
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title pull-left">Messages</h3>
+          <h3 class="panel-title pull-right">
+            <a {{ action "clear"}} title="Clear all messages" class="pointer"><i class="fa fa-trash-o"></i></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          {{#unless messages}}
+            No messages
+          {{else}}
+            <ul class="list-group no-bottom">
+              {{#each message in messages}}
+                <li class="list-group-item">
+                  <div>
+                    <img {{bind-attr src="message.user.gravatar_url"}} alt="Gravatar" width="24" height="24" class="img img-circle pull-left"/>
+                    <p class="pull-right"><small><strong>{{ message.user.first_name }}&nbsp;{{ message.user.last_name }}</strong>&nbsp;({{ message.user.username }})</small></p>
+                  </div>
+                  <div class="clearfix"></div>
+                  <br>
+                  <p>{{ message.body }}</p>
+                  <p class="no-bottom">
+                    <span><em><small>{{ format-date message.date 'LLL' }}</small></em></span>
+                    <span class="pull-right">
+                      <a {{ action "clear" message}} title="Clear message" class="pointer"><i class="fa fa-trash-o"></i></a>
+                    </span>
+                  </p>
+                </li>
+              {{/each}}
+            </ul>
+          {{/unless}}
+        </div>
+        <div class="panel-footer clearfix">
+          <div class="form-inline">
+            <div class="input-group">
+              {{input valueBinding="body" class="form-control" placeholder="Send message..."}}
+              <span class="input-group-btn">
+                <button {{action 'send'}} class="btn btn-primary">Send</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>

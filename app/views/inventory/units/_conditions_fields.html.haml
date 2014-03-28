@@ -1,0 +1,19 @@
+- if f.object.item
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+        %th Name
+        %th Description
+        %th Adjustment
+        %th Adjustment (Calculated)
+    %tbody
+      - f.object.item.conditions.asc(:title).each do |condition|
+        %tr
+          %td= check_box_tag :condition_ids, condition.id, @unit.conditions.include?(condition) || @unit.new_record?, :name => 'unit[condition_ids][]'
+          %td= condition.name
+          %td= condition.description
+          %td= "#{condition.adjustment_percentage? ? condition.adjustment.to_s + '%' : number_to_currency(condition.adjustment)}"
+          %td= currency(condition.adjuster(f.object.item.price))
+- else
+  %p No item selected

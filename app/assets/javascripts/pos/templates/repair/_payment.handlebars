@@ -1,0 +1,105 @@
+<div class="clearfix well well-sm">
+  <span class="pull-left">{{ quantity }} items in cart:</span>
+  <span class="pull-right">{{ currency subtotal }}</span>
+</div>
+<div class="well well-sm">
+  <p class="clearfix">
+    <span class="pull-left">Tax:</span>
+    <span class="pull-right">{{ currency tax}}</span>
+  </p>
+  <p class="clearfix no-bottom">
+    <span class="pull-left">Total:</span>
+    <span class="pull-right"><strong>{{ currency total }}</strong></span>
+  </p>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Gift Certificate</h3>
+    <h3 class="panel-title pull-right">{{ currency payment.giftCard }}</h3>
+  </div>
+  <div class="panel-body form-inline">
+    {{#if certificate}}
+      <div class="clearfix">
+        <div class="pull-left">
+          {{certificate.sku}} | ${{currency certificate.balance}}
+        </div>
+        <div class="pull-right">
+          <button type="button" {{action 'applyGiftCard'}} class="btn btn-sm btn-primary">Apply</button>
+          <button type="button" {{action 'removeGiftCard'}} class="btn btn-sm btn-default"><i class="fa fa-times"></i> Remove</button>
+        </div>
+      </div>
+      <hr>
+      <div class="clearfix">
+        <div class="pull-left">
+          <button type="button" {{action 'amountDue' 'giftCard'}} class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Amount Due</button>
+          <button type="button" {{action 'clear' 'giftCard'}} class="btn btn-sm btn-default"><i class="fa fa-times"></i> Clear</button>
+        </div>
+        <div class="pull-right">
+          {{currency-field name="gift_card" currency=payment.giftCard step="0.01" min="0" class="form-control input-sm"}}
+        </div>
+      </div>
+    {{else}}
+      {{input value=certificateSKU placeholder="Enter SKU..." class="form-control input-sm"}}
+    {{/if}}
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Check</h3>
+    <h3 class="panel-title pull-right">{{ currency payment.check }}</h3>
+  </div>
+  <div class="panel-body form-inline">
+    <div class="pull-left">
+      <button type="button" {{action 'amountDue' 'check'}} class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Amount Due</button>
+      <button type="button" {{action 'clear' 'check'}} class="btn btn-sm btn-default"><i class="fa fa-times"></i> Clear</button>
+    </div>
+    <div class="pull-right">
+      {{currency-field name="check" currency=payment.check step="0.01" min="0" class="form-control input-sm"}}
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Credit Card</h3>
+    <h3 class="panel-title pull-right">{{ currency payment.creditCard }}</h3>
+  </div>
+  <div class="panel-body form-inline">
+    <div class="pull-left">
+      <button type="button" {{action 'amountDue' 'credit'}} class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Amount Due</button>
+      <button type="button" {{action 'clear' 'credit'}} class="btn btn-sm btn-default"><i class="fa fa-times"></i> Clear</button>
+    </div>
+    <div class="pull-right">
+      {{currency-field name="credit" currency=payment.credit step="0.01" min="0" class="form-control input-sm"}}
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Cash</h3>
+    <h3 class="panel-title pull-right">{{ currency payment.cash }}</h3>
+  </div>
+  <div class="panel-body form-inline">
+    <button type="button" {{action 'increment' '1'}} class="btn btn-xs btn-primary">$0.01</button>
+    <button type="button" {{action 'increment' '5'}} class="btn btn-xs btn-primary">$0.05</button>
+    <button type="button" {{action 'increment' '10'}} class="btn btn-xs btn-primary">$0.10</button>
+    <button type="button" {{action 'increment' '25'}} class="btn btn-xs btn-primary">$0.25</button>
+    <button type="button" {{action 'increment' '100'}} class="btn btn-xs btn-primary">$1.00</button>
+    <button type="button" {{action 'increment' '500'}} class="btn btn-xs btn-primary">$5.00</button>
+    <button type="button" {{action 'increment' '1000'}} class="btn btn-xs btn-primary">$10.00</button>
+    <button type="button" {{action 'increment' '2000'}} class="btn btn-xs btn-primary">$20.00</button>
+    <button type="button" {{action 'increment' '5000'}} class="btn btn-xs btn-primary">$50.00</button>
+    <button type="button" {{action 'increment' '10000'}} class="btn btn-xs btn-primary">$100.00</button>
+    <hr>
+    <div class="pull-left">
+      <button type="button" {{action 'amountDue' 'cash'}} class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Amount Due</button>
+      <button type="button" {{action 'clear' 'cash'}} class="btn btn-sm btn-default"><i class="fa fa-times"></i> Clear</button>
+    </div>
+    <div class="pull-right">
+      {{currency-field name="cash" currency=payment.cash step="0.01" min="0" class="form-control input-sm"}}
+    </div>
+  </div>
+</div>
+<div class="clearfix well well-sm">
+  <span class="pull-left">{{ dueLabel }}</span>
+  <span class="pull-right"><strong>{{ currency due }}</strong></span>
+</div>

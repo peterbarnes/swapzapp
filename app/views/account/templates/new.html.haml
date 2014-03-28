@@ -1,0 +1,21 @@
+#account_templates_new
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-file-text'}
+        &nbsp;
+        New Template
+    .col-md-4
+      .pull-right
+        = link_to templates_path, :class => 'save btn btn-flat' do
+          %i.fa.fa-save
+          &nbsp;
+          Save
+        = link_to templates_path, :class => 'btn btn-flat white' do
+          %i.fa.fa-ban
+          &nbsp;
+          Cancel
+  %hr
+  .row
+    .col-md-12
+      = render :partial => 'form', :locals => {:template => @template, :url => templates_path}

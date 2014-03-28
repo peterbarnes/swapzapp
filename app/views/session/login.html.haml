@@ -1,0 +1,9 @@
+%h6 Log in
+= form_tag login_path, :class => 'form-horizontal' do
+  = text_field_tag 'email', nil, {:class => 'form-control', :placeholder => 'E-Mail Address'}
+  = password_field_tag 'password', nil, {:class => 'form-control', :placeholder => 'Password'}
+  = link_to 'Forgot password?', recover_path, :class => 'forgot'
+  .remember
+    = check_box_tag 'remember'
+    %label{for: "remember-me"} Remember Me
+  %button.btn.btn-primary.login{href: "/login", type: "submit"} Log in

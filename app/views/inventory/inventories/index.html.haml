@@ -1,0 +1,49 @@
+#inventory_inventories_index
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-archive'}
+        &nbsp;
+        Inventories
+    .col-md-4
+      .pull-right
+        = link_to new_inventory_path, :class => 'btn btn-flat' do
+          %i.fa.fa-plus
+          &nbsp;
+          New Inventory
+  %hr
+  .row
+    .col-md-6
+      = render :partial => 'shared/filter', :locals => {:path => inventories_path}
+    .col-md-6
+      = render :partial => 'shared/search', :locals => {:action => inventories_path}
+  %hr
+  .row
+    .col-md-12
+      - unless @inventories.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th Name
+                %th Description
+                %th # of Items
+                %th.pull-right Actions
+            %tbody
+              - @inventories.each do |inventory|
+                %tr
+                  %td= inventory.name
+                  %td= inventory.description
+                  %td= link_to inventory.items.count, items_path(:inventory_id => inventory.id)
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to edit_inventory_path(inventory), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to inventory_path(inventory), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No inventories found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @inventories, :search => @search, :path => :inventories_path}

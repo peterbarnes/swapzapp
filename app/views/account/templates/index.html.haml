@@ -1,0 +1,50 @@
+#account_templates_index
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-file-text'}
+        &nbsp;
+        Templates
+    .col-md-4
+      .pull-right
+        = link_to new_template_path, :class => 'btn btn-flat' do
+          %i.fa.fa-plus
+          &nbsp;
+          New Template
+  %hr
+  .row
+    .col-md-6
+      = render :partial => 'shared/filter', :locals => {:path => templates_path}
+    .col-md-6
+      = render :partial => 'shared/search', :locals => {:action => templates_path}
+  %hr
+  .row
+    .col-md-12
+      - unless @templates.empty?
+        .table-wrapper
+          %table.table.table-hover
+            %thead
+              %tr
+                %th Name
+                %th Category
+                %th.pull-right Actions
+            %tbody
+              - @templates.each do |template|
+                %tr
+                  %td= link_to template.name, template_path(template)
+                  %td= template.category.capitalize
+                  %td
+                    %ul.actions
+                      %li
+                        = link_to edit_template_path(template), :title => 'Edit' do
+                          %i.fa.fa-pencil
+                      %li
+                        = link_to template_path(template), :title => 'View' do
+                          %i.fa.fa-eye
+                      %li
+                        = link_to template_path(template), :title => 'Delete', :confirm => 'Are you sure?', :method => :delete do
+                          %i.fa.fa-trash-o
+      - else
+        %p.center No templates found
+      %hr
+      = render :partial => 'shared/pagination', :locals => {:objects => @templates, :search => @search, :path => :templates_path}

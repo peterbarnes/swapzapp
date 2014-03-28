@@ -1,0 +1,58 @@
+#dashboard
+  #main-stats
+    .row.stats-row
+      .col-md-2.stat
+        .data
+          %span.number= @sales_today ? @sales_today[:count].to_i : 0
+          sales
+        %span.date Today
+      .col-md-3.stat
+        .data
+          %span.number= @sales_today ? currency(@sales_today[:total], :precision => 0) : number_to_currency(0, :precision => 0)
+          sales
+        %span.date Today
+      .col-md-3.stat
+        .data
+          %span.number= @purchases_today ? @purchases_today[:count].to_i : 0
+          purchases
+        %span.date Today
+      .col-md-4.stat.last
+        .data
+          %span.number= "#{@purchases_today ? currency(@purchases_today[:cash], :precision => 0) : number_to_currency(0, :precision => 0)} (#{@purchases_today ? currency(@purchases_today[:credit], :precision => 0) : number_to_currency(0, :precision => 0)})"
+          purchases
+        %span.date Today
+  .content-wrapper
+    .row.chart
+      .col-md-12
+        %h4 
+          %i{class: 'fa fa-dashboard'}
+          &nbsp;
+          Dashboard
+        %hr
+        .chart-control.clearfix
+          .period.btn-group.pull-right
+            %button.btn.btn-sm.btn-default.left.active{"data-period" => 7} WEEK
+            %button.btn.btn-sm.btn-default.right{"data-period" => 30} MONTH
+            %button.btn.btn-sm.btn-default.right{"data-period" => 90} QUARTER
+          .resource.btn-group.pull-right
+            %button.btn.btn-sm.btn-default.left.active{"data-resource" => "sales"} SALES
+            %button.btn.btn-sm.btn-default.right{"data-resource" => "purchases"} PURCHASES
+        %hr
+      .col-md-12
+        .chart-spinner
+          %i{class: 'fa fa-spinner fa-spin'}
+        .chart-container{:'data-sales' => @sales_data.to_json, :'data-sales-url' => trend_sales_path, :'data-purchases' => @purchases_data.to_json, :'data-purchases-url' => trend_purchases_path}
+    %hr
+    .row
+      .col-md-4
+        %h4 Recent Activity
+      .col-md-8
+        .pull-right
+          = link_to activities_path, :class => 'btn btn-flat' do
+            %i.fa.fa-bolt
+            &nbsp;
+            View all recent activity
+    %hr
+    .row  
+      .col-md-12
+        = render :partial => 'activities'

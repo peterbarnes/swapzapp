@@ -1,0 +1,21 @@
+#account_stores_edit
+  .row
+    .col-md-8
+      %h4
+        %i{class: 'fa fa-building-o'}
+        &nbsp;
+        Edit Store
+    .col-md-4
+      .pull-right
+        = link_to store_path(@store), :class => 'save btn btn-flat' do
+          %i.fa.fa-save
+          &nbsp;
+          Save
+        = link_to stores_path, :class => 'btn btn-flat white' do
+          %i.fa.fa-ban
+          &nbsp;
+          Cancel
+  %hr
+  .row
+    .col-md-12
+      = render :partial => 'form', :locals => {:store => @store, :url => store_path(@store)}
