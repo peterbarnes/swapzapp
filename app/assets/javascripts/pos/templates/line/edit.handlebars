@@ -53,14 +53,16 @@
             </div>
           </div>
         {{/if}}
-        <div class="form-group">
-          <div class="col-md-4">
-            <label for="taxable" class="control-label">Taxable</label>
+        {{#unless purchase}}
+          <div class="form-group">
+            <div class="col-md-4">
+              <label for="taxable" class="control-label">Taxable</label>
+            </div>
+            <div class="col-md-8">
+              {{input type="checkbox" checked=taxable }}
+            </div>
           </div>
-          <div class="col-md-8">
-            {{input type="checkbox" checked=taxable }}
-          </div>
-        </div>
+        {{/unless}}
       </div>
     </div>
   </div>

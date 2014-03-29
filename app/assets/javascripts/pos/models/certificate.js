@@ -6,6 +6,7 @@ SwapzPOS.Certificate = SwapzPOS.Base.extend({
   sku: null,
   customer_id: null,
   customer: null,
+  _selected: false,
   init: function() {
     this._super();
   },

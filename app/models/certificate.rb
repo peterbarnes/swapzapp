@@ -26,6 +26,7 @@ class Certificate
       asc(:active).desc(:created_at)
     end
   }
+  scope :activated, ->(activated) { where(:active => activated) if activated }
   scope :customer_id, ->(customer_id) { where(:customer_id => customer_id) if customer_id }
 
   belongs_to  :account

@@ -7,7 +7,7 @@ class CertificateSerializer < ActiveModel::Serializer
   has_many :sales, :serializer => SaleIndexSerializer
   
   def include_associations!
-    include! :customer if params[:customer]
+    include! :customer
     include! :sales if params[:sales]
   end
 end

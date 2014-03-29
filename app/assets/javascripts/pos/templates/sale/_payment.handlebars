@@ -86,21 +86,24 @@
     </div>
   </div>
 </div>
-<div class="panel panel-default">
-  <div class="panel-heading clearfix">
-    <h3 class="panel-title pull-left">Gift Card</h3>
-    <h3 class="panel-title pull-right">{{ currency payment.giftCard }}</h3>
-  </div>
-  <div class="panel-body form-inline">
-    <div class="pull-left">
-      <button type="button" {{action 'amountDue' 'giftCard'}} class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Amount Due</button>
-      <button type="button" {{action 'clear' 'giftCard'}} class="btn btn-sm btn-default"><i class="fa fa-times"></i> Clear</button>
+{{#if certificate}}
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <h3 class="panel-title pull-left">Gift Card</h3>
+      <h3 class="panel-title pull-right">{{ currency payment.giftCard }}</h3>
     </div>
-    <div class="pull-right">
-      {{currency-field name="giftCard" currency=payment.giftCard step="0.01" min="0" class="form-control input-sm"}}
+    <div class="panel-body form-inline">
+      <div class="pull-left">
+        <button type="button" {{action 'available' 'giftCard'}} class="btn btn-sm btn-primary">Available: {{ currency certificate.balance }}</button>
+        <button type="button" {{action 'amountDue' 'giftCard'}} class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Amount Due</button>
+        <button type="button" {{action 'clear' 'giftCard'}} class="btn btn-sm btn-default"><i class="fa fa-times"></i> Clear</button>
+      </div>
+      <div class="pull-right">
+        {{currency-field name="giftCard" currency=payment.giftCard step="0.01" min="0" class="form-control input-sm"}}
+      </div>
     </div>
   </div>
-</div>
+{{/if}}
 <div class="clearfix well well-sm">
   <span class="pull-left">{{ dueLabel }}</span>
   <span class="pull-right"><strong>{{ currency due }}</strong></span>

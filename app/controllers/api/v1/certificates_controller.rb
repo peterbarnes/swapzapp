@@ -6,7 +6,7 @@ module Api
       respond_to :json
       
       def index
-        @certificates = Certificate.search(params[:search]).customer_id(params[:customer_id]).sorted(params[:sort])
+        @certificates = Certificate.search(params[:search]).customer_id(params[:customer_id]).sorted(params[:sort]).activated(params[:active])
         @certificates = @certificates.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @certificates.count : params[:per_page])
         @meta = { :total => @certificates.total_entries, :per_page => @certificates.per_page, :page => @certificates.current_page }
         
