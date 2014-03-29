@@ -6,17 +6,16 @@ SwapzPOS.CartGroupComponent = Ember.Component.extend({
     },
     removeLines: function() {
       if (window.confirm('Are you sure you want to remove all lines in cart?')) {
-        this.get('lines').setObjects([]);
+        this.get('lines').forEach(function(line) {
+          line.set('_remove', true);
+        });
       }
     },
     editLine: function(line) {
       this.sendAction('edit', line);
     },
-    pinLine: function(line) {
-      
-    },
     removeLine: function(line) {
-      this.get('lines').removeObject(line);
+      line.set('_remove', true);
     }
   }
 });

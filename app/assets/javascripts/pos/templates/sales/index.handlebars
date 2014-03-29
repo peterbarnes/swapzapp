@@ -36,11 +36,10 @@
             <tr>
               <th><i class="fa fa-flag"></i></th>
               <th>SKU</th>
-              <th>User</th>
+              <th>Customer</th>
               <th>Store</th>
               <th>Till</th>
-              <th>Customer</th>
-              <th>Total</th>
+              <th>User</th>
               <th>Completed</th>
               <th class="pull-right">Actions</th>
             </tr>
@@ -56,11 +55,10 @@
               <td>
                 <a {{action 'view' sale}} class="pointer">{{ sale.sku }}</a>
               </td>
-              <td>{{ sale.user.fullname }}</td>
+              <td>{{ sale.customer.fullname }}</td>
               <td>{{ truncate sale.store.name 20 }}</td>
               <td>{{ truncate sale.till.name 20 }}</td>
-              <td>{{ sale.customer.fullname }}</td>
-              <td>{{ currency sale.total }}</td>
+              <td>{{ sale.user.fullname }}</td>
               <td>
                 {{#if sale.completedAt }}
                   {{ format-date-ago sale.completedAt }}

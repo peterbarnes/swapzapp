@@ -32,7 +32,7 @@
     </thead>
     <tbody>
       {{#each line in lines}}
-        <tr {{bind-attr class=":cart-line line.remove:hidden"}}>
+        <tr {{bind-attr class=":cart-line line._remove:hidden"}}>
           <td class="quantity">
             {{input name="quantity" type="number" value=line.quantity step="1" min="0" class="form-control input-sm"}}
           </td>

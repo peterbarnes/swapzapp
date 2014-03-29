@@ -2,12 +2,9 @@ SwapzPOS.RepairsIndexRoute = Ember.Route.extend({
   setupController: function(controller, model) {
     SwapzPOS.Repair.all({
       customer: true,
-      location: true,
       store: true,
       till: true,
-      user: true,
-      logs: true,
-      lines: true
+      user: true
     }).then(function(content) {
       controller.set('content', content);
     });

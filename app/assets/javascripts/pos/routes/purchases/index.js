@@ -4,8 +4,7 @@ SwapzPOS.PurchasesIndexRoute = Ember.Route.extend({
       user: true,
       store: true,
       customer: true,
-      till: true,
-      lines: true
+      till: true
     }).then(function(content) {
       controller.set('content', content);
     });

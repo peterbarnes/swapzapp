@@ -186,7 +186,7 @@ SwapzPOS.Repair.reopen({
         sku: line.get('sku'),
         taxable: line.get('taxable'),
         title: line.get('title'),
-        _remove: line.get('_remove')
+        _destroy: line.get('_remove')
       };
       if (line.get('id')) {
         _line.id = line.get('id');

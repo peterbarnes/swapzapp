@@ -38,9 +38,8 @@
               <th>SKU</th>
               <th>Customer</th>
               <th>Store</th>
-              <th>Location</th>
-              <th>Status</th>
-              <th>Total</th>
+              <th>Till</th>
+              <th>User</th>
               <th>Completed</th>
               <th class="pull-right">Actions</th>
             </tr>
@@ -58,9 +57,8 @@
               </td>
               <td>{{ repair.customer.fullname }}</td>
               <td>{{ truncate repair.store.name 20 }}</td>
-              <td>{{ truncate repair.location.name 20 }}</td>
-              <td>{{ repair.status }}</td>
-              <td>{{ currency repair.total }}</td>
+              <td>{{ truncate repair.till.name 20 }}</td>
+              <td>{{ repair.user.fullname }}</td>
               <td>
                 {{#if repair.completedAt }}
                   {{ format-date-ago repair.completedAt }}

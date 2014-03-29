@@ -108,7 +108,6 @@ SwapzPOS.Sale.reopen({
   entity: function() {
     var entity = this._super();
     $.extend(entity.sale, {
-      sku: this.get('sku'),
       complete: this.get('complete'),
       flagged: this.get('flagged'),
       tax_rate: this.get('taxRate'),
@@ -121,6 +120,9 @@ SwapzPOS.Sale.reopen({
       lines_attributes: [],
       payment_attributes: null
     });
+    if (this.get('sku')) {
+      entity.sale.sku = this.get('sku');
+    }
     if (this.get('certificate')) {
       entity.sale.certificate_id = this.get('certificate.id');
     }
@@ -145,10 +147,12 @@ SwapzPOS.Sale.reopen({
         gift_card: this.get('payment.giftCard'),
         store_credit: this.get('payment.storeCredit')
       }
+      if (this.get('payment.id')) {
+        entity.sale.payment_attributes.id = this.get('payment.id');
+      }
     }
     this.get('lines').forEach(function(line) {
       var _line = {
-        id: line.get('id'),
         amount: line.get('amount'),
         amount_cash: line.get('amountCash'),
         amount_credit: line.get('amountCredit'),
@@ -160,8 +164,11 @@ SwapzPOS.Sale.reopen({
         sku: line.get('sku'),
         taxable: line.get('taxable'),
         title: line.get('title'),
-        _remove: line.get('_remove')
+        _destroy: line.get('_remove')
       };
+      if (line.get('id')) {
+        _line.id = line.get('id');
+      }
       if (line.get('certificate')) {
         _line.certificate_id = line.get('certificate.id');
       }

@@ -20,6 +20,7 @@ SwapzPOS.Purchase = SwapzPOS.Base.extend({
   init: function() {
     this._super();
     this.set('lines', Ember.A());
+    this.get('ratio');
   },
   quantity: function() {
     var lines = this.get('lines');
@@ -64,39 +65,39 @@ SwapzPOS.Purchase = SwapzPOS.Base.extend({
     return !this.get('saveable');
   }.property('saveable'),
   completable: function() {
-    return this.get('user') && this.get('customer') && this.get('till') && this.get('quantity') > 0 && this.get('due') >= 0;
+    return !this.get('complete') && this.get('user') && this.get('customer') && this.get('till') && this.get('quantity') > 0 && this.get('due') >= 0;
   }.property('user', 'till', 'customer', 'quantity', 'due'),
   nonCompletable: function() {
     return !this.get('completable');
   }.property('completable'),
-  cashFmt: function(key, value) {
-    if (value) {
-      if (value.match(/\d+\.\d\d/)) {
-        var cash = parseInt(Math.round(1000 * value * 100) / 1000);
-        var cashSubtotal = this.get('cashSubtotal');
-        var ratio = cash / cashSubtotal;
-        if (ratio < 0) { ratio = 0; }
-        if (ratio > 1) { ratio = 1; }
-        this.set('ratio', 1 - ratio);
-      }
-    } else {
-      return parseFloat(this.get('cash') * 0.01).toFixed(2);
-    }
-  }.property('cash'),
-  creditFmt: function(key, value) {
-    if (value) {
-      if (value.match(/\d+\.\d\d/)) {
-        var credit = parseInt(Math.round(1000 * value * 100) / 1000);
-        var creditSubtotal = this.get('creditSubtotal');
-        var ratio = credit / creditSubtotal;
-        if (ratio < 0) { ratio = 0; }
-        if (ratio > 1) { ratio = 1; }
-        this.set('ratio', ratio);
-      }
-    } else {
-      return parseFloat(this.get('credit') * 0.01).toFixed(2);
-    }
-  }.property('credit'),
+  // cashFmt: function(key, value) {
+  //   if (value) {
+  //     if (value.match(/\d+\.\d\d/)) {
+  //       var cash = parseInt(Math.round(1000 * value * 100) / 1000);
+  //       var cashSubtotal = this.get('cashSubtotal');
+  //       var ratio = cash / cashSubtotal;
+  //       if (ratio < 0) { ratio = 0; }
+  //       if (ratio > 1) { ratio = 1; }
+  //       this.set('ratio', 1 - ratio);
+  //     }
+  //   } else {
+  //     return parseFloat(this.get('cash') * 0.01).toFixed(2);
+  //   }
+  // }.property('cash'),
+  // creditFmt: function(key, value) {
+  //   if (value) {
+  //     if (value.match(/\d+\.\d\d/)) {
+  //       var credit = parseInt(Math.round(1000 * value * 100) / 1000);
+  //       var creditSubtotal = this.get('creditSubtotal');
+  //       var ratio = credit / creditSubtotal;
+  //       if (ratio < 0) { ratio = 0; }
+  //       if (ratio > 1) { ratio = 1; }
+  //       this.set('ratio', ratio);
+  //     }
+  //   } else {
+  //     return parseFloat(this.get('credit') * 0.01).toFixed(2);
+  //   }
+  // }.property('credit'),
   ratioChanged: function() {
     var ratio = this.get('ratio');
     var cashSubtotal = this.get('cashSubtotal');
@@ -112,7 +113,8 @@ SwapzPOS.Purchase = SwapzPOS.Base.extend({
     }
     this.set('cash', parseInt(Math.round(cashSubtotal * cashMultiplier)));
     this.set('credit', parseInt(Math.round(creditSubtotal * creditMultiplier)));
-  }.observes('ratio', 'cashSubtotal', 'creditSubtotal')
+    console.log('here');
+  }.observes('ratio', 'cashSubtotal', 'creditSubtotal').on('init')
 });
 
 SwapzPOS.Purchase.reopenClass({
@@ -124,7 +126,6 @@ SwapzPOS.Purchase.reopen({
   entity: function() {
     var entity = this._super();
     $.extend(entity.purchase, {
-      sku: this.get('sku'),
       complete: this.get('complete'),
       flagged: this.get('flagged'),
       ratio: this.get('ratio'),
@@ -135,6 +136,9 @@ SwapzPOS.Purchase.reopen({
       user_id: this.get('user_id'),
       lines_attributes: []
     });
+    if (this.get('sku')) {
+      entity.purchase.sku = this.get('sku');
+    }
     if (this.get('customer')) {
       entity.purchase.customer_id = this.get('customer.id');
     }
@@ -149,7 +153,6 @@ SwapzPOS.Purchase.reopen({
     }
     this.get('lines').forEach(function(line) {
       var _line = {
-        id: line.get('id'),
         amount: line.get('amount'),
         amount_cash: line.get('amountCash'),
         amount_credit: line.get('amountCredit'),
@@ -163,8 +166,11 @@ SwapzPOS.Purchase.reopen({
         sku: line.get('sku'),
         taxable: line.get('taxable'),
         title: line.get('title'),
-        _remove: line.get('_remove')
+        _destroy: line.get('_remove')
       };
+      if (line.get('id')) {
+        _line.id = line.get('id');
+      }
       if (line.get('certificate')) {
         _line.certificate_id = line.get('certificate.id');
       }

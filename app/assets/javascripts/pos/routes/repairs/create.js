@@ -8,7 +8,6 @@ SwapzPOS.RepairsCreateRoute = Ember.Route.extend({
       store: till.store,
       taxRate: till.taxRate
     });
-    console.log(repair);
     return repair;
   },
   setupController: function(controller, model) {
