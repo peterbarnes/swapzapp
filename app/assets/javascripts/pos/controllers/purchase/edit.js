@@ -25,6 +25,12 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
       icon: 'fa fa-group',
       active: false
     });
+    var ratioTab = SwapzPOS.Tab.create({
+      name: 'Cash / Credit Ratio',
+      key: 'ratio',
+      icon: 'fa fa-exchange',
+      active: false
+    });
     var noteTab = SwapzPOS.Tab.create({
       name: 'Notes',
       key: 'note',
@@ -34,6 +40,7 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
     tabs.addObject(searchTab);
     tabs.addObject(cartTab);
     tabs.addObject(customerTab);
+    tabs.addObject(ratioTab);
     tabs.addObject(noteTab);
     
     this.set('tabs', tabs);
@@ -87,6 +94,12 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
       this.get('controllers.lineEdit').set('parent', this.get('model'));
       this.get('controllers.lineEdit').set('purchase', true);
       this.send('openModal', 'line.edit');
+    },
+    ratioCash: function() {
+      this.set('model.ratio', 0);
+    },
+    ratioCredit: function() {
+      this.set('model.ratio', 1);
     },
     amountDue: function(field) {
       var purchase = this.get('model');

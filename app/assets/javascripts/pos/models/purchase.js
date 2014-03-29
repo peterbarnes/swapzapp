@@ -20,7 +20,6 @@ SwapzPOS.Purchase = SwapzPOS.Base.extend({
   init: function() {
     this._super();
     this.set('lines', Ember.A());
-    this.get('ratio');
   },
   quantity: function() {
     var lines = this.get('lines');
@@ -70,50 +69,28 @@ SwapzPOS.Purchase = SwapzPOS.Base.extend({
   nonCompletable: function() {
     return !this.get('completable');
   }.property('completable'),
-  // cashFmt: function(key, value) {
-  //   if (value) {
-  //     if (value.match(/\d+\.\d\d/)) {
-  //       var cash = parseInt(Math.round(1000 * value * 100) / 1000);
-  //       var cashSubtotal = this.get('cashSubtotal');
-  //       var ratio = cash / cashSubtotal;
-  //       if (ratio < 0) { ratio = 0; }
-  //       if (ratio > 1) { ratio = 1; }
-  //       this.set('ratio', 1 - ratio);
-  //     }
-  //   } else {
-  //     return parseFloat(this.get('cash') * 0.01).toFixed(2);
-  //   }
-  // }.property('cash'),
-  // creditFmt: function(key, value) {
-  //   if (value) {
-  //     if (value.match(/\d+\.\d\d/)) {
-  //       var credit = parseInt(Math.round(1000 * value * 100) / 1000);
-  //       var creditSubtotal = this.get('creditSubtotal');
-  //       var ratio = credit / creditSubtotal;
-  //       if (ratio < 0) { ratio = 0; }
-  //       if (ratio > 1) { ratio = 1; }
-  //       this.set('ratio', ratio);
-  //     }
-  //   } else {
-  //     return parseFloat(this.get('credit') * 0.01).toFixed(2);
-  //   }
-  // }.property('credit'),
+  cashChanged: function() {
+    var cash = this.get('cash');
+    var cashSubtotal = this.get('cashSubtotal');
+    var ratio = cash / cashSubtotal;
+    if (ratio < 0 || isNaN(ratio)) { ratio = 0; }
+    if (ratio > 1) { ratio = 1; }
+    this.set('ratio', 1 - ratio);
+  }.observes('cash').on('init'),
+  creditChanged: function() {
+    var credit = this.get('credit');
+    var creditSubtotal = this.get('creditSubtotal');
+    var ratio = credit / creditSubtotal;
+    if (ratio < 0 || isNaN(ratio)) { ratio = 0; }
+    if (ratio > 1) { ratio = 1; }
+    this.set('ratio', ratio);
+  }.observes('credit').on('init'),
   ratioChanged: function() {
     var ratio = this.get('ratio');
     var cashSubtotal = this.get('cashSubtotal');
     var creditSubtotal = this.get('creditSubtotal');
-    var cashMultiplier = 0.0;
-    var creditMultiplier = 0.0;
-    if (ratio >= 0) {
-      cashMultiplier = 1.0 - ratio;
-      creditMultiplier = ratio;
-    } else {
-      cashMultiplier = ratio * -1.0;
-      creditMultiplier = -1.0 - ratio;
-    }
-    this.set('cash', parseInt(Math.round(cashSubtotal * cashMultiplier)));
-    this.set('credit', parseInt(Math.round(creditSubtotal * creditMultiplier)));
-    console.log('here');
+    this.set('cash', parseInt(Math.round(cashSubtotal * (1-ratio))));
+    this.set('credit', parseInt(Math.round(creditSubtotal * ratio)));
   }.observes('ratio', 'cashSubtotal', 'creditSubtotal').on('init')
 });
 

@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-lg-12">
+    {{range-field type="range" min="0" max="1" step="0.01" value=ratio class="form-control"}}
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button {{ action "ratioCash" }} class="btn btn-flat">Cash</button>
+      </span>
+      {{currency-field currency=cash min="0" step="0.01" class="form-control"}}
+      <span class="input-group-btn">
+        <button {{ action "ratioCash" }} class="btn btn-flat"><span class="glyphicon glyphicon-arrow-left"></span></button>
+      </span>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button {{ action "ratioCredit" }} class="btn btn-flat"><span class="glyphicon glyphicon-arrow-right"></span></button>
+      </span>
+      {{currency-field currency=credit min="0" step="0.01" class="form-control"}}
+      <span class="input-group-btn">
+        <button {{ action "ratioCredit" }} class="btn btn-flat">Credit</button>
+      </span>
+    </div>
+  </div>
+</div>
