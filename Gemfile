@@ -31,7 +31,8 @@ group :production do
   gem 'rails_12factor'
 end
 
-gem 'dotenv-rails'
+gem 'dotenv-rails', :groups => [:development, :test]
+
 gem 'macaddr', '1.6.1'
 gem 'systemu'
 gem 'rack-timeout'
