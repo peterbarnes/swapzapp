@@ -86,6 +86,9 @@ GEM
     delayed_job_mongoid (2.0.0)
       delayed_job (~> 3.0)
       mongoid (~> 3.0)
+    dotenv (0.10.0)
+    dotenv-rails (0.10.0)
+      dotenv (= 0.10.0)
     ember-data-source (0.14)
       ember-source
     ember-rails (0.14.1)
@@ -281,6 +284,7 @@ DEPENDENCIES
   daemons
   dalli
   delayed_job_mongoid
+  dotenv-rails
   ember-rails
   ember-source
   eventmachine
