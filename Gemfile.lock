@@ -283,6 +283,7 @@ DEPENDENCIES
   delayed_job_mongoid
   ember-rails
   ember-source
+  eventmachine
   ffaker
   flot-rails
   font-awesome-rails
