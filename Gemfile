@@ -26,6 +26,7 @@ group :development do
 end
 
 group :production do
+  gem 'eventmachine'
   gem 'rainbows'
   gem 'rails_12factor'
 end
