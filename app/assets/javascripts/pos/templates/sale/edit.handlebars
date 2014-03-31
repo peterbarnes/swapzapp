@@ -10,12 +10,17 @@
     </div>
     <div class="col-md-4">
       <div class="pull-right">
-        <button {{action 'save'}} {{bind-attr disabled="nonSaveable"}} type="button" class="btn btn-flat white navbar-btn">
+        <button {{ action "print"}} class="btn btn-flat white">
+          <i class="fa fa-print"></i>
+          &nbsp;
+          Print
+        </button>
+        <button {{action 'save'}} {{bind-attr disabled="nonSaveable"}} type="button" class="btn btn-flat white">
           <i class="fa fa-save"></i>
           &nbsp;
           Save
         </button>
-        <button {{action 'complete'}} {{bind-attr disabled="nonCompletable"}} type="button" class="btn btn-flat navbar-btn">
+        <button {{action 'complete'}} {{bind-attr disabled="nonCompletable"}} type="button" class="btn btn-flat">
           <i class="fa fa-check"></i>
           &nbsp;
           Complete

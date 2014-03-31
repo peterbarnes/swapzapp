@@ -63,12 +63,19 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
   actions: {
     save: function() {
       var repair = this.get('model');
-      repair.save();
+      repair.save(function() {
+        this.get('flash').success('Successfully saved repair!');
+      }.bind(this));
     },
     complete: function() {
       var repair = this.get('model');
       repair.set('complete', true);
-      repair.save();
+      repair.save(function() {
+        this.get('flash').success('Successfully completed repair!');
+      }.bind(this));
+    },
+    print: function() {
+      this.transitionToRoute('repair.print', this.get('model.id'));
     },
     createCustomer: function() {
       this.get('controllers.customerUpdate').set('model', SwapzPOS.Customer.create());

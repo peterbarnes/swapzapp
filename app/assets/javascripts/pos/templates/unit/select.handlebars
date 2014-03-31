@@ -1,0 +1,10 @@
+{{#modal-dialog title="Select Unit" confirm="Add to Cart" close="closeModal" accept="addToCart"}}
+  <div class="list-group no-bottom">
+    {{#each unit in controller}}
+      <a {{ action "select" unit}} {{bind-attr class=":list-group-item unit._selected:active"}}>
+        <h5 class="list-group-item-heading">{{ unit.name }}</h5>
+        <p class="list-group-item-text">{{ unit.sku }}</p>
+      </a>
+    {{/each}}
+  </div>
+{{/modal-dialog}}

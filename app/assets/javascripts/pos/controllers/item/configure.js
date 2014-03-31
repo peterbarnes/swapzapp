@@ -6,30 +6,46 @@ SwapzPOS.ItemConfigureController = Ember.ObjectController.extend({
   actions: {
     addToCart: function() {
       var item = this.get('model');
-      if (item) {
-        // customer.save(function() {
-        //   this.get('flash').success('Successfully saved customer!');
-        // }.bind(this));
+      if (this.get('purchase')) {
+        var line = SwapzPOS.Line.create({
+          title: item.get('name'),
+          amountCash: this.get('configuredCashPrice'),
+          amountCredit: this.get('configuredCreditPrice'),
+          quantity: 1,
+          sku: item.get('sku'),
+          taxable: item.get('taxable'),
+          item: item
+        });
+        this.get('components').forEach(function(component) {
+          line.bullets.addObject(component.name);
+        });
+        this.get('conditions').forEach(function(condition) {
+          line.bullets.addObject(condition.name);
+        });
+        if (this.get('variant')) {
+          line.bullets.addObject(this.get('variant.name'));
+        }
+        this.get('parent.lines').pushObject(line);
+      } else {
+        var line = SwapzPOS.Line.create({
+          title: item.get('name'),
+          amount: this.get('configuredPrice'),
+          quantity: 1,
+          sku: item.get('sku'),
+          taxable: item.get('taxable'),
+          item: item
+        });
+        this.get('components').forEach(function(component) {
+          line.bullets.addObject(component.name);
+        });
+        this.get('conditions').forEach(function(condition) {
+          line.bullets.addObject(condition.name);
+        });
+        if (this.get('variant')) {
+          line.bullets.addObject(this.get('variant.name'));
+        }
+        this.get('parent.lines').pushObject(line);
       }
-      // var line = App.Line.create({
-      //   title: this.get('item.name'),
-      //   amountCash: this.get('configuredCashPrice'),
-      //   amountCredit: this.get('configuredCreditPrice'),
-      //   quantity: 1,
-      //   sku: this.get('item.sku'),
-      //   taxable: this.get('item.taxable'),
-      // });
-      // this.get('components').forEach(function(component) {
-      //   line.bullets.addObject(component.name);
-      // });
-      // this.get('conditions').forEach(function(condition) {
-      //   line.bullets.addObject(condition.name);
-      // });
-      // if (this.get('variant')) {
-      //   line.bullets.addObject(this.get('variant.name'));
-      // }
-      // this.get('model.lines').pushObject(line);
-      // this.transitionToRoute('purchase');
     },
     selectComponent: function(component) {
       if (this.get('_components').contains(component)) {

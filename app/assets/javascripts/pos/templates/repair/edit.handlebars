@@ -10,6 +10,11 @@
     </div>
     <div class="col-md-4">
       <div class="pull-right">
+        <button {{ action "print"}} class="btn btn-flat white">
+          <i class="fa fa-print"></i>
+          &nbsp;
+          Print
+        </button>
         <button {{action 'save'}} {{bind-attr disabled="nonSaveable"}} type="button" class="btn btn-flat white navbar-btn">
           <i class="fa fa-save"></i>
           &nbsp;

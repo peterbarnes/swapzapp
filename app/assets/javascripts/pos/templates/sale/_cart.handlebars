@@ -1,1 +1,16 @@
+<div class="row">
+  <form {{action 'addUnit' on="submit"}}>
+    <div class="col-md-9">
+      {{input name="unitQuery" value=unitQuery placeholder="Enter unit sku..." class="form-control"}}
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-flat pull-right" title="Add Unit">
+        <i class="fa fa-plus"></i>
+        &nbsp;
+        Add Unit
+      </button>
+    </div>
+  </form>
+</div>
+<hr>
 {{cart-group lines=lines edit="editLine"}}

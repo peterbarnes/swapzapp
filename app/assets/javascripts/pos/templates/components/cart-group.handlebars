@@ -1,10 +1,12 @@
 <div class="clearfix">
-  <div>
+  <div class="pull-left">
     <button {{action 'addLine'}} class="btn btn-flat navbar-btn" title="Add Line">
       <i class="fa fa-plus"></i>
       &nbsp;
       Add Line
     </button>
+  </div>
+  <div class="pull-right">
     <button {{action 'removeLines'}} class="btn btn-flat danger navbar-btn" title="Remove All Lines">
       <i class="fa fa-trash-o"></i>
       &nbsp;
@@ -41,11 +43,23 @@
             <p><em>{{line.sku}}</em></p>
             <p>{{view Ember.TextField valueBinding="line.note" class="form-control input-sm" placeholder="Add a note..."}}</p>
             {{#if line.bullets}}
-            <ul class="bullets">
+            <ul class="bullets no-bottom">
               {{#each bullet in line.bullets}}
               <li>{{bullet}}</li>
               {{/each}}
             </ul>
+            {{/if}}
+            {{#if line.certificate }}
+              <br/>
+              Certificate: {{ line.certificate.sku }}
+            {{/if}}
+            {{#if line.item }}
+              <br/>
+              Item: {{ line.item.sku }}
+            {{/if}}
+            {{#if line.unit }}
+              <br/>
+              Unit: {{ line.unit.sku }}
             {{/if}}
           </td>
           <td class="amount">

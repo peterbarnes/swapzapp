@@ -1,5 +1,5 @@
 SwapzPOS.SaleEditController = Ember.ObjectController.extend({
-  needs: ['lineEdit', 'customerUpdate', 'itemConfigure'],
+  needs: ['lineEdit', 'customerUpdate', 'itemConfigure', 'unitSelect'],
   tabs: [],
   certificateQuery: null,
   certificates: [],
@@ -7,6 +7,7 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
   customerQuery: null,
   items: [],
   itemQuery: null,
+  unitQuery: null,
   init: function () {
     this._super();
     
@@ -102,12 +103,58 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
   actions: {
     save: function() {
       var sale = this.get('model');
-      sale.save();
+      sale.save(function() {
+        this.get('flash').success('Successfully saved sale!');
+      }.bind(this));
     },
     complete: function() {
       var sale = this.get('model');
       sale.set('complete', true);
-      sale.save();
+      sale.save(function() {
+        this.get('flash').success('Successfully completed purchase!');
+      }.bind(this));
+    },
+    print: function() {
+      this.transitionToRoute('sale.print', this.get('model.id'));
+    },
+    addUnit: function() {
+      var query = this.get('unitQuery');
+      if (query) {
+        var controller = this;
+        SwapzPOS.Unit.all({
+          search: controller.get('unitQuery')
+        }).then(function(content) {
+          if (content.get('length') == 1) {
+            controller.send('addUnitLine', content.get('firstObject'));
+          } else {
+            controller.get('controllers.unitSelect').set('content', content);
+            controller.get('controllers.unitSelect').set('parent', controller);
+            controller.send('openModal', 'unit.select');
+          }
+        });
+        this.set('unitQuery', null);
+      }
+    },
+    addUnitLine: function(unit) {
+      controller = this;
+      var line = SwapzPOS.Line.create({
+        title: unit.get('name'),
+        amount: unit.get('price'),
+        quantity: 1,
+        sku: unit.get('sku'),
+        taxable: unit.get('taxable'),
+        unit: unit
+      });
+      unit.get('components').forEach(function(component) {
+        line.bullets.addObject(component.name);
+      });
+      unit.get('conditions').forEach(function(condition) {
+        line.bullets.addObject(condition.name);
+      });
+      if (unit.get('variant')) {
+        line.bullets.addObject(unit.get('variant.name'));
+      }
+      controller.get('model.lines').pushObject(line);
     },
     selectCertificate: function(certificate) {
       controller = this;

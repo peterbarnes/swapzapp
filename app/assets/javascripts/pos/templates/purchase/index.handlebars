@@ -109,13 +109,25 @@
                   {{ line.note }}
                 {{/if}}
                 {{#if line.bullets }}
-                  <ul>
+                  <ul class="no-bottom">
                     {{#each bullet in line.bullets }}
                       <li>
                         {{ bullet }}
                       </li>
                     {{/each}}
                   </ul>
+                {{/if}}
+                {{#if line.certificate }}
+                  <br/>
+                  Certificate: {{ line.certificate.sku }}
+                {{/if}}
+                {{#if line.item }}
+                  <br/>
+                  Item: {{ line.item.sku }}
+                {{/if}}
+                {{#if line.unit }}
+                  <br/>
+                  Unit: {{ line.unit.sku }}
                 {{/if}}
               </td>
               <td>

@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         {{#each line in lines}}
-          <tr {{bind-attr class="line.remove:hidden"}}>
+          <tr {{bind-attr class="line._remove:hidden"}}>
             <td class="quantity">{{ line.quantity }}</td>
             <td class="description">{{ line.title }}</td>
             <td class="amount">{{ currency line.amount }}</td>

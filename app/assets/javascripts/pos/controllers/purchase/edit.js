@@ -78,12 +78,19 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
   actions: {
     save: function() {
       var purchase = this.get('model');
-      purchase.save();
+      purchase.save(function() {
+        this.get('flash').success('Successfully saved purchase!');
+      }.bind(this));
     },
     complete: function() {
       var purchase = this.get('model');
       purchase.set('complete', true);
-      purchase.save();
+      purchase.save(function() {
+        this.get('flash').success('Successfully completed purchase!');
+      }.bind(this));
+    },
+    print: function() {
+      this.transitionToRoute('purchase.print', this.get('model.id'));
     },
     createCustomer: function() {
       this.get('controllers.customerUpdate').set('model', SwapzPOS.Customer.create());

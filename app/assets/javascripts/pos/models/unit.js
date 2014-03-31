@@ -11,6 +11,7 @@ SwapzPOS.Unit = SwapzPOS.Base.extend({
   components: null,
   conditions: null,
   variant: null,
+  _selected: false,
   init: function() {
     this._super();
     this.set('components', Ember.A());
