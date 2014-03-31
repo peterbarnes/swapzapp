@@ -4,7 +4,7 @@ class SaleSerializer < ActiveModel::Serializer
   attributes :id, :certificate_id, :customer_id, :store_id, :till_id, :user_id, :complete, :flagged, :sku, :note, :tax_rate, :completed_at, :created_at, :updated_at
 
   has_one :certificate
-  has_one :customer, :serializer => CustomerIndexSerializer
+  has_one :customer, :serializer => CustomerSerializer
   has_many :lines
   has_one :payment
   has_one :store, :serializer => StoreIndexSerializer

@@ -1,0 +1,229 @@
+{{#modal-dialog title="Configure Item" confirm="Add to Cart" close="closeModal" accept="addToCart"}}
+  <div class="row">
+    <div class="col-md-2">
+      {{#if images.firstObject}}
+        <img {{bind-attr src="images.firstObject.imageUrl"}} width="48" height="48" {{bind-attr alt="images.firstObject.name"}} {{bind-attr title="images.firstObject.description"}} class="img img-circle" />
+      {{/if}}
+    </div>
+    <div class="col-md-8">
+      <h4>{{ name }} ({{ sku }})</h4>
+      <p>{{ description }}</p>
+    </div>
+    <div class="col-md-2">
+      <h4 class="pull-right">
+        {{#if purchase}}
+          {{currency configuredCashPrice}} ({{currency configuredCreditPrice}})
+        {{else}}
+          {{currency configuredPrice}}
+        {{/if}}
+      </h4>
+    </div>
+  </div>
+  <hr>
+  <h4><strong>Components</strong></h4>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><i class="fa fa-check"></i></th>
+            <th>Name</th>
+            <th>Description</th>
+            {{#if purchase}}
+              <th>Adjustment Cash</th>
+              <th>Adjustment Credit</th>
+            {{else}}
+              <th>Adjustment</th>
+            {{/if}}
+            <th>Select</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each component in components}}
+          <tr>
+            <td class="indicator">
+              {{#if component.configured}}
+              <i class="fa fa-check"></i>
+              {{/if}}
+            </td>
+            <td class="name">{{component.name}}</td>
+            <td class="description">{{component.description}}</td>
+            {{#if purchase}}
+              <td class="adjustment_cash">
+                {{#if component.adjustmentCashPercentage}}
+                %
+                {{else}}
+                $
+                {{/if}}
+                {{round component.adjustmentCash 2}}
+              </td>
+              <td class="adjustment_credit">
+                {{#if component.adjustmentCreditPercentage}}
+                %
+                {{else}}
+                $
+                {{/if}}
+                {{round component.adjustmentCredit 2}}
+              </td>
+            {{else}}
+              <td class="adjustment">
+                {{#if component.adjustment}}
+                %
+                {{else}}
+                $
+                {{/if}}
+                {{round component.adjustment 2}}
+              </td>
+            {{/if}}
+            <td class="select"><button {{action 'selectComponent' component}} type="button" class="btn btn-flat"><i class="fa fa-check"></i> Select</button></td>
+          </tr>
+          {{else}}
+          <tr><td colspan="6" class="center">No components</td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr>
+  <h4><strong>Condition</strong></h4>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><i class="fa fa-check"></i></th>
+            <th>Name</th>
+            <th>Description</th>
+            {{#if purchase}}
+              <th>Adjustment Cash</th>
+              <th>Adjustment Credit</th>
+            {{else}}
+              <th>Adjustment</th>
+            {{/if}}
+            <th>Select</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each condition in conditions}}
+          <tr>
+            <td class="indicator">
+              {{#if condition.configured}}
+              <i class="fa fa-check"></i>
+              {{/if}}
+            </td>
+            <td class="name">{{condition.name}}</td>
+            <td class="description">{{condition.description}}</td>
+            {{#if purchase}}
+              <td class="adjustment_cash">
+                {{#if condition.adjustmentCashPercentage}}
+                %
+                {{else}}
+                $
+                {{/if}}
+                {{round condition.adjustmentCash 2}}
+              </td>
+              <td class="adjustment_credit">
+                {{#if condition.adjustmentCreditPercentage}}
+                %
+                {{else}}
+                $
+                {{/if}}
+                {{round condition.adjustmentCredit 2}}
+              </td>
+            {{else}}
+              <td class="adjustment">
+                {{#if condition.adjustment}}
+                %
+                {{else}}
+                $
+                {{/if}}
+                {{round condition.adjustment 2}}
+              </td>
+            {{/if}}
+            <td class="select"><button {{action 'selectCondition' condition}} type="button" class="btn btn-flat"><i class="fa fa-check"></i> Select</button></td>
+          </tr>
+          {{else}}
+          <tr><td colspan="6" class="center">No conditions</td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr>
+  <h4><strong>Variant</strong></h4>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><i class="fa fa-check"></i></th>
+            <th>Name</th>
+            <th>Description</th>
+            {{#if purchase}}
+              <th>Adjustment Cash</th>
+              <th>Adjustment Credit</th>
+            {{else}}
+              <th>Adjustment</th>
+            {{/if}}
+            <th>Select</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each variant in variants}}
+          <tr>
+            <td class="indicator">
+              {{#if variant.configured}}
+              <i class="fa fa-check"></i>
+              {{/if}}
+            </td>
+            <td class="name">{{variant.name}}</td>
+            <td class="description">{{variant.description}}</td>
+            {{#if purchase}}
+              <td class="adjustment_cash">
+                {{#if variant.adjustmentCashPercentage}}
+                %
+                {{else}}
+                $
+                {{/if}}
+                {{round variant.adjustmentCash 2}}
+              </td>
+              <td class="adjustment_credit">
+                {{#if variant.adjustmentCreditPercentage}}
+                %
+                {{else}}
+                $
+                {{/if}}
+                {{round variant.adjustmentCredit 2}}
+              </td>
+            {{else}}
+              <td class="adjustment">
+                {{#if variant.adjustment}}
+                %
+                {{else}}
+                $
+                {{/if}}
+                {{round variant.adjustment 2}}
+              </td>
+            {{/if}}
+            <td class="select"><button {{action 'selectVariant' variant}} type="button" class="btn btn-flat"><i class="fa fa-check"></i> Select</button></td>
+          </tr>
+          {{else}}
+          <tr><td colspan="6" class="center">No variants</td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="pull-right">
+        {{#if purchase}}
+          {{currency configuredCashPrice}} ({{currency configuredCreditPrice}})
+        {{else}}
+          {{currency configuredPrice}}
+        {{/if}}
+      </h4>
+    </div>
+  </div>
+{{/modal-dialog}}

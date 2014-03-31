@@ -1,14 +1,27 @@
-<div {{bind-attr class="isSearch::hidden"}}>
-  <div class="clearfix well">
-    <div class="input-group">
-      {{input name="query" value=query class="form-control"}}
-      <span class="input-group-btn">
-        <button type="button" {{action 'search'}} class="btn btn-primary">
-          <i class="fa fa-search"></i> 
-          &nbsp;
-          Search
-        </button>
-      </span>
-    </div>
-  </div>
+<div class="well">
+  {{input name="itemQuery" value=itemQuery placeholder="Search Items..." class="form-control"}}
+</div>
+<div class="list-group no-bottom">
+  {{#each item in items}}
+    <a {{ action "selectItem" item}} {{bind-attr class=":list-group-item item._selected:active"}}>
+      <div class="row">
+        <div class="col-lg-2">
+          {{#if item.images.firstObject}}
+            <img {{bind-attr src="item.images.firstObject.imageUrl"}} width="48" height="48" {{bind-attr alt="item.images.firstObject.name"}} {{bind-attr title="item.images.firstObject.description"}} class="img img-circle" />
+          {{/if}}
+        </div>
+        <div class="col-lg-10">
+          <strong>{{ item.name }}</strong>
+          {{#if item.sku }}
+            <br>
+            <em>{{ item.sku }}</em>
+          {{/if}}
+          {{#if item.description }}
+            <br>
+            {{ item.description }}
+          {{/if}}
+        </div>
+      </div>
+    </a>
+  {{/each}}
 </div>

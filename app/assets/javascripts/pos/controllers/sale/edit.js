@@ -1,10 +1,12 @@
 SwapzPOS.SaleEditController = Ember.ObjectController.extend({
-  needs: ['lineEdit', 'customerUpdate'],
+  needs: ['lineEdit', 'customerUpdate', 'itemConfigure'],
   tabs: [],
   certificateQuery: null,
   certificates: [],
   customers: [],
   customerQuery: null,
+  items: [],
+  itemQuery: null,
   init: function () {
     this._super();
     
@@ -84,6 +86,19 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
       this.set('customers', Ember.A());
     }
   }.observes('customerQuery'),
+  searchItems: function() {
+    var query = this.get('itemQuery');
+    if (query) {
+      var controller = this;
+      SwapzPOS.Item.all({
+        search: controller.get('itemQuery')
+      }).then(function(content) {
+        controller.set('items', content);
+      });
+    } else {
+      this.set('items', Ember.A());
+    }
+  }.observes('itemQuery'),
   actions: {
     save: function() {
       var sale = this.get('model');
@@ -120,6 +135,15 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
       var payment = this.get('model.payment');
       payment.set('storeCredit', 0);
       this.set('customer', null);
+    },
+    selectItem: function(item) {
+      controller = this;
+      item.refresh(function() {
+        controller.get('controllers.itemConfigure').set('model', item);
+        controller.get('controllers.itemConfigure').set('parent', controller.get('model'));
+        controller.get('controllers.itemConfigure').set('purchase', false);
+        controller.send('openModal', 'item.configure');
+      });
     },
     editLine: function(line) {
       this.get('controllers.lineEdit').set('model', line);

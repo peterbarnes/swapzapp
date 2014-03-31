@@ -57,7 +57,7 @@ SwapzPOS.Customer.reopen({
     this.get('addresses').forEach(function(address) {
       var _address = {
         name: address.get('name'),
-        _remove: address.get('_remove')
+        _destroy: address.get('_remove')
       }
       if (address.get('id')) {
         _address.id = address.get('id');
@@ -68,7 +68,7 @@ SwapzPOS.Customer.reopen({
       var _phone = {
         name: phone.get('name'),
         number: phone.get('number'),
-        _remove: phone.get('_remove')
+        _destroy: phone.get('_remove')
       }
       if (phone.get('id')) {
         _phone.id = phone.get('id')
@@ -80,7 +80,7 @@ SwapzPOS.Customer.reopen({
         name: image.get('name'),
         description: image.get('description'),
         index: image.get('index'),
-        __remove: image.get('_remove')
+        _destroy: image.get('_remove')
       }
       if (image.get('id')) {
         _image.id = image.get('id')

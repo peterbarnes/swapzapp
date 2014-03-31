@@ -14,6 +14,7 @@ SwapzPOS.Item = SwapzPOS.Base.extend({
   conditions: null,
   variants: null,
   images: null,
+  _selected: false,
   init: function() {
     this._super();
     this.set('components', Ember.A());
