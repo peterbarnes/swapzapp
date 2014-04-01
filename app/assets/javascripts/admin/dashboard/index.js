@@ -161,7 +161,6 @@ var DashboardIndex = {
     });
   },
   showTooltip: function(x, y, contents) {
-    console.log(y);
     $('<div id="tooltip">' + contents + '</div>').css( {
       position: 'absolute',
       display: 'none',

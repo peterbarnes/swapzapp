@@ -9,7 +9,6 @@ SwapzPOS.UnitSelectController = Ember.ArrayController.extend({
         this.get('units').addObject(unit);
       }
       unit.set('_selected', !unit.get('_selected'));
-      console.log(this.get('units'));
     },
     addToCart: function() {
       _controller = this;
