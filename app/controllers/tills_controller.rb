@@ -56,6 +56,15 @@ class TillsController < AdminController
     redirect_to tills_path
   end
   
+  def purge
+    @till = Till.find_by(:id => params[:id])
+    @till.purge_adjustments(current_user)
+    
+    flash[:notice] = 'Till purged successfully!'
+    
+    redirect_to tills_path
+  end
+  
   def destroy
     @till = Till.find_by(:id => params[:id])
     @till.destroy

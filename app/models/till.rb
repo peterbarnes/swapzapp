@@ -49,4 +49,17 @@ class Till
     end
     adjustment_balance
   end
+  
+  def purge_adjustments(user)
+    balance = self.adjustment_balance
+    self.adjustments.destroy_all
+    self.adjustments << Adjustment.new({
+      :amount => balance,
+      :balance => balance, 
+      :user => user, 
+      :title => 'Purge', 
+      :description => Time.now.utc.to_s
+    })
+    self.save
+  end
 end

@@ -108,10 +108,15 @@ Swapzapp::Application.routes.draw do
     end
   end
   resources :tills do
-    resources :adjustments, :only => [:index, :new, :create]
+    resources :adjustments, :only => [:index, :new, :create] do
+      collection do
+        get 'csv'
+      end
+    end
     resource :transfer, :only => [:new, :create]
     member do
       get 'release'
+      get 'purge'
     end
   end
   resources :timecards, :except => [:show] do

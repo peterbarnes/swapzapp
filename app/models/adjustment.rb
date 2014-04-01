@@ -8,7 +8,7 @@ class Adjustment
   field :description, :type => String
   field :title,       :type => String
   
-  validates_presence_of   :amount, :balance, :user
+  validates_presence_of   :amount, :balance
   
   scope :search, ->(query) { query ? full_text_search(query) : all }
   scope :sorted, ->(sort) {

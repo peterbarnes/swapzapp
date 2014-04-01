@@ -33,6 +33,7 @@
                 %th Balance
                 %th Adjustments
                 %th Transfer
+                %th Purge
                 %th.pull-right Actions
             %tbody
               - @tills.each do |till|
@@ -50,8 +51,12 @@
                     %strong= currency(till.balance)
                   %td
                     = link_to till.adjustments.count, till_adjustments_path(till)
+                    |
+                    = link_to 'Download', csv_till_adjustments_path(till)
                   %td
-                    = link_to 'Transfer..', new_till_transfer_path(till)
+                    = link_to 'Transfer', new_till_transfer_path(till)
+                  %td
+                    = link_to 'Purge', purge_till_path(till), :title => 'Purge', :confirm => 'Are you sure?'
                   %td
                     %ul.actions
                       %li
