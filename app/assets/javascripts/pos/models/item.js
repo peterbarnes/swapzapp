@@ -94,6 +94,9 @@ SwapzPOS.Item.reopen({
           typical: _component.typical,
           configured: _component.typical
         });
+        if (_component.typical) {
+          component.set('_configured', true);
+        }
         components.addObject(component);
       });
       this.set('components', components);

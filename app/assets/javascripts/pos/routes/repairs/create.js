@@ -11,6 +11,7 @@ SwapzPOS.RepairsCreateRoute = Ember.Route.extend({
     return repair;
   },
   setupController: function(controller, model) {
+    this.controllerFor('repair.edit').send('reset');
     this.controllerFor('repair.edit').setProperties({ model: model });
   },
   renderTemplate: function() {

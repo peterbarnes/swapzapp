@@ -42,7 +42,7 @@
           {{#each component in components}}
           <tr>
             <td class="indicator">
-              {{#if component.configured}}
+              {{#if component._configured}}
               <i class="fa fa-check"></i>
               {{/if}}
             </td>
@@ -107,7 +107,7 @@
           {{#each condition in conditions}}
           <tr>
             <td class="indicator">
-              {{#if condition.configured}}
+              {{#if condition._configured}}
               <i class="fa fa-check"></i>
               {{/if}}
             </td>
@@ -172,7 +172,7 @@
           {{#each variant in variants}}
           <tr>
             <td class="indicator">
-              {{#if variant.configured}}
+              {{#if variant._configured}}
               <i class="fa fa-check"></i>
               {{/if}}
             </td>

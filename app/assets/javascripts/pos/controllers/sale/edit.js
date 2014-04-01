@@ -101,6 +101,15 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
     }
   }.observes('itemQuery'),
   actions: {
+    reset: function() {
+      this.set('certificates', Ember.A());
+      this.set('customers', Ember.A());
+      this.set('items', Ember.A());
+      this.set('certificateQuery', null);
+      this.set('customerQuery', null);
+      this.set('itemQuery', null);
+      this.set('unitQuery', null);
+    },
     save: function() {
       var sale = this.get('model');
       sale.save(function() {
@@ -186,8 +195,16 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
     selectItem: function(item) {
       controller = this;
       item.refresh(function() {
+        var typical_components = Ember.A();
+        item.get('components').forEach(function(component) {
+          if (component.get('typical')) {
+            typical_components.addObject(component);
+          }
+        });
+        controller.get('controllers.itemConfigure').send('reset');
         controller.get('controllers.itemConfigure').set('model', item);
         controller.get('controllers.itemConfigure').set('parent', controller.get('model'));
+        controller.get('controllers.itemConfigure').set('_components', typical_components);
         controller.get('controllers.itemConfigure').set('purchase', false);
         controller.send('openModal', 'item.configure');
       });

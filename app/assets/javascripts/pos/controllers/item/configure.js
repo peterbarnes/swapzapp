@@ -4,6 +4,12 @@ SwapzPOS.ItemConfigureController = Ember.ObjectController.extend({
   _conditions: [],
   _variant: null,
   actions: {
+    reset: function() {
+      this.set('purchase', false);
+      this.set('_components', Ember.A());
+      this.set('_conditions', Ember.A());
+      this.set('_variant', null);
+    },
     addToCart: function() {
       var item = this.get('model');
       if (this.get('purchase')) {
@@ -53,7 +59,7 @@ SwapzPOS.ItemConfigureController = Ember.ObjectController.extend({
       } else {
         this.get('_components').pushObject(component);
       }
-      component.set('configured', !component.get('configured'));
+      component.set('_configured', !component.get('_configured'));
     },
     selectCondition: function(condition) {
       if (this.get('_conditions').contains(condition)) {
@@ -61,14 +67,14 @@ SwapzPOS.ItemConfigureController = Ember.ObjectController.extend({
       } else {
         this.get('_conditions').pushObject(condition);
       }
-      condition.set('configured', !condition.get('configured'));
+      condition.set('_configured', !condition.get('_configured'));
     },
     selectVariant: function(variant) {
       this.get('variants').forEach(function(variant) {
         variant.set('configured', false);
       });
       if (this.get('_variant') != variant) {
-        variant.set('configured', !variant.get('configured'));
+        variant.set('_configured', !variant.get('_configured'));
         this.set('_variant', variant);
       } else {
         this.set('_variant', null);

@@ -61,6 +61,10 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
     }
   }.observes('customerQuery'),
   actions: {
+    reset: function() {
+      this.set('customers', Ember.A());
+      this.set('customerQuery', null);
+    },
     save: function() {
       var repair = this.get('model');
       repair.save(function() {

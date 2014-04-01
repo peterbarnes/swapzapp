@@ -11,6 +11,7 @@ SwapzPOS.SalesCreateRoute = Ember.Route.extend({
     return sale;
   },
   setupController: function(controller, model) {
+    this.controllerFor('sale.edit').send('reset');
     this.controllerFor('sale.edit').setProperties({ model: model });
   },
   renderTemplate: function() {

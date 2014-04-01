@@ -199,8 +199,8 @@ class Fakeout
     end
     {
       :amount         => amount,
-      :amount_cash    => (amount_purchase * rand).to_i * -1,
-      :amount_credit  => amount_purchase * -1,
+      :amount_cash    => (amount_purchase * rand).to_i,
+      :amount_credit  => amount_purchase,
       :bullets        => bullets,
       :note           => Faker::Lorem.sentence,
       :quantity       => rand(10),

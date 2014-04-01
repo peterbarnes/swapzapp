@@ -76,6 +76,12 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
     }
   }.observes('itemQuery'),
   actions: {
+    reset: function() {
+      this.set('customers', Ember.A());
+      this.set('items', Ember.A());
+      this.set('customerQuery', null);
+      this.set('itemQuery', null);
+    },
     save: function() {
       var purchase = this.get('model');
       purchase.save(function() {
@@ -114,8 +120,16 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
     selectItem: function(item) {
       controller = this;
       item.refresh(function() {
+        var typical_components = Ember.A();
+        item.get('components').forEach(function(component) {
+          if (component.get('typical')) {
+            typical_components.addObject(component);
+          }
+        });
+        controller.get('controllers.itemConfigure').send('reset');
         controller.get('controllers.itemConfigure').set('model', item);
         controller.get('controllers.itemConfigure').set('parent', controller.get('model'));
+        controller.get('controllers.itemConfigure').set('_components', typical_components);
         controller.get('controllers.itemConfigure').set('purchase', true);
         controller.send('openModal', 'item.configure');
       });

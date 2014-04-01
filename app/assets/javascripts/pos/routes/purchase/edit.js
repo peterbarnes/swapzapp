@@ -3,6 +3,7 @@ SwapzPOS.PurchaseEditRoute = Ember.Route.extend({
     return this.modelFor('purchase');
   },
   renderTemplate: function(controller, model){
+    controller.send('reset');
     this._super(controller, model);
   }
 });

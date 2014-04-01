@@ -10,7 +10,11 @@ SwapzPOS.Variant = Ember.Object.extend({
   identifier: null,
   identifierType: null,
   name: null,
-  configured: false,
+  _configured: false,
+  init: function() {
+    this._super();
+    this.set('_configured', false);
+  },
   adjuster: function(price) {
     if (this.get('adjustmentPercentage')) {
       return parseInt(Math.round(price * this.get('adjustment') * 0.01));

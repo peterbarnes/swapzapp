@@ -18,7 +18,7 @@
   %hr
   .row
     .col-md-6
-      = image_tag(@unit.item.image.url(), :size => "84x84", :alt => "Image", :class => 'img-circle')
+      = image_tag(@unit.item.image.url, :size => "84x84", :alt => "Image", :class => 'img-circle') if @unit.item.image
     .col-md-6
       .name.clearfix
         %h3.pull-right

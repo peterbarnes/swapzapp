@@ -195,10 +195,10 @@
         </dl>
         <dl>
           {% if purchase.due > 0 %}
-            <dt><strong>Amount Due:</strong></dt>
+            <dt><strong>Change Due:</strong></dt>
             <dd><strong>{{ purchase.due | currency }}</strong></dd>
           {% else %}
-            <dt><strong>Change Due:</strong></dt>
+            <dt><strong>Amount Due:</strong></dt>
             <dd><strong>{{ purchase.due | currency }}</strong></dd>
           {% endif %}
         </dl>
