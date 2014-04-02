@@ -19,7 +19,7 @@ class Account::UsersController < AdminController
   end
   
   def create
-    respond_with User.create(user_params)
+    respond_with User.create(params[:user])
   end
   
   def edit
@@ -27,7 +27,7 @@ class Account::UsersController < AdminController
   end
   
   def update
-    @user.update_attributes(user_params)
+    @user.update_attributes(params[:user])
     respond_with @user
   end
   
@@ -40,9 +40,5 @@ class Account::UsersController < AdminController
   
   def find_user
     @user = User.find(params[:id])
-  end
-
-  def user_params
-    params.require(:user).permit!
   end
 end

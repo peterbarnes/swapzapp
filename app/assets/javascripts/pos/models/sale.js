@@ -21,7 +21,6 @@ SwapzPOS.Sale = SwapzPOS.Base.extend({
   init: function() {
     this._super();
     this.set('complete', false);
-    this.set('taxRate', 0);
     this.set('lines', Ember.A());
     this.set('payment', SwapzPOS.Payment.create());
   },
