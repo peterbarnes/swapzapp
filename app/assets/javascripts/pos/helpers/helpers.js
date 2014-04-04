@@ -31,5 +31,6 @@ Ember.Handlebars.registerBoundHelper('round', function(number, precision) {
   return parseFloat(number).toFixed(precision);
 });
 
+Ember.Handlebars.helper('number-field', SwapzPOS.NumberField);
 Ember.Handlebars.helper('currency-field', SwapzPOS.CurrencyField);
 Ember.Handlebars.helper('range-field', SwapzPOS.RangeField);

@@ -42,8 +42,18 @@ SwapzPOS.TillAuditController = Ember.ObjectController.extend({
     return this.get('hundreds') * 10000;
   }.property('hundreds'),
   sum: function() {
-    var total = this.get('penniesSum') + this.get('nickelsSum') + this.get('dimesSum') + this.get('quartersSum') + this.get('onesSum') + this.get('fivesSum') + this.get('tensSum') + this.get('twentiesSum') + this.get('fiftiesSum') + this.get('hundredsSum');
-    this.set('total', total);
+    var pennies = parseInt(this.get('penniesSum'));
+    var nickels = parseInt(this.get('nickelsSum'));
+    var dimes = parseInt(this.get('dimesSum'));
+    var quarters = parseInt(this.get('quartersSum'));
+    var ones = parseInt(this.get('onesSum'));
+    var fives = parseInt(this.get('fivesSum'));
+    var tens = parseInt(this.get('tensSum'));
+    var twenties = parseInt(this.get('twentiesSum'));
+    var fifties = parseInt(this.get('fiftiesSum'));
+    var hundreds = parseInt(this.get('hundredsSum'));
+    
+    this.set('total', pennies + nickels + dimes + quarters + ones + fives + tens + twenties + fifties + hundreds);
   }.observes('pennies', 'nickels', 'dimes', 'quarters', 'ones', 'fives', 'tens', 'twenties', 'fifties', 'hundreds'),
   difference: function() {
     var till = this.get('model');
