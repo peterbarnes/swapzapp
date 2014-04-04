@@ -218,7 +218,19 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
     amountDue: function(field) {
       var sale = this.get('model');
       var payment = this.get('model.payment');
-      payment.set(field, sale.get('due'));
+      if (field == 'storeCredit') {
+        var storeCredit = sale.get('customer.credit');
+        var subtotal = sale.get('subtotal');
+        if (subtotal > 0) {
+          if (subtotal >= storeCredit) {
+            payment.set('storeCredit', storeCredit);
+          } else {
+            payment.set('storeCredit', subtotal);
+          }
+        }
+      } else {
+        payment.set(field, sale.get('due'));
+      }
     },
     increment: function(amount) {
       var payment = this.get('model.payment');
