@@ -1,5 +1,7 @@
 Swapzapp::Application.routes.draw do
   
+  apipie
+
   namespace :api, :defaults => {:format => 'json'} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resource  :account, :only => [:show] do
