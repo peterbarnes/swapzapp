@@ -185,7 +185,7 @@
           <dt>Subtotal:</dt>
           <dd>{{ sale.subtotal | currency }}</dd>
           <dt>Store Credit:</dt>
-          <dd>{{ sale.subtotal | currency }}</dd>
+          <dd>{{ sale.payment.store_credit | currency }}</dd>
           <dt>Subtotal After Store Credit:</dt>
           <dd>{{ sale.subtotal_after_store_credit | currency }}</dd>
           <dt>Tax ({{ sale.tax_rate }}%):</dt>
