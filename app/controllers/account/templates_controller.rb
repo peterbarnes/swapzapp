@@ -49,4 +49,11 @@ class Account::TemplatesController < AdminController
     
     respond_with @template
   end
+  
+  def primary
+    @template = current_account.templates.find_by(:id => params[:id])
+    @template.set_primary
+    flash[:notice] = 'Template set as primary!'
+    redirect_to templates_path
+  end
 end

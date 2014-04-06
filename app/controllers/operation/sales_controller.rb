@@ -20,6 +20,7 @@ class Operation::SalesController < AdminController
   def print
     @sale = Sale.find_by(:id => params[:id])
     @templates = current_account.templates.where(:category => 'sale')
+    @primary_template = @templates.where(:primary => true).first
     
     render
   end

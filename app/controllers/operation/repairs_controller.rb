@@ -20,6 +20,7 @@ class Operation::RepairsController < AdminController
   def print
     @repair = Repair.find_by(:id => params[:id])
     @templates = current_account.templates.where(:category => 'repair')
+    @primary_template = @templates.where(:primary => true).first
     
     render
   end

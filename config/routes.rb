@@ -44,7 +44,11 @@ Swapzapp::Application.routes.draw do
         get 'state'
       end
     end
-    resources :templates
+    resources :templates do
+      member do
+        get 'primary'
+      end
+    end
     resources :users
   end
   

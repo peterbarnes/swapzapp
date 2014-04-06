@@ -5,6 +5,7 @@ class Template
   field :name,      :type => String
   field :body,      :type => String
   field :category,  :type => String
+  field :primary,   :type => Boolean, :default => false
   
   validates_presence_of :name, :body, :category
   validates_inclusion_of :category, :in => ['certificate', 'customer', 'sale', 'purchase', 'repair']
@@ -26,4 +27,11 @@ class Template
   search_in :name, :category
   
   liquid_methods :name, :body, :category
+  
+  def set_primary
+    self.account.templates.where(:category => category).each do |t|
+      t.update_attribute(:primary, false)
+    end
+    self.update_attribute(:primary, true)
+  end
 end

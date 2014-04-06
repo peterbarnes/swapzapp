@@ -20,6 +20,7 @@ class Operation::PurchasesController < AdminController
   def print
     @purchase = Purchase.find_by(:id => params[:id])
     @templates = current_account.templates.where(:category => 'purchase')
+    @primary_template = @templates.where(:primary => true).first
     
     render
   end

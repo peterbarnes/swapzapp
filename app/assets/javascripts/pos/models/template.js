@@ -1,7 +1,8 @@
 SwapzPOS.Template = SwapzPOS.Base.extend({
   name: null,
   category: null,
-  body: null
+  body: null,
+  primary: false
 });
 
 SwapzPOS.Template.reopenClass({
@@ -15,7 +16,8 @@ SwapzPOS.Template.reopen({
     $.extend(entity.template, {
       name: this.get('name'),
       category: this.get('category'),
-      body: this.get('body')
+      body: this.get('body'),
+      primary: this.get('primary')
     });
     return entity;
   },
@@ -24,7 +26,8 @@ SwapzPOS.Template.reopen({
     this.setProperties({
       name: data.name,
       category: data.category,
-      body: data.body
+      body: data.body,
+      primary: data.primary
     });
     return this;
   }

@@ -27,12 +27,18 @@
               %tr
                 %th Name
                 %th Category
+                %th Primary
                 %th.pull-right Actions
             %tbody
               - @templates.each do |template|
                 %tr
                   %td= link_to template.name, template_path(template)
                   %td= template.category.capitalize
+                  %td
+                    - if template.primary
+                      %i.fa.fa-check
+                    - else
+                      = link_to 'Make primary', primary_template_path(template)
                   %td
                     %ul.actions
                       %li
