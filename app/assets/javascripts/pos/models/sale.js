@@ -33,7 +33,7 @@ SwapzPOS.Sale = SwapzPOS.Base.extend({
       }
     });
     return quantity;
-  }.property('lines', 'lines.@each.quantity', 'lines.@each.remove'),
+  }.property('lines', 'lines.@each', 'lines.@each.quantity', 'lines.@each._remove'),
   subtotal: function() {
     var lines = this.get('lines');
     var subtotal = 0;
@@ -43,10 +43,10 @@ SwapzPOS.Sale = SwapzPOS.Base.extend({
       }
     });
     return subtotal;
-  }.property('taxRate', 'lines', 'lines.@each.subtotal', 'lines.@each.remove'),
+  }.property('taxRate', 'lines', 'lines.@each', 'lines.@each.subtotal', 'lines.@each._remove'),
   subtotalAfterStoreCredit: function() {
     return this.get('subtotal') - this.get('payment.storeCredit');
-  }.property('taxRate', 'lines', 'lines.@each.subtotal', 'lines.@each.remove', 'payment.storeCredit'),
+  }.property('taxRate', 'lines', 'lines.@each', 'lines.@each.subtotal', 'lines.@each._remove', 'payment.storeCredit'),
   taxableSubtotal: function() {
     var lines = this.get('lines');
     var subtotal = 0;
@@ -56,7 +56,7 @@ SwapzPOS.Sale = SwapzPOS.Base.extend({
       }
     });
     return subtotal;
-  }.property('taxRate', 'lines', 'lines.@each.subtotal', 'lines.@each.taxable', 'lines.@each.remove'),
+  }.property('taxRate', 'lines', 'lines.@each', 'lines.@each.subtotal', 'lines.@each.taxable', 'lines.@each._remove'),
   tax: function() {
     var subtotal = this.get('subtotal') - this.get('payment.storeCredit');
     if (subtotal > 0) {
@@ -69,10 +69,10 @@ SwapzPOS.Sale = SwapzPOS.Base.extend({
     } else {
       return 0;
     }
-  }.property('taxRate', 'lines', 'lines.@each.subtotal', 'lines.@each.taxable', 'lines.@each.remove', 'payment.storeCredit'),
+  }.property('taxRate', 'lines', 'lines.@each', 'lines.@each.subtotal', 'lines.@each.taxable', 'lines.@each._remove', 'payment.storeCredit'),
   total: function() {
     return this.get('subtotalAfterStoreCredit') + this.get('tax');
-  }.property('taxRate', 'lines', 'lines.@each.subtotal', 'lines.@each.remove', 'payment.storeCredit'),
+  }.property('taxRate', 'lines', 'lines.@each', 'lines.@each.subtotal', 'lines.@each._remove', 'payment.storeCredit'),
   due: function() {
     return this.get('total') - this.get('payment.total');
   }.property('taxRate', 'total', 'payment.storeCredit', 'payment.giftCard', 'payment.check', 'payment.credit', 'payment.cash'),
