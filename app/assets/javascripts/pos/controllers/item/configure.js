@@ -12,46 +12,29 @@ SwapzPOS.ItemConfigureController = Ember.ObjectController.extend({
     },
     addToCart: function() {
       var item = this.get('model');
+      var line = SwapzPOS.Line.create({
+        title: item.get('name'),
+        quantity: 1,
+        sku: item.get('sku'),
+        taxable: item.get('taxable'),
+        item: item
+      });
       if (this.get('purchase')) {
-        var line = SwapzPOS.Line.create({
-          title: item.get('name'),
-          amountCash: this.get('configuredCashPrice'),
-          amountCredit: this.get('configuredCreditPrice'),
-          quantity: 1,
-          sku: item.get('sku'),
-          taxable: item.get('taxable'),
-          item: item
-        });
-        this.get('components').forEach(function(component) {
-          line.bullets.addObject(component.name);
-        });
-        this.get('conditions').forEach(function(condition) {
-          line.bullets.addObject(condition.name);
-        });
-        if (this.get('variant')) {
-          line.bullets.addObject(this.get('variant.name'));
-        }
-        this.get('parent.lines').pushObject(line);
+        line.set('amountCash', this.get('configuredCashPrice'));
+        line.set('amountCredit', this.get('configuredCreditPrice'));
       } else {
-        var line = SwapzPOS.Line.create({
-          title: item.get('name'),
-          amount: this.get('configuredPrice'),
-          quantity: 1,
-          sku: item.get('sku'),
-          taxable: item.get('taxable'),
-          item: item
-        });
-        this.get('components').forEach(function(component) {
-          line.bullets.addObject(component.name);
-        });
-        this.get('conditions').forEach(function(condition) {
-          line.bullets.addObject(condition.name);
-        });
-        if (this.get('variant')) {
-          line.bullets.addObject(this.get('variant.name'));
-        }
-        this.get('parent.lines').pushObject(line);
+        line.set('amount', this.get('configuredPrice'));
       }
+      this.get('_components').forEach(function(component) {
+        line.bullets.addObject(component.name);
+      });
+      this.get('_conditions').forEach(function(condition) {
+        line.bullets.addObject(condition.name);
+      });
+      if (this.get('_variant')) {
+        line.bullets.addObject(this.get('_variant.name'));
+      }
+      this.get('parent.lines').pushObject(line);
     },
     selectComponent: function(component) {
       if (this.get('_components').contains(component)) {
@@ -71,7 +54,7 @@ SwapzPOS.ItemConfigureController = Ember.ObjectController.extend({
     },
     selectVariant: function(variant) {
       this.get('variants').forEach(function(variant) {
-        variant.set('configured', false);
+        variant.set('_configured', false);
       });
       if (this.get('_variant') != variant) {
         variant.set('_configured', !variant.get('_configured'));

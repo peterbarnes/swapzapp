@@ -8,7 +8,6 @@ SwapzPOS.SalesCreateRoute = Ember.Route.extend({
       store: till.store,
       taxRate: till.taxRate
     });
-    console.log(sale);
     return sale;
   },
   setupController: function(controller, model) {
