@@ -2,11 +2,14 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
   needs: ['lineEdit', 'customerUpdate', 'itemConfigure', 'unitSelect'],
   tabs: [],
   certificateQuery: null,
+  certificatePage: 0,
   certificates: [],
-  customers: [],
   customerQuery: null,
-  items: [],
+  customerPage: 0,
+  customers: [],
   itemQuery: null,
+  itemPage: 0,
+  items: [],
   unitQuery: null,
   init: function () {
     this._super();
@@ -67,9 +70,13 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
         active: true
       }).then(function(content) {
         controller.set('certificates', content);
+        if (content.get('length') > 0) {
+          controller.set('certificatePage', 1);
+        }
       });
     } else {
       this.set('certificates', Ember.A());
+      this.set('customerPage', 0);
     }
   }.observes('certificateQuery'),
   searchCustomers: function() {
@@ -82,9 +89,13 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
         addresses: true
       }).then(function(content) {
         controller.set('customers', content);
+        if (content.get('length') > 0) {
+          controller.set('customerPage', 1);
+        }
       });
     } else {
       this.set('customers', Ember.A());
+      this.set('customerPage', 0);
     }
   }.observes('customerQuery'),
   searchItems: function() {
@@ -95,11 +106,24 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
         search: controller.get('itemQuery')
       }).then(function(content) {
         controller.set('items', content);
+        if (content.get('length') > 0) {
+          controller.set('itemPage', 1);
+        }
       });
     } else {
       this.set('items', Ember.A());
+      this.set('page', 0);
     }
   }.observes('itemQuery'),
+  cantMoreCertificates: function() {
+    return this.get('certificatePage') < 1;
+  }.property('certificatePage'),
+  cantMoreCustomers: function() {
+    return this.get('customerPage') < 1;
+  }.property('customerPage'),
+  cantMoreItems: function() {
+    return this.get('itemPage') < 1;
+  }.property('itemPage'),
   actions: {
     reset: function() {
       this.set('certificates', Ember.A());
@@ -109,6 +133,9 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
       this.set('customerQuery', null);
       this.set('itemQuery', null);
       this.set('unitQuery', null);
+      this.set('certificatePage', 0);
+      this.set('customerPage', 0);
+      this.set('itemPage', 0);
     },
     save: function() {
       var sale = this.get('model');
@@ -125,6 +152,40 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
     },
     print: function() {
       this.transitionToRoute('sale.print', this.get('model.id'));
+    },
+    moreCertificates: function() {
+      this.incrementProperty('certificatePage');
+      var controller = this;
+      SwapzPOS.Certificate.all({
+        search: controller.get('certificateQuery'),
+        customer: true,
+        active: true,
+        page: this.get('certificatePage')
+      }).then(function(content) {
+        controller.get('certificates').addObjects(content);
+      });
+    },
+    moreCustomers: function() {
+      this.incrementProperty('customerPage');
+      var controller = this;
+      SwapzPOS.Customer.all({
+        search: controller.get('customerQuery'),
+        phones: true,
+        addresses: true,
+        page: this.get('customerPage')
+      }).then(function(content) {
+        controller.get('customers').addObjects(content);
+      });
+    },
+    moreItems: function() {
+      this.incrementProperty('itemPage');
+      var controller = this;
+      SwapzPOS.Item.all({
+        search: controller.get('itemQuery'),
+        page: this.get('itemPage')
+      }).then(function(content) {
+        controller.get('items').addObjects(content);
+      });
     },
     addUnit: function() {
       var query = this.get('unitQuery');

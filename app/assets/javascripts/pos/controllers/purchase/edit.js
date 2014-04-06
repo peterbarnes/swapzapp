@@ -3,8 +3,10 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
   tabs: [],
   customers: [],
   customerQuery: null,
+  customerPage: 0,
   items: [],
   itemQuery: null,
+  itemPage: 0,
   init: function () {
     this._super();
     
@@ -57,9 +59,13 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
         addresses: true
       }).then(function(content) {
         controller.set('customers', content);
+        if (content.get('length') > 0) {
+          controller.set('customerPage', 1);
+        }
       });
     } else {
       this.set('customers', Ember.A());
+      this.set('customerPage', 0);
     }
   }.observes('customerQuery'),
   searchItems: function() {
@@ -70,17 +76,29 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
         search: controller.get('itemQuery')
       }).then(function(content) {
         controller.set('items', content);
+        if (content.get('length') > 0) {
+          controller.set('itemPage', 1);
+        }
       });
     } else {
       this.set('items', Ember.A());
+      this.set('itemPage', 0);
     }
   }.observes('itemQuery'),
+  cantMoreCustomers: function() {
+    return this.get('customerPage') < 1;
+  }.property('customerPage'),
+  cantMoreItems: function() {
+    return this.get('itemPage') < 1;
+  }.property('itemPage'),
   actions: {
     reset: function() {
       this.set('customers', Ember.A());
       this.set('items', Ember.A());
       this.set('customerQuery', null);
       this.set('itemQuery', null);
+      this.set('customerPage', 0);
+      this.set('itemPage', 0);
     },
     save: function() {
       var purchase = this.get('model');
@@ -97,6 +115,28 @@ SwapzPOS.PurchaseEditController = Ember.ObjectController.extend({
     },
     print: function() {
       this.transitionToRoute('purchase.print', this.get('model.id'));
+    },
+    moreCustomers: function() {
+      this.incrementProperty('customerPage');
+      var controller = this;
+      SwapzPOS.Customer.all({
+        search: controller.get('customerQuery'),
+        phones: true,
+        addresses: true,
+        page: this.get('customerPage')
+      }).then(function(content) {
+        controller.get('customers').addObjects(content);
+      });
+    },
+    moreItems: function() {
+      this.incrementProperty('itemPage');
+      var controller = this;
+      SwapzPOS.Item.all({
+        search: controller.get('itemQuery'),
+        page: this.get('itemPage')
+      }).then(function(content) {
+        controller.get('items').addObjects(content);
+      });
     },
     createCustomer: function() {
       this.get('controllers.customerUpdate').set('model', SwapzPOS.Customer.create());

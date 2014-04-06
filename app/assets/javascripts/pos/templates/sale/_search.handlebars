@@ -24,4 +24,6 @@
       </div>
     </a>
   {{/each}}
+  <hr>
+  <button {{action 'moreItems'}} {{bind-attr disabled="cantMoreItems"}} type="button" class="btn btn-flat">Load More...</button>
 </div>

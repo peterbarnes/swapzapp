@@ -42,5 +42,7 @@
         </div>
       </a>
     {{/each}}
+    <hr>
+    <button {{action 'moreCertificates'}} {{bind-attr disabled="cantMoreCertificates"}} type="button" class="btn btn-flat">Load More...</button>
   </div>
 {{/unless}}
