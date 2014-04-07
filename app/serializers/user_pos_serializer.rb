@@ -9,6 +9,6 @@ class UserPosSerializer < ActiveModel::Serializer
   end
   
   def timecards
-    object.timecards.where(:in.gte => 7.days.ago).desc(:in)
+    object.timecards.where(:in.gte => 14.days.ago).desc(:in)
   end
 end
