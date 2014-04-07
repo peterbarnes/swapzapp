@@ -223,7 +223,7 @@
       </div>
       {% if sale.customer %}
         <hr>
-        <p id="credit">Credit Available: <strong>{{ sale.customer.credit | currency }}</strong></p>
+        <p id="credit">Credit Available: <strong>{{ sale.credit_balance | currency }}</strong></p>
       {% endif %}
       <hr>
       <p id="barcode"><img src="{{sale.sku | barcode}}" alt="Barcode" /></p>

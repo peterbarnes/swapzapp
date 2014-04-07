@@ -1,7 +1,7 @@
 class SaleIndexSerializer < ActiveModel::Serializer
   delegate :params, to: :scope
   
-  attributes :id, :certificate_id, :customer_id, :store_id, :till_id, :user_id, :complete, :flagged, :sku, :note, :tax_rate, :completed_at, :created_at, :updated_at
+  attributes :id, :certificate_id, :customer_id, :store_id, :till_id, :user_id, :complete, :flagged, :sku, :note, :tax_rate, :credit_balance, :completed_at, :created_at, :updated_at
 
   has_one :certificate, :serializer => CertificateIndexSerializer
   has_one :customer, :serializer => CustomerIndexSerializer

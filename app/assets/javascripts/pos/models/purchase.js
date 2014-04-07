@@ -7,6 +7,7 @@ SwapzPOS.Purchase = SwapzPOS.Base.extend({
   cash: 0,
   credit: 0,
   ratio: 0,
+  creditBalance: null,
   configurable: null,
   customer_id: null,
   customer: null,
@@ -168,6 +169,7 @@ SwapzPOS.Purchase.reopen({
       complete: data.complete,
       flagged: data.flagged,
       ratio: parseFloat(data.ratio),
+      creditBalance: data.credit_balance,
       note: data.note,
       customer_id: data.customer_id,
       till_id: data.till_id,
@@ -204,7 +206,7 @@ SwapzPOS.Purchase.reopen({
           quantity: _line.quantity,
           note: _line.note,
           sku: _line.sku,
-          title: _line.title
+          title: _line.title,
         });
         if (_line.certificate) {
           line.set('certificate', SwapzPOS.Certificate.create().assign(_line.certificate));

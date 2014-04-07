@@ -3,12 +3,13 @@ class Purchase
   include Mongoid::Timestamps
   include Mongoid::Search
   
-  field :complete,      :type => Boolean,  :default => false
-  field :completed_at,  :type => Time
-  field :flagged,       :type => Boolean,  :default => false
-  field :note,          :type => String
-  field :sku,           :type => String,   :default => ->{ SecureRandom.hex(8).upcase }
-  field :ratio,         :type => Float,    :default => 1
+  field :complete,        :type => Boolean,  :default => false
+  field :completed_at,    :type => Time
+  field :flagged,         :type => Boolean,  :default => false
+  field :note,            :type => String
+  field :sku,             :type => String,   :default => ->{ SecureRandom.hex(8).upcase }
+  field :ratio,           :type => Float,    :default => 1
+  field :credit_balance,  :type => Integer,   :default => 0
   
   index({ :account_id => 1, :sku => 1 })
   
@@ -51,7 +52,7 @@ class Purchase
   
   search_in :sku, :note, :lines => [:title, :sku, :note], :customer => [:first_name, :last_name, :sku], :till => [:name], :store => [:name], :user => [:username, :email, :first_name, :last_name]
   
-  liquid_methods :account, :created_at, :complete, :completed_at, :customer, :flagged, :note, :sku, :ratio, :quantity, :subtotal_cash, :subtotal_credit, :store, :till, :user, :cash, :credit, :due, :lines, :updated_at
+  liquid_methods :account, :created_at, :complete, :completed_at, :credit_balance, :customer, :flagged, :note, :sku, :ratio, :quantity, :subtotal_cash, :subtotal_credit, :store, :till, :user, :cash, :credit, :due, :lines, :updated_at
   
   def self.trend(now, period_in_days)
     
@@ -168,6 +169,7 @@ class Purchase
       end
       if customer
         customer.add_credit(credit)
+        set(:credit_balance, customer.credit)
       end
       set(:completed_at, Time.now.utc)
     end

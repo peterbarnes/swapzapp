@@ -3,12 +3,13 @@ class Sale
   include Mongoid::Timestamps
   include Mongoid::Search
   
-  field :complete,      :type => Boolean,   :default => false
-  field :completed_at,  :type => Time
-  field :flagged,       :type => Boolean,   :default => false
-  field :note,          :type => String
-  field :sku,           :type => String,    :default => ->{ SecureRandom.hex(8).upcase }
-  field :tax_rate,      :type => Float,     :default => 0
+  field :complete,        :type => Boolean,   :default => false
+  field :completed_at,    :type => Time
+  field :flagged,         :type => Boolean,   :default => false
+  field :note,            :type => String
+  field :sku,             :type => String,    :default => ->{ SecureRandom.hex(8).upcase }
+  field :tax_rate,        :type => Float,     :default => 0
+  field :credit_balance,  :type => Integer,   :default => 0
   
   index({ :account_id => 1, :sku => 1 })
   
@@ -55,7 +56,7 @@ class Sale
   
   search_in :sku, :note, :lines => [:title, :sku, :note], :certificate => [:sku], :customer => [:first_name, :last_name, :sku], :till => [:name], :store => [:name], :user => [:username, :email, :first_name, :last_name]
   
-  liquid_methods :account, :created_at, :certificate, :complete, :completed_at, :customer, :flagged, :lines, :payment, :note, :sku, :quantity, :subtotal, :subtotal_taxable, :subtotal_after_store_credit, :subtotal_taxable_after_store_credit, :tax, :tax_rate, :total, :store, :till, :user, :due, :updated_at
+  liquid_methods :account, :created_at, :certificate, :credit_balance, :complete, :completed_at, :customer, :flagged, :lines, :payment, :note, :sku, :quantity, :subtotal, :subtotal_taxable, :subtotal_after_store_credit, :subtotal_taxable_after_store_credit, :tax, :tax_rate, :total, :store, :till, :user, :due, :updated_at
   
   def self.trend(now, period_in_days)
     
@@ -202,6 +203,7 @@ class Sale
       end
       if customer && payment
         customer.subtract_credit(payment.store_credit) if payment.store_credit > 0
+        set(:credit_balance, customer.credit)
       end
       lines.each do |line|
         if line.unit
