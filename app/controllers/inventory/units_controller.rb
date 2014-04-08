@@ -2,7 +2,7 @@ class Inventory::UnitsController < AdminController
   respond_to :html
   
   def index
-    @units = Unit.search(params[:search]).location_id(params[:location_id]).item_id(params[:item_id]).variant_id(params[:variant_id]).sorted(params[:sort])
+    @units = Unit.search(params[:search]).location_id(params[:location_id]).item_id(params[:item_id]).variant_id(params[:variant_id]).sorted(params[:sort], params[:order])
     @units = @units.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @units

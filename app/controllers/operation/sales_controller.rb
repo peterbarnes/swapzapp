@@ -5,7 +5,7 @@ class Operation::SalesController < AdminController
   def index
     @sales = Sale.search(params[:search])
     @sales = @sales.customer_id(params[:customer_id]).user_id(params[:user_id]).till_id(params[:till_id]).store_id(params[:store_id])
-    @sales = @sales.sorted(params[:sort])
+    @sales = @sales.sorted(params[:sort], params[:order])
     @sales = @sales.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @sales

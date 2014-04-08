@@ -7,7 +7,7 @@ class DashboardController < AdminController
     @sales_today = @sales_data.find{|s| s[:day] == 0 }
     @purchases_today = @purchases_data.find{|p| p[:day] == 0 }
     
-    @activities = Activity.sorted(params[:sort]).limit(5)
+    @activities = Activity.sorted(params[:sort], params[:order]).limit(5)
     
     render
   end

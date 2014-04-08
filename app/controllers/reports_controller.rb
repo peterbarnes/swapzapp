@@ -2,7 +2,7 @@ class ReportsController < AdminController
   respond_to :html
   
   def index
-    @reports = Report.search(params[:search]).sorted(params[:sort])
+    @reports = Report.search(params[:search]).sorted(params[:sort], params[:order])
     @reports = @reports.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @reports

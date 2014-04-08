@@ -3,7 +3,7 @@ class Operation::CertificatesController < AdminController
   skip_filter :authenticate, :only => [:template]
   
   def index
-    @certificates = Certificate.search(params[:search]).customer_id(params[:customer_id]).sorted(params[:sort])
+    @certificates = Certificate.search(params[:search]).customer_id(params[:customer_id]).sorted(params[:sort], params[:order])
     @certificates = @certificates.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @certificates

@@ -8,7 +8,7 @@ module Api
       def index
         @repairs = Repair.search(params[:search])
         @repairs = @repairs.user_id(params[:user_id]).customer_id(params[:customer_id]).location_id(params[:location_id]).store_id(params[:store_id])
-        @repairs = @repairs.sorted(params[:sort])
+        @repairs = @repairs.sorted(params[:sort], params[:order])
         @repairs = @repairs.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @repairs.count : params[:per_page] ||= 10)
         @meta = { :total => @repairs.total_entries, :per_page => @repairs.per_page, :page => @repairs.current_page }
         

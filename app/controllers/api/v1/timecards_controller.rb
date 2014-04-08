@@ -6,7 +6,7 @@ module Api
       respond_to :json
       
       def index
-        @timecards = Timecard.search(params[:search]).user_id(params[:user_id]).sorted(params[:sort])
+        @timecards = Timecard.search(params[:search]).user_id(params[:user_id]).sorted(params[:sort], params[:order])
         @timecards = @timecards.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @timecards.count : params[:per_page])
         @meta = { :total => @timecards.total_entries, :per_page => @timecards.per_page, :page => @timecards.current_page }
         

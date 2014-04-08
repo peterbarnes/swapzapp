@@ -2,7 +2,7 @@ class TillsController < AdminController
   respond_to :html
   
   def index
-    @tills = Till.search(params[:search]).user_id(params[:user_id]).store_id(params[:store_id]).sorted(params[:sort])
+    @tills = Till.search(params[:search]).user_id(params[:user_id]).store_id(params[:store_id]).sorted(params[:sort], params[:order])
     @tills = @tills.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @tills

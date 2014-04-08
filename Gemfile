@@ -75,6 +75,7 @@ gem 'chunky_png'
 gem 'barby'
 gem 'rqrcode'
 gem 'ffaker'
+gem 'maruku'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

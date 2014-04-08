@@ -2,7 +2,7 @@ class Inventory::ItemsController < AdminController
   respond_to :html
   
   def index
-    @items = Item.search(params[:search]).inventory_id(params[:inventory_id]).sorted(params[:sort])
+    @items = Item.search(params[:search]).inventory_id(params[:inventory_id]).sorted(params[:sort], params[:order])
     @items = @items.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @items

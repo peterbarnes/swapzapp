@@ -3,9 +3,9 @@ class Inventory::LocationsController < AdminController
   
   def index
     if params[:parent_id]
-      @locations = Location.find(params[:parent_id]).children.sorted(params[:sort])
+      @locations = Location.find(params[:parent_id]).children.sorted(params[:sort], params[:order])
     else
-      @locations = Location.roots.search(params[:search]).store_id(params[:store_id]).sorted(params[:sort])
+      @locations = Location.roots.search(params[:search]).store_id(params[:store_id]).sorted(params[:sort], params[:order])
     end
     
     respond_with @locations

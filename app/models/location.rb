@@ -17,11 +17,10 @@ class Location
   default_scope ->{ where(:account_id => Account.current_id) }
   
   scope :search, ->(query) { query ? full_text_search(query) : all }
-  scope :sorted, ->(sort) {
+  scope :sorted, ->(sort, order) {
     if sort
-      sort[:asc] ||= []
-      sort[:desc] ||= []
-      asc(sort[:asc]).desc(sort[:desc])
+      order ||= 'ASC'
+      order_by("#{sort} #{order}")
     else
       asc(:name)
     end

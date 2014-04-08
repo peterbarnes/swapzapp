@@ -6,7 +6,7 @@ module Api
       respond_to :json
       
       def index
-        @items = Item.search(params[:search]).inventory_id(params[:inventory_id]).sorted(params[:sort])
+        @items = Item.search(params[:search]).inventory_id(params[:inventory_id]).sorted(params[:sort], params[:order])
         @items = @items.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @items.count : params[:per_page])
         @meta = { :total => @items.total_entries, :per_page => @items.per_page, :page => @items.current_page }
         

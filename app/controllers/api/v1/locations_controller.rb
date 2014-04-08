@@ -6,7 +6,7 @@ module Api
       respond_to :json
       
       def index
-        @locations = Location.search(params[:search]).store_id(params[:store_id]).sorted(params[:sort])
+        @locations = Location.search(params[:search]).store_id(params[:store_id]).sorted(params[:sort], params[:order])
         @locations = @locations.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @locations.count : params[:per_page])
         @meta = { :total => @locations.total_entries, :per_page => @locations.per_page, :page => @locations.current_page }
         
