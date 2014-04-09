@@ -1,6 +1,12 @@
 module Api
   module V1
     class PurchasesController < ApiController
+      resource_description do
+        short 'Purchases represent transactions where customers buy in items'
+        formats ['JSON']
+        api_base_url '/api/v1'
+      end
+      
       skip_filter :user_time_zone
       
       respond_to :json

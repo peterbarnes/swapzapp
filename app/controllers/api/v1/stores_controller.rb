@@ -1,6 +1,12 @@
 module Api
   module V1
     class StoresController < ApiController
+      resource_description do
+        short 'Stores are physical locations which buy or sell items by creating transactions'
+        formats ['JSON']
+        api_base_url '/api/v1'
+      end
+      
       skip_filter :user_time_zone
       
       respond_to :json

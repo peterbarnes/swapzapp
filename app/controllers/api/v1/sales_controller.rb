@@ -1,6 +1,12 @@
 module Api
   module V1
     class SalesController < ApiController
+      resource_description do
+        short 'Sales represent transactions where customers buy items from the store'
+        formats ['JSON']
+        api_base_url '/api/v1'
+      end
+      
       skip_filter :user_time_zone
       
       respond_to :json

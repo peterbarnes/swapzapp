@@ -1,6 +1,12 @@
 module Api
   module V1
     class TimecardsController < ApiController
+      resource_description do
+        short 'Timecards track users hours by clocking in and out'
+        formats ['JSON']
+        api_base_url '/api/v1'
+      end
+      
       skip_filter :user_time_zone
       
       respond_to :json

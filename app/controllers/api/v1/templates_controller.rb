@@ -1,6 +1,12 @@
 module Api
   module V1
     class TemplatesController < ApiController
+      resource_description do
+        short 'Templates are visual representations of receipts for transactions'
+        formats ['JSON']
+        api_base_url '/api/v1'
+      end
+      
       skip_filter :user_time_zone
       
       respond_to :json

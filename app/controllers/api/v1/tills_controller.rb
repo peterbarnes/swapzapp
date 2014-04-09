@@ -1,6 +1,12 @@
 module Api
   module V1
     class TillsController < ApiController
+      resource_description do
+        short 'Tills track money exchanged during transactions'
+        formats ['JSON']
+        api_base_url '/api/v1'
+      end
+      
       skip_filter :till_time_zone
       
       respond_to :json
