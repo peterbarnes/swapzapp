@@ -490,6 +490,7 @@ module Api
       end
       
       api :DELETE, "/items/:id", "Destroy item with given ID"
+      param :id, String, :required => true
       error 404, "Not Found"
       example <<-EOS
         200 OK

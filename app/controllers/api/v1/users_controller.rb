@@ -180,6 +180,7 @@ module Api
       end
       
       api :PUT, "/users/:id", "Update user with given params"
+      param :id, String, :required => true
       param :user, Hash, :required => true do
         param :active, Boolean, "Whether or not user is active"
         param :administrator, Boolean, "Whether or not user is administrator"
@@ -216,6 +217,7 @@ module Api
       end
       
       api :DELETE, "/users/:id", "Destroy user with given ID"
+      param :id, String, :required => true
       error 404, "Not Found"
       example <<-EOS
         200 OK
