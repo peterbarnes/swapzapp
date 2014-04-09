@@ -79,8 +79,10 @@ module Api
       end
       
       api :POST, "/inventories", "Create a new inventory with given params"
-      param :name, String
-      param :description, String
+      param :inventory, Hash, :required => true do
+        param :name, String
+        param :description, String
+      end
       error 422, "Unprocessable Entity"
       example <<-EOS
       {
@@ -96,8 +98,10 @@ module Api
       
       api :PUT, "/inventories/:id", "Update an inventory with given params"
       param :id, String, :required => true
-      param :name, String
-      param :description, String
+      param :inventory, Hash, :required => true do
+        param :name, String
+        param :description, String
+      end
       error 404, "Not Found"
       error 422, "Unprocessable Entity"
       example <<-EOS
