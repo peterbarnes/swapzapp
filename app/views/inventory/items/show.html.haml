@@ -73,7 +73,7 @@
     .col-md-3
       %dl
         %dt Inventory
-        %dd= link_to @item.inventory.name, inventory_path(@item.inventory) if @item.inventory
+        %dd= @item.inventory.name if @item.inventory
   %hr
   .row
     .col-md-4
