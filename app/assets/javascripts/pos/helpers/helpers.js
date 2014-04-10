@@ -34,3 +34,4 @@ Ember.Handlebars.registerBoundHelper('round', function(number, precision) {
 Ember.Handlebars.helper('number-field', SwapzPOS.NumberField);
 Ember.Handlebars.helper('currency-field', SwapzPOS.CurrencyField);
 Ember.Handlebars.helper('range-field', SwapzPOS.RangeField);
+Ember.Handlebars.helper('search-field', SwapzPOS.SearchField);

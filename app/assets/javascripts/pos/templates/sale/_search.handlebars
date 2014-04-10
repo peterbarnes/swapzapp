@@ -1,5 +1,10 @@
 <div class="well">
-  {{input name="itemQuery" value=itemQuery placeholder="Search Items..." class="form-control"}}
+  <div class="input-group">
+    {{search-field name="itemQuery" results="5" autosave="item_search" value=itemQuery placeholder="Search Items..." class="form-control"}}
+    <span class="input-group-btn">
+      <button {{ action "clearQuery" "itemQuery"}} class="btn btn-default" type="button">Clear</button>
+    </span>
+  </div>
 </div>
 <div class="list-group no-bottom">
   {{#each item in items}}

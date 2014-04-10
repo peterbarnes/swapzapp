@@ -36,7 +36,12 @@
 {{/if}}
 {{#unless customer}}
   <div class="well">
-    {{input name="customerQuery" value=customerQuery placeholder="Search Customers..." class="form-control"}}
+    <div class="input-group">
+      {{search-field name="customerQuery" results="5" autosave="customer_search" value=customerQuery placeholder="Search Customers..." class="form-control"}}
+      <span class="input-group-btn">
+        <button {{ action "clearQuery" "customerQuery"}} class="btn btn-default" type="button">Clear</button>
+      </span>
+    </div>
   </div>
   <div class="list-group no-bottom">
     {{#each customer in customers}}

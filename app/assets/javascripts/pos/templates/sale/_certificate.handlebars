@@ -22,7 +22,12 @@
 {{/if}}
 {{#unless certificate}}
   <div class="well">
-    {{input name="certificateQuery" value=certificateQuery placeholder="Search Gift Certificates..." class="form-control"}}
+    <div class="input-group">
+      {{search-field name="certificateQuery" results="5" autosave="certificate_search" value=certificateQuery placeholder="Search Gift Certificates..." class="form-control"}}
+      <span class="input-group-btn">
+        <button {{ action "clearQuery" "certificateQuery"}} class="btn btn-default" type="button">Clear</button>
+      </span>
+    </div>
   </div>
   <div class="list-group no-bottom">
     {{#each certificate in certificates}}

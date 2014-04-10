@@ -325,6 +325,9 @@ SwapzPOS.SaleEditController = Ember.ObjectController.extend({
     clear: function(field) {
       var payment = this.get('model.payment');
       payment.set(field, 0);
+    },
+    clearQuery: function(property) {
+      this.set(property, null);
     }
   }
 });
