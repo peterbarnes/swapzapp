@@ -118,7 +118,7 @@
             <br>
             {{ purchase.store.address.city }} {{ purchase.store.address.state }}, {{ purchase.store.address.zip }} {{ purchase.store.address.country }}
           </address>
-          <p>{{purchase.store.description}}</p>
+          <p>{{purchase.store.description | newline_to_br}}</p>
           {% for phone in purchase.store.phones %}
             <p><strong>{{ phone.formatted }}</strong></p>
           {% endfor %}
@@ -210,7 +210,7 @@
       <hr>
       <p id="barcode"><img src="{{purchase.sku | barcode}}" alt="Barcode" /></p>
       <hr>
-      <p id="legal">{{ purchase.store.legal }}</p>
+      <p id="legal">{{ purchase.store.legal | newline_to_br }}</p>
       <hr>
     </div>
   </body>

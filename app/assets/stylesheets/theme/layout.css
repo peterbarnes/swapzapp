@@ -66,6 +66,7 @@ figure figcaption p {
 
 iframe {
   width: 100%;
+  border: none;
 }
 
 table.cart th { text-align: left; }
