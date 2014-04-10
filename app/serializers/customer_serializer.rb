@@ -12,19 +12,19 @@ class CustomerSerializer < ActiveModel::Serializer
   has_many :sales, :serializer => SaleSerializer
   
   def certificates
-    object.certificates.sorted(nil)
+    object.certificates.sorted(nil, nil)
   end
   
   def purchases
-    object.purchases.limit(5).sorted(nil)
+    object.purchases.limit(5).sorted(nil, nil)
   end
   
   def repairs
-    object.repairs.limit(5).sorted(nil)
+    object.repairs.limit(5).sorted(nil, nil)
   end
   
   def sales
-    object.sales.limit(5).sorted(nil)
+    object.sales.limit(5).sorted(nil, nil)
   end
     
   def include_associations!
