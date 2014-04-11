@@ -24,6 +24,10 @@
           <br>
           {{ customer.addresses.firstObject.formatted }}
         {{/if}}
+        {{#if customer.notes }}
+          <hr>
+          {{ customer.notes }}
+        {{/if}}
       </div>
       <div class="col-lg-2">
         <ul class="actions">
@@ -69,6 +73,10 @@
             {{#if customer.addresses.firstObject }}
               <br>
               {{ customer.addresses.firstObject.formatted }}
+            {{/if}}
+            {{#if customer.notes }}
+              <hr>
+              {{ customer.notes }}
             {{/if}}
           </div>
         </div>
