@@ -126,9 +126,6 @@
             <thead>
               <tr>
                 <th>SKU</th>
-                <th>User</th>
-                <th>Store</th>
-                <th>Till</th>
                 <th>Total</th>
                 <th>Completed</th>
                 <th class="pull-right">Actions</th>
@@ -140,9 +137,6 @@
                   <td>
                     {{#link-to 'sale' sale.id}}{{ sale.sku }}{{/link-to}}
                   </td>
-                  <td>{{ sale.user.fullname }}</td>
-                  <td>{{ truncate sale.store.name 20 }}</td>
-                  <td>{{ truncate sale.till.name 20 }}</td>
                   <td>{{ currency sale.total }}</td>
                   <td>{{ format-date-ago sale.completedAt }}</td>
                   <td>
@@ -179,9 +173,6 @@
             <thead>
               <tr>
                 <th>SKU</th>
-                <th>User</th>
-                <th>Store</th>
-                <th>Till</th>
                 <th>Paid (Cash / Credit)</th>
                 <th>Completed</th>
                 <th class="pull-right">Actions</th>
@@ -193,9 +184,6 @@
                   <td>
                     {{#link-to 'purchase' purchase.id}}{{ purchase.sku }}{{/link-to}}
                   </td>
-                  <td>{{ purchase.user.fullname }}</td>
-                  <td>{{ truncate purchase.store.name 20 }}</td>
-                  <td>{{ truncate purchase.till.name 20 }}</td>
                   <td>{{ currency purchase.cash }} ({{ currency purchase.credit }})</td>
                   <td>{{ format-date-ago purchase.completedAt }}</td>
                   <td>

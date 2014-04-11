@@ -4,12 +4,12 @@ class CustomerSerializer < ActiveModel::Serializer
   attributes :id, :credit, :date_of_birth, :email, :first_name, :identifier, :identifier_type, :last_name, :notes, :organization, :sku, :created_at, :updated_at
 
   has_many :addresses
-  has_many :certificates, :serializer => CertificateSerializer
+  has_many :certificates, :serializer => CertificateIndexSerializer
   has_many :images
   has_many :phones
-  has_many :purchases, :serializer => PurchaseSerializer
-  has_many :repairs, :serializer => RepairSerializer
-  has_many :sales, :serializer => SaleSerializer
+  has_many :purchases, :serializer => PurchaseIndexSerializer
+  has_many :repairs, :serializer => RepairIndexSerializer
+  has_many :sales, :serializer => SaleIndexSerializer
   
   def certificates
     object.certificates.sorted(nil, nil)
