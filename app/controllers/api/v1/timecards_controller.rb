@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Timecards track users hours by clocking in and out'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       def_param_group :timecard do

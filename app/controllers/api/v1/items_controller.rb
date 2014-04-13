@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Items represent the catalog of all items for sale or purchase'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       def_param_group :item do

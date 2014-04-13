@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Purchases represent transactions where customers buy in items'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
 
       def_param_group :purchase do

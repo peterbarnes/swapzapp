@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Units are preconfigured representations of items for sale'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       def_param_group :unit do

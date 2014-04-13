@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Stores are physical locations which buy or sell items by creating transactions'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       def_param_group :store do

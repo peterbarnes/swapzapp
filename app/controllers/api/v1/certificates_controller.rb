@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Gift certificates are used in transactions by customers'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       skip_filter :certificate_time_zone

@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Inventories represent categorized groups of items'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       skip_filter :user_time_zone

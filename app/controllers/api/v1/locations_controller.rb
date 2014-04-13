@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Locations represent physical spots where units can be placed'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       def_param_group :location do

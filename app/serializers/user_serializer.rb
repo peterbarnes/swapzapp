@@ -6,6 +6,10 @@ class UserSerializer < ActiveModel::Serializer
   has_many :tills, :serializer => TillIndexSerializer
   has_many :timecards, :serializer => TimecardIndexSerializer
   
+  def timecards
+    object.timecards.where(:in.gte => 14.days.ago).desc(:in)
+  end
+  
   def include_associations!
     include! :tills if params[:tills]
     include! :timecards if params[:timecards]

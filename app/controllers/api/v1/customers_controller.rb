@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Customers are the heart of transactions and can buy, sell or trade items or units'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       skip_filter :user_time_zone

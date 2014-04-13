@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Sales represent transactions where customers buy items from the store'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       def_param_group :sale do

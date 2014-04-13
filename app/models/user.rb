@@ -48,6 +48,22 @@ class User
       asc(:last_name, :first_name)
     end
   }
+  scope :clocked_in, ->(clocked_in) { 
+    if clocked_in
+      user_ids = Timecard.only(:user_id).where(:out => nil).map(&:user_id)
+      where(:id.in => user_ids)
+    else
+      all
+    end
+  }
+  scope :clocked_out, ->(clocked_out) { 
+    if clocked_out
+      user_ids = Timecard.only(:user_id).where(:out.ne => nil).map(&:user_id)
+      where(:id.in => user_ids)
+    else
+      all
+    end
+  }
   
   before_save     :_encrypt_password
 

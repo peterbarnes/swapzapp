@@ -4,7 +4,7 @@ module Api
       resource_description do
         short 'Represents people who use and interact with the applications UI'
         formats ['JSON']
-        api_base_url '/api/v1'
+        api_base_url '/api'
       end
       
       skip_filter :user_time_zone
@@ -20,6 +20,8 @@ module Api
       param :per_page, Integer, :desc => "The quantity of results per page (Default: 10)"
       param :tills, [true, false], :desc => "Include users assigned tills in results"
       param :timecards, [true, false], :desc => "Include users timecards in results"
+      param :clocked_in, [true, false], :desc => "Filter users by clocked in"
+      param :clocked_out, [true, false], :desc => "Filter users by clocked out"
       meta ['total', 'per_page', 'page']
       example <<-EOS
         {
@@ -76,7 +78,7 @@ module Api
         }
       EOS
       def index
-        @users = User.search(params[:search]).sorted(params[:sort], params[:order])
+        @users = User.search(params[:search]).sorted(params[:sort], params[:order]).clocked_in(params[:clocked_in]).clocked_out(params[:clocked_out])
         @users = @users.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @users.count : params[:per_page])
         @meta = { :total => @users.total_entries, :per_page => @users.per_page, :page => @users.current_page }
         
