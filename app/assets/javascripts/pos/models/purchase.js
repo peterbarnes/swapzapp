@@ -51,7 +51,7 @@ SwapzPOS.Purchase = SwapzPOS.Base.extend({
       }
     });
     return subtotal;
-  }.property('lines', 'lines.@each', 'lines.@each.creditSubtotal', 'lines.@each._remove'),
+  }.property('lines', 'lines.@each', 'lines.@each.subtotalCredit', 'lines.@each._remove'),
   due: function() {
     return this.get('cash');
   }.property('cash'),
