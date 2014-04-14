@@ -49,6 +49,7 @@ SwapzPOS.Sale = SwapzPOS.Base.extend({
     return this.get('subtotal') - this.get('payment.storeCredit');
   }.property('taxRate', 'lines', 'lines.@each', 'lines.@each.subtotal', 'lines.@each._remove', 'payment.storeCredit'),
   taxableSubtotal: function() {
+    console.log('here');
     var lines = this.get('lines');
     var subtotal = 0;
     lines.forEach(function(line) {
@@ -73,7 +74,7 @@ SwapzPOS.Sale = SwapzPOS.Base.extend({
   }.property('taxRate', 'lines', 'lines.@each', 'lines.@each.subtotal', 'lines.@each.taxable', 'lines.@each._remove', 'payment.storeCredit'),
   total: function() {
     return this.get('subtotalAfterStoreCredit') + this.get('tax');
-  }.property('taxRate', 'lines', 'lines.@each', 'lines.@each.subtotal', 'lines.@each._remove', 'payment.storeCredit'),
+  }.property('taxRate', 'lines', 'lines.@each', 'lines.@each.subtotal', 'lines.@each.taxable', 'lines.@each._remove', 'payment.storeCredit'),
   due: function() {
     return this.get('total') - this.get('payment.total');
   }.property('taxRate', 'total', 'payment.storeCredit', 'payment.giftCard', 'payment.check', 'payment.credit', 'payment.cash'),
