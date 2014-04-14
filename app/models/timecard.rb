@@ -21,7 +21,7 @@ class Timecard
       order ||= 'ASC'
       order_by("#{sort} #{order}")
     else
-      asc(:user_id).desc(:in)
+      desc(:flagged).desc(:in).asc(:user_id)
     end
   }
   scope :user_id, ->(user_id) { where(:user_id => user_id) if user_id }
