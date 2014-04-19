@@ -226,6 +226,8 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rest_client (1.7.3)
+      netrc (~> 0.7.7)
     rqrcode (0.4.2)
     rubyzip (1.1.0)
     sass (3.2.14)
@@ -319,6 +321,7 @@ DEPENDENCIES
   rails (= 3.2.13)
   rails_12factor
   rainbows
+  rest_client
   rqrcode
   sass-rails (~> 3.2.3)
   select2-rails
