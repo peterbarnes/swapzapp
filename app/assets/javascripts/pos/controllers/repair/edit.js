@@ -1,18 +1,27 @@
 SwapzPOS.RepairEditController = Ember.ObjectController.extend({
-  needs: ['lineEdit', 'customerUpdate'],
+  needs: ['lineEdit', 'customerUpdate', 'itemConfigure'],
   tabs: [],
   customers: [],
   customerQuery: null,
   customerPage: 0,
+  itemQuery: null,
+  itemPage: 0,
+  items: [],
   init: function () {
     this._super();
     
     var tabs = Ember.A();
+    var searchTab = SwapzPOS.Tab.create({
+      name: 'Search',
+      key: 'search',
+      icon: 'fa fa-search',
+      active: true
+    });
     var cartTab = SwapzPOS.Tab.create({
       name: 'Cart',
       key: 'cart',
       icon: 'fa fa-shopping-cart',
-      active: true
+      active: false
     });
     var customerTab = SwapzPOS.Tab.create({
       name: 'Customer',
@@ -38,6 +47,7 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
       icon: 'fa fa-book',
       active: false
     });
+    tabs.addObject(searchTab);
     tabs.addObject(cartTab);
     tabs.addObject(customerTab);
     tabs.addObject(paymentTab);
@@ -65,14 +75,37 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
       this.set('customerPage', 0);
     }
   }.observes('customerQuery'),
+  searchItems: function() {
+    var query = this.get('itemQuery');
+    if (query) {
+      var controller = this;
+      SwapzPOS.Item.all({
+        search: controller.get('itemQuery')
+      }).then(function(content) {
+        controller.set('items', content);
+        if (content.get('length') > 0) {
+          controller.set('itemPage', 1);
+        }
+      });
+    } else {
+      this.set('items', Ember.A());
+      this.set('page', 0);
+    }
+  }.observes('itemQuery'),
   cantMoreCustomers: function() {
     return this.get('customerPage') < 1;
   }.property('customerPage'),
+  cantMoreItems: function() {
+    return this.get('itemPage') < 1;
+  }.property('itemPage'),
   actions: {
     reset: function() {
       this.set('customers', Ember.A());
+      this.set('items', Ember.A());
       this.set('customerQuery', null);
+      this.set('itemQuery', null);
       this.set('customerPage', 0);
+      this.set('itemPage', 0);
     },
     save: function() {
       var repair = this.get('model');
@@ -102,6 +135,16 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
         controller.get('customers').addObjects(content);
       });
     },
+    moreItems: function() {
+      this.incrementProperty('itemPage');
+      var controller = this;
+      SwapzPOS.Item.all({
+        search: controller.get('itemQuery'),
+        page: this.get('itemPage')
+      }).then(function(content) {
+        controller.get('items').addObjects(content);
+      });
+    },
     createCustomer: function() {
       this.get('controllers.customerUpdate').set('model', SwapzPOS.Customer.create());
       this.get('controllers.customerUpdate').set('parent', this.get('model'));
@@ -111,6 +154,23 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
       controller = this;
       customer.refresh(function() {
         controller.set('customer', customer);
+      });
+    },
+    selectItem: function(item) {
+      controller = this;
+      item.refresh(function() {
+        var typical_components = Ember.A();
+        item.get('components').forEach(function(component) {
+          if (component.get('typical')) {
+            typical_components.addObject(component);
+          }
+        });
+        controller.get('controllers.itemConfigure').send('reset');
+        controller.get('controllers.itemConfigure').set('model', item);
+        controller.get('controllers.itemConfigure').set('parent', controller.get('model'));
+        controller.get('controllers.itemConfigure').set('_components', typical_components);
+        controller.get('controllers.itemConfigure').set('purchase', false);
+        controller.send('openModal', 'item.configure');
       });
     },
     editCustomer: function(customer) {
