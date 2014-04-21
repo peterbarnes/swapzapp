@@ -20,7 +20,8 @@ class Account::UsersController < AdminController
   end
   
   def create
-    respond_with User.create(params[:user])
+    @user = User.create(params[:user])
+    respond_with @user
   end
   
   def edit
