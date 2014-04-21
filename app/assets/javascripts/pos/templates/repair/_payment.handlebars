@@ -2,6 +2,24 @@
   <span class="pull-left">{{ quantity }} items in cart:</span>
   <span class="pull-right">{{ currency subtotal }}</span>
 </div>
+{{#if customer}}
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <h3 class="panel-title pull-left">Store Credit</h3>
+      <h3 class="panel-title pull-right">{{ currency payment.storeCredit }}</h3>
+    </div>
+    <div class="panel-body form-inline">
+      <div class="pull-left">
+        <button type="button" {{action 'available' 'storeCredit'}} class="btn btn-sm btn-primary">Available: {{ currency customer.credit }}</button>
+        <button type="button" {{action 'amountDue' 'storeCredit'}} class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Amount Due</button>
+        <button type="button" {{action 'clear' 'storeCredit'}} class="btn btn-sm btn-default"><i class="fa fa-times"></i> Clear</button>
+      </div>
+      <div class="pull-right">
+        {{currency-field name="storeCredit" currency=payment.storeCredit step="0.01" min="0" class="form-control input-sm"}}
+      </div>
+    </div>
+  </div>
+{{/if}}
 <div class="well well-sm">
   <p class="clearfix">
     <span class="pull-left">Tax:</span>

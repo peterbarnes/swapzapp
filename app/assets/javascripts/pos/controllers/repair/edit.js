@@ -179,6 +179,8 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
       this.send('openModal', 'customer.update');
     },
     removeCustomer: function(customer) {
+      var payment = this.get('model.payment');
+      payment.set('storeCredit', 0);
       this.set('customer', null);
     },
     editLine: function(line) {
@@ -190,11 +192,48 @@ SwapzPOS.RepairEditController = Ember.ObjectController.extend({
     amountDue: function(field) {
       var repair = this.get('model');
       var payment = this.get('model.payment');
-      payment.set(field, repair.get('due'));
+      if (field == 'storeCredit') {
+        var storeCredit = repair.get('customer.credit');
+        var subtotal = repair.get('subtotal');
+        if (subtotal > 0) {
+          if (subtotal >= storeCredit) {
+            payment.set('storeCredit', storeCredit);
+          } else {
+            payment.set('storeCredit', subtotal);
+          }
+        }
+      } else {
+        payment.set(field, repair.get('due'));
+      }
     },
     increment: function(amount) {
       var payment = this.get('model.payment');
       payment.incrementProperty('cash', parseInt(amount));
+    },
+    available: function(field) {
+      var sale = this.get('model');
+      var payment = sale.get('payment');
+      var subtotal = sale.get('subtotal');
+      if (field == 'storeCredit') {
+        var storeCredit = sale.get('customer.credit');
+        if (subtotal > 0) {
+          if (subtotal >= storeCredit) {
+            payment.set('storeCredit', storeCredit);
+          } else {
+            payment.set('storeCredit', subtotal);
+          }
+        }
+      }
+      if (field == 'giftCard') {
+        var balance = sale.get('certificate.balance');
+        if (subtotal > 0) {
+          if (subtotal >= balance) {
+            payment.set('giftCard', balance);
+          } else {
+            payment.set('giftCard', subtotal);
+          }
+        }
+      }
     },
     clear: function(field) {
       var payment = this.get('model.payment');
