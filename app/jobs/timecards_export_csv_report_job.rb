@@ -12,7 +12,7 @@ class TimecardsExportCSVReportJob < Struct.new(:account_id, :user_id, :report_id
     @from = Time.zone.local(@report.from.year, @report.from.month, @report.from.day)
     @to = Time.zone.local(@report.to.year, @report.to.month, @report.to.day)
     
-    @timecards = Timecard.where(:created_at.gte => @from, :created_at.lte => @to, :out.ne => nil, :out.exists => true).asc(:user_id)
+    @timecards = Timecard.where(:out.gte => @from, :out.lte => @to, :out.ne => nil, :out.exists => true).asc(:user_id)
     
     @file = Tempfile.new ["timecardsexportcsv", ".csv"], "#{Rails.root}/tmp"
     
