@@ -43,6 +43,7 @@ class Repair
   scope :store_id, ->(store_id) { where(:store_id => store_id) if store_id }
   
   belongs_to  :account
+  belongs_to  :certificate
   belongs_to  :customer
   embeds_many :images,      cascade_callbacks: true
   embeds_many :lines,       cascade_callbacks: true
@@ -59,7 +60,7 @@ class Repair
   accepts_nested_attributes_for :logs,    :allow_destroy => true
   accepts_nested_attributes_for :payment
   
-  search_in :sku, :identifier, :symptoms, :note, :logs => [:type, :note], :lines => [:title, :sku, :note], :store => [:name], :till => [:name], :customer => [:first_name, :last_name, :sku], :user => [:username, :email, :first_name, :last_name]
+  search_in :sku, :identifier, :symptoms, :note, :certificate => [:sku], :logs => [:type, :note], :lines => [:title, :sku, :note], :store => [:name], :till => [:name], :customer => [:first_name, :last_name, :sku], :user => [:username, :email, :first_name, :last_name]
   
   liquid_methods :account, :complete, :completed_at, :created_at, :customer, :flagged, :identifier, :identifier_type, :lines, :location, :logs, :note, :quantity, :serial, :subtotal, :symptoms, :sku, :status, :store, :tax, :tax_rate, :total, :updated_at, :user
   
@@ -114,6 +115,25 @@ class Repair
   
   def _complete
     if complete && completed_at.nil?
+      if till && payment && user
+        title = "Repair #{sku} #{Time.now.to_s} (#{user.fullname})"
+        till.adjustments.create(:title => title, :amount => payment.cash + due, :balance => till.balance, :user => user)
+      end
+      if certificate && payment
+        certificate.subtract_balance(payment.gift_card) if payment.gift_card > 0
+      end
+      if customer && payment
+        customer.subtract_credit(payment.store_credit) if payment.store_credit > 0
+        set(:credit_balance, customer.credit)
+      end
+      lines.each do |line|
+        if line.unit
+          line.unit.subtract_quantity(line.quantity) if line.quantity > 0
+        end
+        if line.certificate
+          line.certificate.update_attributes(:active => true, :customer => customer)
+        end
+      end
       set(:completed_at, Time.now.utc)
     end
     true

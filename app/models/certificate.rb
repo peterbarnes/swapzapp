@@ -31,10 +31,11 @@ class Certificate
   belongs_to  :account
   belongs_to  :customer
   has_many    :sales
+  has_many    :repairs
   
   search_in :sku, :customer => [:first_name, :last_name, :sku]
   
-  liquid_methods :account, :active, :amount, :balance, :sku, :created_at, :updated_at, :customer, :sales
+  liquid_methods :account, :active, :amount, :balance, :sku, :created_at, :updated_at, :customer, :sales, :repairs
   
   def name
     sku
