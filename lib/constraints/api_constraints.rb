@@ -1,3 +1,5 @@
+# Sets up routing constraints for the API
+# From http://railscasts.com/episodes/350-rest-api-versioning
 class ApiConstraints
   def initialize(options)
     @version = options[:version]

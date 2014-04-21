@@ -72,13 +72,5 @@ module Swapzapp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
-    # Rack CORS
-    config.middleware.use Rack::Cors do
-      allow do
-        origins '*'
-        resource '/api/*', :headers => :any, :methods => :all
-      end
-    end
   end
 end

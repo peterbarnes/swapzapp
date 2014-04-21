@@ -1,3 +1,5 @@
+# Entry point and rake tasks for the Fakeout class
+
 require 'fakeout'
 
 namespace :fakeout do

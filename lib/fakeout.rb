@@ -1,5 +1,12 @@
+# Generates fake DB data for local development
+#
+# Usage:
+#   Fakeout.new(:small).fakeout
+#
+# See rake task for more details...
 class Fakeout
-
+  
+  # These must be in proper order! Ex: Inventories must exist before items can be created...
   MODELS = %w(User Customer Certificate Store Location Till Inventory Item Unit Purchase Repair Sale Timecard)
   
   def build_account

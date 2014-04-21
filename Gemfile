@@ -20,9 +20,10 @@ end
 group :development do
   gem 'heroku'
   gem 'thin'
-  gem 'powify', :git => 'git://github.com/sethvargo/powify.git'
+  gem 'powify'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'ffaker'
 end
 
 group :production do
@@ -33,10 +34,7 @@ end
 
 gem 'dotenv-rails', :groups => [:development, :test]
 
-gem 'macaddr', '1.6.1'
-gem 'systemu'
 gem 'rack-timeout'
-gem 'rack-cors', :require => 'rack/cors'
 gem 'haml-rails'
 gem 'jquery-rails', '~> 2.3.0'
 gem 'jquery-ui-rails'
@@ -74,7 +72,6 @@ gem 'liquid'
 gem 'chunky_png'
 gem 'barby'
 gem 'rqrcode'
-gem 'ffaker'
 gem 'maruku'
 gem 'rest_client'
 

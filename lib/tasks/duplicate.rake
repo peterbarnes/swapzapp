@@ -1,3 +1,9 @@
+# Duplication rake tasks
+# 
+# These are here to allow us to easily migrate inventory items
+# to new beta user accounts
+# 
+# To be removed in future...
 namespace :duplicate do
 
   desc "Duplicate inventories to given account"

@@ -1,3 +1,5 @@
+# Template handler for Liquid templates
+# Allows parsing of files with .liquid in views
 class ActionView::Template::Handlers::Liquid
   def self.call(template)
     "ActionView::Template::Handlers::Liquid.new(self).render(#{template.source.inspect}, local_assigns)"

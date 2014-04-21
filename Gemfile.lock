@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/sethvargo/powify.git
-  revision: d20731f991ebeb7ecb0c577dcd0c2bed19421569
-  specs:
-    powify (0.9.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -187,10 +181,11 @@ GEM
       cocaine (~> 0.5.0)
       mime-types
     polyglot (0.3.4)
+    powify (0.8.5)
+      json
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-cors (0.2.9)
     rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
@@ -305,7 +300,6 @@ DEPENDENCIES
   jquery-ui-rails
   kgio
   liquid
-  macaddr (= 1.6.1)
   maruku
   memcachier
   momentjs-rails
@@ -315,8 +309,7 @@ DEPENDENCIES
   mongoid-paperclip
   mongoid_search
   paperclip (~> 3.4.2)
-  powify!
-  rack-cors
+  powify
   rack-timeout
   rails (= 3.2.13)
   rails_12factor
@@ -326,7 +319,6 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   select2-rails
   socket.io-rails
-  systemu
   thin
   uglifier (>= 1.0.3)
   uuid
