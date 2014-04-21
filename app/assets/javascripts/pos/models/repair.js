@@ -1,6 +1,8 @@
 SwapzPOS.Repair = SwapzPOS.Base.extend({
   complete: false,
   completedAt: null,
+  certificate_id: null,
+  certificate: null,
   flagged: false,
   note: null,
   identifier: null,
@@ -123,6 +125,7 @@ SwapzPOS.Repair.reopen({
       symptoms: this.get('symptoms'),
       tax_rate: this.get('taxRate'),
       customer_id: this.get('customer_id'),
+      certificate_id: this.get('certificate_id'),
       lines_attributes: [],
       location_id: this.get('location_id'),
       logs_attributes: [],
@@ -133,6 +136,9 @@ SwapzPOS.Repair.reopen({
     });
     if (this.get('sku')) {
       entity.repair.sku = this.get('sku');
+    }
+    if (this.get('certificate')) {
+      entity.sale.certificate_id = this.get('certificate.id');
     }
     if (this.get('customer')) {
       entity.repair.customer_id = this.get('customer.id');
@@ -227,6 +233,9 @@ SwapzPOS.Repair.reopen({
     }
     if (data.customer) {
       this.set('customer', SwapzPOS.Customer.create().assign(data.customer));
+    }
+    if (data.certificate) {
+      this.set('certificate', SwapzPOS.Certificate.create().assign(data.certificate));
     }
     if (data.location) {
       this.set('location', SwapzPOS.Location.create().assign(data.location));

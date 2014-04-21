@@ -1,8 +1,9 @@
 class RepairSerializer < ActiveModel::Serializer
   delegate :params, to: :scope
   
-  attributes :id, :customer_id, :location_id, :store_id, :till_id, :user_id, :complete, :flagged, :identifier, :identifier_type, :note, :symptoms, :sku, :tax, :tax_rate, :completed_at, :created_at, :updated_at
+  attributes :id, :certificate_id, :customer_id, :location_id, :store_id, :till_id, :user_id, :complete, :flagged, :identifier, :identifier_type, :note, :symptoms, :sku, :tax, :tax_rate, :completed_at, :created_at, :updated_at
   
+  has_one :certificate
   has_one :customer
   has_many :images
   has_many :lines

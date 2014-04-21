@@ -1,8 +1,9 @@
 class RepairIndexSerializer < ActiveModel::Serializer
   delegate :params, to: :scope
   
-  attributes :id, :customer_id, :location_id, :store_id, :till_id, :user_id, :complete, :flagged, :identifier, :identifier_type, :note, :symptoms, :sku, :tax, :tax_rate, :completed_at, :created_at, :updated_at
+  attributes :id, :certificate_id, :customer_id, :location_id, :store_id, :till_id, :user_id, :complete, :flagged, :identifier, :identifier_type, :note, :symptoms, :sku, :tax, :tax_rate, :completed_at, :created_at, :updated_at
   
+  has_one :certificate, :serializer => CertificateIndexSerializer
   has_one :customer, :serializer => CustomerIndexSerializer
   has_many :images
   has_many :lines
@@ -14,6 +15,7 @@ class RepairIndexSerializer < ActiveModel::Serializer
   has_one  :user, :serializer => UserIndexSerializer
   
   def include_associations!
+    include! :certificate if params[:certificate]
     include! :customer if params[:customer]
     include! :images
     include! :lines if params[:lines]

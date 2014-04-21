@@ -9,6 +9,7 @@ module Api
       
       def_param_group :repair do
         param :repair, Hash, :repaired => true, :action_aware => true do
+          param :certificate_id, String
           param :customer_id, String
           param :location_id, String
           param :store_id, String, :required => true
@@ -67,6 +68,7 @@ module Api
       param :order, ['ASC', 'DESC'], :desc => "Order in which to sort results (Default: ASC)"
       param :page, Integer, :desc => "The page number to return (Default: 1)"
       param :per_page, Integer, :desc => "The quantity of results per page (Default: 10)"
+      param :certificate, Boolean, :desc => "Include certificate in results"
       param :customer, Boolean, :desc => "Include customer in results"
       param :lines, Boolean, :desc => "Include lines in results"
       param :location, Boolean, :desc => "Include location in results"
@@ -84,6 +86,7 @@ module Api
         "repairs": [
           {
             "id": "533aa77cf6f407fccf0008b2",
+            "certificate_id": "533aa786f6f407fccf0008e6",
             "customer_id": "533aa6aff6f407fccf00023f",
             "location_id": "533aa6f4f6f407fccf0003ea",
             "store_id": "533aa6d6f6f407fccf000361",
@@ -113,6 +116,7 @@ module Api
           },
           {
             "id": "533aa786f6f407fccf0008e6",
+            "certificate_id": "533aa786f6f407fccf0008e6",
             "customer_id": "533aa64af6f407fccf00008c",
             "location_id": "533aa6f3f6f407fccf0003e6",
             "store_id": "533aa6d0f6f407fccf000331",
@@ -143,6 +147,7 @@ module Api
           ...
           {
             "id": "533aa789f6f407fccf0008f9",
+            "certificate_id": "533aa786f6f407fccf0008e6",
             "customer_id": "533aa6c3f6f407fccf000299",
             "location_id": "533aa6fff6f407fccf000408",
             "store_id": "533aa6cbf6f407fccf0002fd",
@@ -196,6 +201,7 @@ module Api
       {
         "repair": {
           "id": "533aa77cf6f407fccf0008b2",
+          "certificate_id": "533aa62ff6f407fccf000002",
           "customer_id": "533aa6aff6f407fccf00023f",
           "location_id": "533aa6f4f6f407fccf0003ea",
           "store_id": "533aa6d6f6f407fccf000361",
@@ -275,6 +281,7 @@ module Api
       example <<-EOS
       {
         "repair": {
+          "certificate_id": "533aa6aff6f407fccf00044a",
           "customer_id": "533aa6aff6f407fccf00023f",
           "location_id": "533aa6f4f6f407fccf0003ea",
           "store_id": "533aa6d6f6f407fccf000361",
@@ -339,6 +346,7 @@ module Api
       example <<-EOS
       {
         "repair": {
+          "certificate_id": "533aa6aff6f407fccf00044a",
           "customer_id": "533aa6aff6f407fccf00023f",
           "location_id": "533aa6f4f6f407fccf0003ea",
           "store_id": "533aa6d6f6f407fccf000361",

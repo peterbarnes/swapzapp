@@ -70,7 +70,7 @@ module Api
         "sales": [
           {
             "id": "5342b0c3f6f407c201000005",
-            "certificate_id": null,
+            "certificate_id": "533aa786f6f407fccf0008e6",
             "customer_id": "533aa6aff6f407fccf00023f",
             "store_id": "533aa6dbf6f407fccf000392",
             "till_id": "533aa705f6f407fccf000430",
@@ -87,7 +87,7 @@ module Api
           },
           {
             "id": "5342b05cf6f407c201000001",
-            "certificate_id": null,
+            "certificate_id": "533aa786f6f407fccf0008e6",
             "customer_id": "533aa6aff6f407fccf00023f",
             "store_id": "533aa6dbf6f407fccf000392",
             "till_id": "533aa705f6f407fccf000430",
@@ -145,7 +145,7 @@ module Api
       {
         "sale": {
           "id": "5342b0c3f6f407c201000005",
-          "certificate_id": null,
+          "certificate_id": "533aa62ff6f407fccf000002",
           "customer_id": "533aa6aff6f407fccf00023f",
           "store_id": "533aa6dbf6f407fccf000392",
           "till_id": "533aa705f6f407fccf000430",
