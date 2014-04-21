@@ -34,6 +34,7 @@ end
 
 gem 'dotenv-rails', :groups => [:development, :test]
 
+gem 'sinatra'
 gem 'rack-timeout'
 gem 'haml-rails'
 gem 'jquery-rails', '~> 2.3.0'

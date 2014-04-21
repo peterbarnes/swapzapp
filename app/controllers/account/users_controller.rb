@@ -11,7 +11,8 @@ class Account::UsersController < AdminController
   end
   
   def new
-    respond_with User.new
+    @user = User.new
+    respond_with @user
   end
   
   def show
