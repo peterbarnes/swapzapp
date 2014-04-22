@@ -11,7 +11,7 @@ class Account::UsersController < AdminController
   end
   
   def new
-    @user = User.new
+    @user = User.new(:account => current_account)
     respond_with @user
   end
   
