@@ -20,7 +20,8 @@ class TimecardsExportCSVReportJob < Struct.new(:account_id, :user_id, :report_id
       csv << ["id","created_at","updated_at","user","in","out","hours","note"]
       
       @timecards.each do |timecard|
-        csv << [timecard.id, timecard.created_at, timecard.updated_at, timecard.user.fullname, timecard.in, timecard.out, timecard.hours, timecard.note]
+        name = timecard.user.fullname if timecard.user
+        csv << [timecard.id, timecard.created_at, timecard.updated_at, name, timecard.in, timecard.out, timecard.hours, timecard.note]
       end
     end
     
