@@ -92,7 +92,7 @@ module Api
       }
       EOS
       def index
-        @stores = Store.search(params[:search]).sorted(params[:sort], params[:order])
+        @stores = Store.searched(params[:search]).sorted(params[:sort], params[:order])
         @stores = @stores.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @stores.count : params[:per_page])
         @meta = { :total => @stores.total_entries, :per_page => @stores.per_page, :page => @stores.current_page }
         

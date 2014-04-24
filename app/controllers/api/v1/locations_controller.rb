@@ -83,7 +83,7 @@ module Api
       }
       EOS
       def index
-        @locations = Location.search(params[:search]).sorted(params[:sort], params[:order]).store_id(params[:store_id])
+        @locations = Location.searched(params[:search]).sorted(params[:sort], params[:order]).store_id(params[:store_id])
         @locations = @locations.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @locations.count : params[:per_page])
         @meta = { :total => @locations.total_entries, :per_page => @locations.per_page, :page => @locations.current_page }
         

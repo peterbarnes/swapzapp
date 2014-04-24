@@ -25,7 +25,7 @@ class Sale
   
   default_scope ->{ where(:account_id => Account.current_id) }
   
-  scope :search, ->(query) { query ? full_text_search(query) : all }
+  scope :searched, ->(query) { query ? full_text_search(query) : all }
   scope :sorted, ->(sort, order) {
     if sort
       order ||= 'ASC'

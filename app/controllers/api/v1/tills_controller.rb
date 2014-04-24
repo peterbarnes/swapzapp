@@ -88,7 +88,7 @@ module Api
       }
       EOS
       def index
-        @tills = Till.search(params[:search]).sorted(params[:sort], params[:order]).user_id(params[:user_id]).store_id(params[:store_id]).unassigned(params[:unassigned])
+        @tills = Till.searched(params[:search]).sorted(params[:sort], params[:order]).user_id(params[:user_id]).store_id(params[:store_id]).unassigned(params[:unassigned])
         @tills = @tills.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @tills.count : params[:per_page])
         @meta = { :total => @tills.total_entries, :per_page => @tills.per_page, :page => @tills.current_page }
         

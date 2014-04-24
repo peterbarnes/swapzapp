@@ -1,7 +1,7 @@
 class TimecardsController < AdminController
   
   def index
-    @timecards = Timecard.search(params[:search]).user_id(params[:user_id]).sorted(params[:sort], params[:order])
+    @timecards = Timecard.searched(params[:search]).user_id(params[:user_id]).sorted(params[:sort], params[:order])
     @timecards = @timecards.paginate(:page => params[:page], :per_page => params[:per_page])
     
     render

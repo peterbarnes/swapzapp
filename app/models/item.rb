@@ -33,7 +33,7 @@ class Item
   
   default_scope ->{ where(:account_id => Account.current_id) }
   
-  scope :search, ->(query) { query ? full_text_search(query) : all }
+  scope :searched, ->(query) { query ? full_text_search(query) : all }
   scope :sorted, ->(sort, order) {
     if sort
       order ||= 'ASC'
@@ -51,7 +51,7 @@ class Item
   belongs_to                    :inventory
   embeds_many                   :props,       cascade_callbacks: true
   embeds_many                   :tags,        cascade_callbacks: true
-  has_many                      :units
+  has_many                      :units,       :dependent => :destroy
   has_many                      :variants,    :dependent => :destroy
   
   accepts_nested_attributes_for :components, :allow_destroy => true

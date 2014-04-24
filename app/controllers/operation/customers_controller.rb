@@ -3,7 +3,7 @@ class Operation::CustomersController < AdminController
   skip_filter :authenticate, :only => [:template]
   
   def index
-    @customers = Customer.search(params[:search]).sorted(params[:sort], params[:order])
+    @customers = Customer.searched(params[:search]).sorted(params[:sort], params[:order])
     @customers = @customers.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @customers

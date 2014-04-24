@@ -93,7 +93,7 @@ module Api
       }
       EOS
       def index
-        @customers = Customer.search(params[:search]).sorted(params[:sort], params[:order])
+        @customers = Customer.searched(params[:search]).sorted(params[:sort], params[:order])
         @customers = @customers.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @customers.count : params[:per_page])
         @meta = { :total => @customers.total_entries, :per_page => @customers.per_page, :page => @customers.current_page }
         

@@ -2,7 +2,7 @@ class Account::TemplatesController < AdminController
   respond_to :html
   
   def index
-    @templates = current_account.templates.search(params[:search]).sorted(params[:sort], params[:order])
+    @templates = current_account.templates.searched(params[:search]).sorted(params[:sort], params[:order])
     @templates = @templates.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @templates

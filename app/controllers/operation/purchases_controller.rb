@@ -3,7 +3,7 @@ class Operation::PurchasesController < AdminController
   skip_filter :authenticate, :only => [:template]
   
   def index
-    @purchases = Purchase.search(params[:search])
+    @purchases = Purchase.searched(params[:search])
     @purchases = @purchases.customer_id(params[:customer_id]).user_id(params[:user_id]).till_id(params[:till_id]).store_id(params[:store_id])
     @purchases = @purchases.sorted(params[:sort], params[:order])
     @purchases = @purchases.paginate(:page => params[:page], :per_page => params[:per_page])

@@ -96,7 +96,7 @@ module Api
       }
       EOS
       def index
-        @units = Unit.search(params[:search]).sorted(params[:sort], params[:order]).location_id(params[:location_id]).item_id(params[:item_id]).variant_id(params[:variant_id])
+        @units = Unit.searched(params[:search]).sorted(params[:sort], params[:order]).location_id(params[:location_id]).item_id(params[:item_id]).variant_id(params[:variant_id])
         @units = @units.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @units.count : params[:per_page])
         @meta = { :total => @units.total_entries, :per_page => @units.per_page, :page => @units.current_page }
         

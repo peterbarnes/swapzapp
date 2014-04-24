@@ -50,7 +50,7 @@ module Api
       }
       EOS
       def index
-        @reports = Report.search(params[:search]).sorted(params[:sort], params[:order])
+        @reports = Report.searched(params[:search]).sorted(params[:sort], params[:order])
         @reports = @reports.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @reports.count : params[:per_page])
         @meta = { :total => @reports.total_entries, :per_page => @reports.per_page, :page => @reports.current_page }
         

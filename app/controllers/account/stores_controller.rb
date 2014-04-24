@@ -2,7 +2,7 @@ class Account::StoresController < AdminController
   respond_to :html
   
   def index
-    @stores = Store.search(params[:search]).sorted(params[:sort], params[:order])
+    @stores = Store.searched(params[:search]).sorted(params[:sort], params[:order])
     @stores = @stores.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @stores

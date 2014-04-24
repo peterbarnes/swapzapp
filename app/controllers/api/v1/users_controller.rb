@@ -78,7 +78,7 @@ module Api
         }
       EOS
       def index
-        @users = User.search(params[:search]).sorted(params[:sort], params[:order]).clocked_in(params[:clocked_in]).clocked_out(params[:clocked_out])
+        @users = User.searched(params[:search]).sorted(params[:sort], params[:order]).clocked_in(params[:clocked_in]).clocked_out(params[:clocked_out])
         @users = @users.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @users.count : params[:per_page])
         @meta = { :total => @users.total_entries, :per_page => @users.per_page, :page => @users.current_page }
         

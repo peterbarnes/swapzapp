@@ -4,7 +4,7 @@ class Account::UsersController < AdminController
   before_filter :find_user, :only => [:show, :edit, :update, :destroy]
   
   def index
-    @users = User.search(params[:search]).sorted(params[:sort], params[:order])
+    @users = User.searched(params[:search]).sorted(params[:sort], params[:order])
     @users = @users.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @users

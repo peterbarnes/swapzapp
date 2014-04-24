@@ -53,7 +53,7 @@ module Api
       }
       EOS
       def index
-        @inventories = Inventory.search(params[:search]).sorted(params[:sort], params[:order])
+        @inventories = Inventory.searched(params[:search]).sorted(params[:sort], params[:order])
         @inventories = @inventories.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @inventories.count : params[:per_page])
         @meta = { :total => @inventories.total_entries, :per_page => @inventories.per_page, :page => @inventories.current_page }
         

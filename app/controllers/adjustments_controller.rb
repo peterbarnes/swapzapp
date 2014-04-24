@@ -5,7 +5,7 @@ class AdjustmentsController < AdminController
   
   def index
     @till = Till.find_by(:id => params[:till_id])
-    @adjustments = @till.adjustments.search(params[:search]).sorted(params[:sort], params[:order])
+    @adjustments = @till.adjustments.searched(params[:search]).sorted(params[:sort], params[:order])
     @adjustments = @adjustments.paginate(:page => params[:page], :per_page => params[:per_page])
     
     respond_with @adjustments

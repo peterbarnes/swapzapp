@@ -46,7 +46,7 @@ module Api
       }
       EOS
       def index
-        @templates = current_account.templates.search(params[:search]).sorted(params[:sort], params[:order]).categorized(params[:category])
+        @templates = current_account.templates.searched(params[:search]).sorted(params[:sort], params[:order]).categorized(params[:category])
         @templates = @templates.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @templates.count : params[:per_page])
         @meta = { :total => @templates.total_entries, :per_page => @templates.per_page, :page => @templates.current_page }
         

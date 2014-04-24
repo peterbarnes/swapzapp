@@ -65,7 +65,7 @@ module Api
       }
       EOS
       def index
-        @certificates = Certificate.search(params[:search]).sorted(params[:sort], params[:order]).customer_id(params[:customer_id]).activated(params[:active])
+        @certificates = Certificate.searched(params[:search]).sorted(params[:sort], params[:order]).customer_id(params[:customer_id]).activated(params[:active])
         @certificates = @certificates.paginate(:page => params[:page], :per_page => params[:per_page] == '0' ? @certificates.count : params[:per_page])
         @meta = { :total => @certificates.total_entries, :per_page => @certificates.per_page, :page => @certificates.current_page }
         
