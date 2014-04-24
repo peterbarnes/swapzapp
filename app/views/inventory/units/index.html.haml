@@ -34,7 +34,7 @@
                   %td
                     = link_to unit.sku, unit_path(unit)
                   %td
-                    = link_to unit.item.name, item_path(unit.item)
+                    = link_to unit.item.name, item_path(unit.item) if unit.item
                   %td= unit.location.name.truncate(20) if unit.location
                   %td= unit.quantity
                   %td
