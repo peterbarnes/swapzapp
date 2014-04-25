@@ -17,8 +17,8 @@
                 %i.fa.fa-check
             %td= component.name
             %td= component.description
-            %td= component.adjustment_percentage? ? "%#{component.adjustment}" : currency(component.adjustment)
-            %td= component.adjustment_cash_percentage? ? "%#{component.adjustment_cash}" : currency(component.adjustment_cash)
-            %td= component.adjustment_credit_percentage? ? "%#{component.adjustment_credit}" : currency(component.adjustment_credit)
+            %td= component.adjustment_percentage? ? "%#{component.adjustment}" : number_to_currency(component.adjustment)
+            %td= component.adjustment_cash_percentage? ? "%#{component.adjustment_cash}" : number_to_currency(component.adjustment_cash)
+            %td= component.adjustment_credit_percentage? ? "%#{component.adjustment_credit}" : number_to_currency(component.adjustment_credit)
 - else
   %p.center No components found

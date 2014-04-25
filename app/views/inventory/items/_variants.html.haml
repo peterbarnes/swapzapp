@@ -15,8 +15,8 @@
             %td= variant.name
             %td= variant.description
             %td= "#{variant.identifier_type} #{variant.identifier}" if variant.identifier
-            %td= variant.adjustment_percentage? ? "%#{variant.adjustment}" : currency(variant.adjustment)
-            %td= variant.adjustment_cash_percentage? ? "%#{variant.adjustment_cash}" : currency(variant.adjustment_cash)
-            %td= variant.adjustment_credit_percentage? ? "%#{variant.adjustment_credit}" : currency(variant.adjustment_credit)
+            %td= variant.adjustment_percentage? ? "%#{variant.adjustment}" : number_to_currency(variant.adjustment)
+            %td= variant.adjustment_cash_percentage? ? "%#{variant.adjustment_cash}" : number_to_currency(variant.adjustment_cash)
+            %td= variant.adjustment_credit_percentage? ? "%#{variant.adjustment_credit}" : number_to_currency(variant.adjustment_credit)
 - else
   %p.center No variants found
