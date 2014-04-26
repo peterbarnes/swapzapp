@@ -58,7 +58,7 @@ class User
   }
   scope :clocked_out, ->(clocked_out) { 
     if clocked_out
-      user_ids = Timecard.only(:user_id).where(:out.ne => nil).map(&:user_id)
+      user_ids = Timecard.only(:user_id).where(:out.exists => true, :out.ne => nil).map(&:user_id)
       where(:id.in => user_ids)
     else
       all
