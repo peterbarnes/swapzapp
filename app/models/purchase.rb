@@ -170,7 +170,7 @@ class Purchase
         customer.add_credit(credit)
         set(:credit_balance, customer.credit)
       end
-      Delayed::Job.enqueue QrcodeJob.new(self.account.id, self.id)
+      Delayed::Job.enqueue PurchasingJob.new(self.account.id, self.id)
       set(:completed_at, Time.now.utc)
     end
     true
