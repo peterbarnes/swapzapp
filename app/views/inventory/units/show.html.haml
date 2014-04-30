@@ -74,7 +74,7 @@
           %p= @unit.filing_formatted
         %dt Inventory
         %dd
-          %p= link_to @unit.item.inventory.name, inventory_path(@unit.item.inventory) if @unit.item.inventory
+          %p= @unit.item.inventory.name if @unit.item.inventory
         %dt Item
         %dd
           %p= link_to @unit.item.name, item_path(@unit.item) if @unit.item
