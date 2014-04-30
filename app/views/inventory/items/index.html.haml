@@ -27,6 +27,8 @@
             %thead
               %tr
                 %th
+                %th
+                  %i.fa.fa-flag
                 %th SKU
                 %th Name
                 %th Description
@@ -38,6 +40,9 @@
                 %tr
                   %td
                     = image_tag(item.image.url(:small), :size => "48x48", :alt => item.image.name, :title => item.image.description, :class => 'img-circle') if item.image
+                  %td
+                    - if item.flagged
+                      %i.fa.fa-flag
                   %td
                     = link_to item.sku, item_path(item)
                   %td= item.name
