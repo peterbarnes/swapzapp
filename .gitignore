@@ -21,4 +21,5 @@ public/system/
 public/assets/
 
 .env
+.powenv
 .ruby-version
