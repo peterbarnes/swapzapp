@@ -10,12 +10,12 @@
         .col-lg-4
           = f.label :name, 'Name', :class => 'control-label'
         .col-lg-8
-          = f.text_field :name, :class => 'form-control'
+          = f.text_field :name, :class => 'form-control', :value => 'Name'
       .form-group
         .col-lg-4
           = f.label :number, 'Number', :class => 'control-label'
         .col-lg-8
-          = f.telephone_field :number, :class => 'form-control'
+          = f.telephone_field :number, :class => 'form-control', :value => "555-555-5555"
       %div.hidden
         = f.hidden_field :_destroy
         = f.hidden_field :id unless f.object.new_record?
