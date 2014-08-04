@@ -4,6 +4,8 @@ class Phone
   field :number, :type => String
   field :name, :type => String
   
+  validates_presence_of :number
+  
   embedded_in :customer
   embedded_in :store
   

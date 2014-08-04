@@ -8,7 +8,7 @@ class Image
   field :description,     :type => String
   field :index,           :type => Integer, :default => 0
   
- 
+  validates_presence_of   :name, :index
   
   attr_accessor :image_url, :image_delete
   attr_writer :image_data
